@@ -1,0 +1,18 @@
+--- !ruby/object:Jumpstart::Configuration
+application_name: Rocko
+business_name: Rocko Company, LLC
+domain: example.com
+support_email: Rocko@gmail.com
+default_from_email: Jumpstart <support@example.com>
+business_address: ''
+background_job_processor: async
+email_provider: ''
+personal_accounts: true
+solargraph: true
+register_with_account: false
+apns: false
+fcm: false
+collect_billing_address: false
+multitenancy:
+- subdomain
+- domain
