@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 Rails.application.routes.draw do
   draw :turbo
@@ -9,7 +11,7 @@ Rails.application.routes.draw do
   end
 
   # Administrate
-  authenticated :user, lambda { |u| u.admin? } do
+  authenticated :user, ->(u) { u.admin? } do
     namespace :admin do
       if defined?(Sidekiq)
         require "sidekiq/web"
@@ -60,7 +62,7 @@ Rails.application.routes.draw do
     get "session/otp", to: "sessions#otp"
   end
 
-  resources :announcements, only: [:index, :show]
+  resources :announcements, only: %i[index show]
   resources :api_tokens
   resources :accounts do
     member do
@@ -108,7 +110,7 @@ Rails.application.routes.draw do
   namespace :account do
     resource :password
   end
-  resources :notifications, only: [:index, :show]
+  resources :notifications, only: %i[index show]
   namespace :users do
     resources :mentions, only: [:index]
   end
@@ -121,7 +123,7 @@ Rails.application.routes.draw do
   end
 
   namespace :action_text do
-    resources :embeds, only: [:create], constraints: {id: /[^\/]+/} do
+    resources :embeds, only: [:create], constraints: {id: %r{[^/]+}} do
       collection do
         get :patterns
       end
@@ -147,6 +149,6 @@ Rails.application.routes.draw do
   end
 
   # Public marketing homepage
-  #root to: "static#index"
+  # root to: "static#index"
   root "landing#index"
 end

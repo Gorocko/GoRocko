@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
@@ -53,9 +55,9 @@ group :development, :test do
   # gem "pry-rails"
 
   gem "annotate", github: "excid3/annotate_models", branch: "rails7"
+  gem "erb_lint", require: false
   gem "letter_opener_web", "~> 2.0"
   gem "standard", require: false
-  gem "erb_lint", require: false
 
   # Security tooling to
   # gem "brakeman"
@@ -89,8 +91,8 @@ gem "jumpstart", path: "lib/jumpstart", group: :omit
 gem "acts_as_tenant", "~> 0.5.1"
 gem "administrate", github: "excid3/administrate", branch: "jumpstart" # '~> 0.10.0'
 gem "administrate-field-active_storage", "~> 0.4.1"
-gem "cssbundling-rails", "~> 1.1.0"
 gem "country_select", "~> 8.0"
+gem "cssbundling-rails", "~> 1.1.0"
 gem "devise", "~> 4.8", ">= 4.8.1"
 gem "devise-i18n", "~> 1.10"
 gem "inline_svg", "~> 1.6"
@@ -113,13 +115,12 @@ gem "receipts", "~> 2.0.0"
 gem "responders", github: "excid3/responders", branch: "fix-redirect-status-config"
 gem "rotp", "~> 6.2"
 gem "rqrcode", "~> 2.1"
+gem "rubocop-rails", require: false
 gem "ruby-oembed", "~> 0.16.0", require: "oembed"
 gem "whenever", "~> 1.0", require: false
 
 # Jumpstart manages a few gems for us, so install them from the extra Gemfile
-if File.exist?("config/jumpstart/Gemfile")
-  eval_gemfile "config/jumpstart/Gemfile"
-end
+eval_gemfile "config/jumpstart/Gemfile" if File.exist?("config/jumpstart/Gemfile")
 
 # We recommend using strong migrations when your app is in production
 # gem "strong_migrations", "~> 0.7.6"
