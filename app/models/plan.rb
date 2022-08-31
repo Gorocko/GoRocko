@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: plans
@@ -22,11 +24,13 @@ class Plan < ApplicationRecord
   # https://github.com/excid3/prefixed_ids
   has_prefix_id :plan
 
-  store_accessor :details, :features, :stripe_id, :braintree_id, :paddle_id, :jumpstart_id, :fake_processor_id, :stripe_tax
+  store_accessor :details, :features, :stripe_id, :braintree_id, :paddle_id, :jumpstart_id, :fake_processor_id,
+    :stripe_tax
   attribute :features, :string, array: true
 
   validates :name, :amount, :interval, presence: true
-  validates :currency, presence: true, format: {with: /\A[a-zA-Z]{3}\z/, message: "must be a 3-letter ISO currency code"}
+  validates :currency, presence: true,
+    format: {with: /\A[a-zA-Z]{3}\z/, message: "must be a 3-letter ISO currency code"}
   validates :interval, inclusion: %w[month year]
   validates :trial_period_days, numericality: {only_integer: true}
 
@@ -46,7 +50,8 @@ class Plan < ApplicationRecord
 
   def self.free
     plan = where(name: "Free").first_or_initialize
-    plan.update(hidden: true, amount: 0, currency: :usd, interval: :month, trial_period_days: 0, fake_processor_id: :free)
+    plan.update(hidden: true, amount: 0, currency: :usd, interval: :month, trial_period_days: 0,
+      fake_processor_id: :free)
     plan
   end
 
@@ -55,7 +60,7 @@ class Plan < ApplicationRecord
   end
 
   def amount_with_currency(**options)
-    Pay::Currency.format(amount, **{currency: currency}.merge(options))
+    Pay::Currency.format(amount, **{currency:}.merge(options))
   end
 
   def dollar_amount
@@ -63,7 +68,7 @@ class Plan < ApplicationRecord
   end
 
   def has_trial?
-    trial_period_days.to_i > 0
+    trial_period_days.to_i.positive?
   end
 
   def monthly?
@@ -91,17 +96,20 @@ class Plan < ApplicationRecord
 
   def annual_version
     return self if annual?
-    self.class.yearly.where(name: name).first
+
+    self.class.yearly.where(name:).first
   end
   alias_method :yearly_version, :annual_version
 
   def monthly_version
     return self if monthly?
-    self.class.monthly.where(name: name).first
+
+    self.class.monthly.where(name:).first
   end
 
   def id_for_processor(processor_name, currency: "usd")
     return if processor_name.nil?
+
     processor_name = :braintree if processor_name.to_s == "paypal"
     send("#{processor_name}_id")
   end

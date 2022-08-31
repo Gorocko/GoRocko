@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: account_invitations
@@ -9,8 +11,8 @@
 #  token         :string           not null
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
-#  account_id    :integer          not null
-#  invited_by_id :integer
+#  account_id    :bigint           not null
+#  invited_by_id :bigint
 #
 # Indexes
 #
@@ -36,13 +38,11 @@ class AccountInvitation < ApplicationRecord
   validates :email, uniqueness: {scope: :account_id, message: :invited}
 
   def save_and_send_invite
-    if save
-      AccountInvitationsMailer.with(account_invitation: self).invite.deliver_later
-    end
+    AccountInvitationsMailer.with(account_invitation: self).invite.deliver_later if save
   end
 
   def accept!(user)
-    account_user = account.account_users.new(user: user, roles: roles)
+    account_user = account.account_users.new(user:, roles:)
     if account_user.valid?
       ApplicationRecord.transaction do
         account_user.save!
@@ -50,7 +50,7 @@ class AccountInvitation < ApplicationRecord
       end
 
       [account.owner, invited_by].uniq.each do |recipient|
-        AcceptedInvite.with(account: account, user: user).deliver_later(recipient)
+        AcceptedInvite.with(account:, user:).deliver_later(recipient)
       end
 
       account_user

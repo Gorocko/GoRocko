@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -37,12 +39,12 @@
 #
 # Indexes
 #
-#  index_users_on_email                 (email) UNIQUE
-#  index_users_on_invitation_token      (invitation_token) UNIQUE
-#  index_users_on_invitations_count     (invitations_count)
-#  index_users_on_invited_by            (invited_by_type,invited_by_id)
-#  index_users_on_invited_by_id         (invited_by_id)
-#  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#  index_users_on_email                              (email) UNIQUE
+#  index_users_on_invitation_token                   (invitation_token) UNIQUE
+#  index_users_on_invitations_count                  (invitations_count)
+#  index_users_on_invited_by_id                      (invited_by_id)
+#  index_users_on_invited_by_type_and_invited_by_id  (invited_by_type,invited_by_id)
+#  index_users_on_reset_password_token               (reset_password_token) UNIQUE
 #
 
 class User < ApplicationRecord
@@ -54,12 +56,13 @@ class User < ApplicationRecord
 
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable, andle :trackable
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, :confirmable, :omniauthable
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, :confirmable,
+    :omniauthable
 
   has_noticed_notifications
   has_person_name
 
-  pg_search_scope :search_by_full_name, against: [:first_name, :last_name], using: {tsearch: {prefix: true}}
+  pg_search_scope :search_by_full_name, against: %i[first_name last_name], using: {tsearch: {prefix: true}}
 
   # ActiveStorage Associations
   has_one_attached :avatar

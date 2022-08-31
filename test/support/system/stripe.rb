@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module StripeSystemTestHelper
   extend ActiveSupport::Concern
 
@@ -5,7 +7,8 @@ module StripeSystemTestHelper
   # 4242 4242 4242 4242 - succeeds without authentication
   # 4000 0027 6000 3184 - requires authentication
   # 4000 0000 0000 9995 - declined with insufficient_funds
-  def fill_stripe_payment_element_card(card, expiry: "1234", cvc: "123", postal: "12345", selector: 'iframe[title="Secure payment input frame"]')
+  def fill_stripe_payment_element_card(card, expiry: "1234", cvc: "123", postal: "12345",
+    selector: 'iframe[title="Secure payment input frame"]')
     find_frame(selector) do
       card.to_s.chars.each do |piece|
         find_field("number", disabled: :all).send_keys(piece)

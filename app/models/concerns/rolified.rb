@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Rolified
   # Adds roles to a model along with helper methods and scopes
   #

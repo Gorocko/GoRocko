@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: accounts
@@ -10,7 +12,7 @@
 #  subdomain          :string
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
-#  owner_id           :integer
+#  owner_id           :bigint
 #
 # Indexes
 #
@@ -22,8 +24,8 @@
 #
 
 class Account < ApplicationRecord
-  RESERVED_DOMAINS = [Jumpstart.config.domain]
-  RESERVED_SUBDOMAINS = %w[app help support]
+  RESERVED_DOMAINS = [Jumpstart.config.domain].freeze
+  RESERVED_SUBDOMAINS = %w[app help support].freeze
 
   belongs_to :owner, class_name: "User"
   has_many :account_invitations, dependent: :destroy
@@ -44,7 +46,8 @@ class Account < ApplicationRecord
 
   validates :name, presence: true
   validates :domain, exclusion: {in: RESERVED_DOMAINS, message: :reserved}
-  validates :subdomain, exclusion: {in: RESERVED_SUBDOMAINS, message: :reserved}, format: {with: /\A[a-zA-Z0-9]+[a-zA-Z0-9\-_]*[a-zA-Z0-9]+\Z/, message: :format, allow_blank: true}
+  validates :subdomain, exclusion: {in: RESERVED_SUBDOMAINS, message: :reserved},
+    format: {with: /\A[a-zA-Z0-9]+[a-zA-Z0-9\-_]*[a-zA-Z0-9]+\Z/, message: :format, allow_blank: true}
   validates :avatar, resizable_image: true
 
   def find_or_build_billing_address
@@ -79,7 +82,7 @@ class Account < ApplicationRecord
   # Previous owner roles are unchanged
   def transfer_ownership(user_id)
     previous_owner = owner
-    account_user = account_users.find_by!(user_id: user_id)
+    account_user = account_users.find_by!(user_id:)
     user = account_user.user
 
     ApplicationRecord.transaction do
@@ -117,7 +120,7 @@ class Account < ApplicationRecord
   private
 
   # Attributes to sync to the Stripe Customer
-  def stripe_attributes(*args)
+  def stripe_attributes(*_args)
     {address: billing_address&.to_stripe}.compact
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: notifications
@@ -10,8 +12,8 @@
 #  type           :string
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
-#  account_id     :integer          not null
-#  recipient_id   :integer          not null
+#  account_id     :bigint           not null
+#  recipient_id   :bigint           not null
 #
 # Indexes
 #
@@ -27,7 +29,7 @@ class NotificationTest < ActiveSupport::TestCase
 
   test "notifications with user param are destroyed when user destroyed" do
     user = users(:one)
-    AcceptedInvite.with(user: user, account: accounts(:one)).deliver(users(:two))
+    AcceptedInvite.with(user:, account: accounts(:one)).deliver(users(:two))
 
     assert_difference "Notification.count", -1 do
       user.destroy
@@ -36,7 +38,7 @@ class NotificationTest < ActiveSupport::TestCase
 
   test "notifications with account are destroyed when account destroyed" do
     account = accounts(:one)
-    AcceptedInvite.with(user: users(:one), account: account).deliver(users(:two))
+    AcceptedInvite.with(user: users(:one), account:).deliver(users(:two))
 
     assert_difference "Notification.count", -1 do
       account.destroy

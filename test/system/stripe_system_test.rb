@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 begin
   require "stripe"
 rescue LoadError
@@ -57,7 +59,8 @@ class StripeSystemTest < ApplicationSystemTestCase
     fill_stripe_payment_element_card "4000 0027 6000 3184"
     click_on "Subscribe"
     fail_stripe_sca
-    assert_selector "div", text: "We are unable to authenticate your payment method. Please choose a different payment method and try again."
+    assert_selector "div",
+      text: "We are unable to authenticate your payment method. Please choose a different payment method and try again."
   end
 
   test "can update payment method" do
@@ -84,7 +87,8 @@ class StripeSystemTest < ApplicationSystemTestCase
     fill_stripe_payment_element_card "4000 0027 6000 3184"
     click_on "Update Card"
     fail_stripe_sca
-    assert_selector "div", text: "We are unable to authenticate your payment method. Please choose a different payment method and try again."
+    assert_selector "div",
+      text: "We are unable to authenticate your payment method. Please choose a different payment method and try again."
     assert_nil @account.payment_processor.default_payment_method
   end
 

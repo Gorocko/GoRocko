@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class UsersControllerTest < ActionDispatch::IntegrationTest
@@ -13,7 +15,9 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
     Jumpstart.config.stub(:register_with_account?, false) do
       assert_difference "User.count" do
-        post api_v1_users_url, params: {user: {email: email, name: "API User", password: "password", password_confirmation: "password", terms_of_service: "1"}}
+        post api_v1_users_url,
+          params: {user: {email:, name: "API User", password: "password", password_confirmation: "password",
+                          terms_of_service: "1"}}
         assert_response :success
       end
     end
@@ -27,7 +31,8 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     Jumpstart.config.stub(:personal_accounts, true) do #### HERE ####
       Jumpstart.config.stub(:register_with_account?, false) do #### HERE ####
         assert_difference "User.count" do
-          post api_v1_users_url, params: {user: {email: "api-user@example.com", name: "API User", password: "password", password_confirmation: "password", terms_of_service: "1"}}, headers: {HTTP_USER_AGENT: "Turbo Native iOS"}
+          post api_v1_users_url,
+            params: {user: {email: "api-user@example.com", name: "API User", password: "password", password_confirmation: "password", terms_of_service: "1"}}, headers: {HTTP_USER_AGENT: "Turbo Native iOS"}
           assert_response :success
         end
       end
@@ -48,7 +53,8 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   test "registration with account" do
     Jumpstart.config.stub(:register_with_account?, true) do
       assert_difference "Account.count" do
-        post api_v1_users_url, params: {user: {email: "api-user@example.com", name: "API User", password: "password", password_confirmation: "password", terms_of_service: "1", owned_accounts_attributes: [{name: "Test Account"}]}}, headers: {HTTP_USER_AGENT: "Turbo Native iOS"}
+        post api_v1_users_url,
+          params: {user: {email: "api-user@example.com", name: "API User", password: "password", password_confirmation: "password", terms_of_service: "1", owned_accounts_attributes: [{name: "Test Account"}]}}, headers: {HTTP_USER_AGENT: "Turbo Native iOS"}
         assert_response :success
       end
 

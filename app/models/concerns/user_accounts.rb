@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module UserAccounts
   extend ActiveSupport::Concern
 
@@ -6,7 +8,9 @@ module UserAccounts
     has_many :account_users, dependent: :destroy
     has_many :accounts, through: :account_users
     has_many :owned_accounts, class_name: "Account", foreign_key: :owner_id, inverse_of: :owner, dependent: :destroy
-    has_one :personal_account, -> { where(personal: true) }, class_name: "Account", foreign_key: :owner_id, inverse_of: :owner, dependent: :destroy
+    has_one :personal_account, lambda {
+                                 where(personal: true)
+                               }, class_name: "Account", foreign_key: :owner_id, inverse_of: :owner, dependent: :destroy
 
     # Regular users should get their account created immediately
     after_create :create_default_account, unless: :skip_default_account?
@@ -24,7 +28,7 @@ module UserAccounts
     return unless name.present?
     return accounts.first if accounts.any?
 
-    account = accounts.new(owner: self, name: name, personal: Jumpstart.config.personal_accounts)
+    account = accounts.new(owner: self, name:, personal: Jumpstart.config.personal_accounts)
     account.account_users.new(user: self, admin: true)
     account.save!
     account
@@ -39,7 +43,7 @@ module UserAccounts
       end
 
       # Sync the personal account name with the user's name
-      personal_account.update(name: name)
+      personal_account.update(name:)
     end
   end
 end

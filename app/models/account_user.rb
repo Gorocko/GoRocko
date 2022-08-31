@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: account_users
@@ -6,8 +8,8 @@
 #  roles      :jsonb            not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  account_id :integer
-#  user_id    :integer
+#  account_id :bigint
+#  user_id    :bigint
 #
 # Indexes
 #
@@ -23,7 +25,7 @@
 class AccountUser < ApplicationRecord
   # Add account roles to this line
   # Do NOT to use any reserved words like `user` or `account`
-  ROLES = [:admin, :member]
+  ROLES = %i[admin member].freeze
 
   include Rolified
 
@@ -38,8 +40,6 @@ class AccountUser < ApplicationRecord
   end
 
   def owner_must_be_admin
-    unless admin?
-      errors.add :admin, :cannot_be_removed
-    end
+    errors.add :admin, :cannot_be_removed unless admin?
   end
 end
