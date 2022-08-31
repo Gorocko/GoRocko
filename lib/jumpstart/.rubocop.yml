@@ -4,3 +4,19 @@ Style/DoubleNegation:
   Enabled: false
 Style/StringLiterals:
   Enabled: false
+
+require: rubocop-rails
+AllCops:
+  NewCops: enable
+
+Rails/I18nLocaleTexts:
+  Enabled: false
+
+Lint/MissingSuper:
+  Enabled: false
+
+Rails/ReversibleMigration:
+  Enabled: false
+
+Rails/BulkChangeTable:
+  Enabled: false

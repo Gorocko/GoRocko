@@ -61,9 +61,9 @@ PreCommit:
         'space_around_erb_tag,extra_newline',
       ]
   RustyWind:
-    enabled: true
-    required: true
-    command: ['yarn', 'run', 'rustywind-fix']
+#    enabled: true
+#    required: true
+#    command: ['yarn', 'run', 'rustywind-fix']
 
   RuboCop:
     enabled: true
