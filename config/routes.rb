@@ -147,5 +147,6 @@ Rails.application.routes.draw do
   end
 
   # Public marketing homepage
-  root to: "static#index"
+  #root to: "static#index"
+  root "landing#index"
 end
