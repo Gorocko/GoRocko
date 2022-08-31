@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class NotificationsControllerTest < ActionDispatch::IntegrationTest
@@ -11,7 +13,7 @@ class NotificationsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should redirect to index if notification missing" do
-    get notification_url(111111)
+    get notification_url(111_111)
     assert_response :redirect
     assert_redirected_to notifications_url
   end

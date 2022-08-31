@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: api_tokens
@@ -11,7 +13,7 @@
 #  transient    :boolean          default(FALSE)
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
-#  user_id      :integer          not null
+#  user_id      :bigint           not null
 #
 # Indexes
 #
@@ -53,13 +55,14 @@ class ApiToken < ApplicationRecord
 
   def touch_last_used_at
     return if transient?
+
     update(last_used_at: Time.current)
   end
 
   def generate_token
     loop do
       self.token = SecureRandom.hex(16)
-      break unless ApiToken.where(token: token).exists?
+      break unless ApiToken.where(token:).exists?
     end
   end
 end

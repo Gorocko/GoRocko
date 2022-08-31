@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class AuthsControllerTest < ActionDispatch::IntegrationTest
@@ -29,7 +31,8 @@ class AuthsControllerTest < ActionDispatch::IntegrationTest
   test "creates a new turbo app api token if one didn't exist" do
     user = users(:one)
     assert_difference "user.api_tokens.count" do
-      post api_v1_auth_url, params: {email: user.email, password: "password"}, headers: {HTTP_USER_AGENT: "Turbo Native iOS"}
+      post api_v1_auth_url, params: {email: user.email, password: "password"},
+        headers: {HTTP_USER_AGENT: "Turbo Native iOS"}
       assert_response :success
     end
     assert_equal user.api_tokens.find_by(name: ApiToken::APP_NAME).token, response.parsed_body["token"]
@@ -37,7 +40,8 @@ class AuthsControllerTest < ActionDispatch::IntegrationTest
 
   test "sets Devise cookie during turbo app login" do
     user = users(:one)
-    post api_v1_auth_url, params: {email: user.email, password: "password"}, headers: {HTTP_USER_AGENT: "Turbo Native iOS"}
+    post api_v1_auth_url, params: {email: user.email, password: "password"},
+      headers: {HTTP_USER_AGENT: "Turbo Native iOS"}
     assert_response :success
 
     # Set Devise cookies for Turbo Native apps
@@ -46,7 +50,8 @@ class AuthsControllerTest < ActionDispatch::IntegrationTest
 
   test "returns token during turbo app login" do
     user = users(:one)
-    post api_v1_auth_url, params: {email: user.email, password: "password"}, headers: {HTTP_USER_AGENT: "Turbo Native iOS"}
+    post api_v1_auth_url, params: {email: user.email, password: "password"},
+      headers: {HTTP_USER_AGENT: "Turbo Native iOS"}
     assert_response :success
     assert_not_nil json_response["token"]
   end
@@ -56,7 +61,8 @@ class AuthsControllerTest < ActionDispatch::IntegrationTest
     user = notification_token.user
 
     assert_difference "NotificationToken.count", -1 do
-      delete api_v1_auth_url, params: {notification_token: notification_token.token}, headers: {Authorization: "token #{user.api_tokens.first.token}"}
+      delete api_v1_auth_url, params: {notification_token: notification_token.token},
+        headers: {Authorization: "token #{user.api_tokens.first.token}"}
       assert_response :success
     end
   end

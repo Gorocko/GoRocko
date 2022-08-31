@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class AccountRecord < ActiveRecord::Base
   self.abstract_class = true
 
-  default_scope -> {
+  default_scope lambda {
     if ActsAsTenant.configuration.require_tenant && ActsAsTenant.current_tenant.nil? && !ActsAsTenant.unscoped?
       raise ActsAsTenant::Errors::NoTenantSet
     end
