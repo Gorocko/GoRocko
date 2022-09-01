@@ -1,0 +1,11 @@
+<tr class="border-t border-gray-300">
+  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+    <%= link_to @dog.name, @dog %>
+  </td>
+  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+    <%= @upcoming_maintanance_date %>
+  </td>
+  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+    <%= render TagsComponent.new(tags:@dog.tag_list) %>
+  </td>
+</tr>

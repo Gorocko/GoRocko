@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ConnectedAccountsHelper
   def social_icon(provider, options = {})
     icon = provider_config(provider)[:icon]

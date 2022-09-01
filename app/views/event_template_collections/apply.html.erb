@@ -1,0 +1,20 @@
+<div id="apply_template_to_dogs">
+  <div class="mx-auto md:w-2/3 w-full">
+    <%= form_with(model: @event_template_collection, url: apply_event_template_collection_path(@event_template_collection), class: "space-y-8 divide-y divide-gray-200") do |form| %>
+      <div class="space-y-8 divide-y divide-gray-200 sm:space-y-5">
+        <div>
+          <div>
+            <h3 class="text-lg leading-6 font-medium text-gray-900">Apply template to Dogs</h3>
+          </div>
+          <%= render(Forms::DatetimeFieldComponent.new(form:form, label_field: :due_date, attribute_field: :due_date)) %>
+          <%= render(Forms::CollectionCheckBoxesFieldComponent.new(form:form,
+                                                                   collections:  Dog.order(:name),
+                                                                   input_name: "event_template_collection[selected_dogs[]",
+                                                                   inputs_value: [] )) %>
+
+          <%= render(Forms::SubmitFieldComponent.new(button_override_text: "Add reminders", form: form)) %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

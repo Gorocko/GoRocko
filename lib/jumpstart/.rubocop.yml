@@ -19,3 +19,6 @@ Rails/ReversibleMigration:
 
 Rails/BulkChangeTable:
   Enabled: false
+
+Style/Documentation:
+  Enabled: false

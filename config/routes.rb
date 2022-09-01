@@ -150,5 +150,28 @@ Rails.application.routes.draw do
 
   # Public marketing homepage
   # root to: "static#index"
+  resources :groups
+  resources :action_event_collections
+  resources :event_template_collections do
+    member do
+      patch "apply"
+      get "apply"
+    end
+  end
+  resources :action_events do
+    member do
+      get "take_action"
+      post "take_action"
+      patch "take_action"
+    end
+  end
+
+  get "tags/auto_complete", to: "tags#auto_complete"
+
+  resources :dogs do
+    resources :journals
+  end
+  resources :journals
+  resources :attachment
   root "landing#index"
 end

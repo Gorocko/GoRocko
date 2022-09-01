@@ -1,0 +1,10 @@
+<%= content_tag :div, class: "nested-fields", data: { new_record: @event_template_form.object.new_record? } do %>
+  <%= render TemplateCollection::RemoveTemplateCardHeaderComponent.new(title: "Event details",
+                                                                       is_head: @event_template_form.object.is_head) %>
+  <%= render(Forms::TextFieldComponent.new(form: @event_template_form, label_field: :event_title, attribute_field: :title)) %>
+  <% if not @event_template_form.object.is_head %>
+    <%= render(Forms::NumberFieldComponent.new(form: @event_template_form, label_field: :days_gap_from_last_event, attribute_field: :days_delta_from_last)) %>
+  <% end %>
+  <%= render(Forms::TextareaFieldComponent.new(form: @event_template_form, label_field: :event_description, attribute_field: :description)) %>
+  <%= @event_template_form.hidden_field :_destroy %>
+<% end %>

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SubscriptionsHelper
   def braintree_env
     Rails.env.production? ? "production" : "sandbox"
@@ -42,6 +44,7 @@ module SubscriptionsHelper
   # Cancelled subscriptions are permanent and cannot be updated.
   def show_paddle_payment_method_form?(payment_processor)
     return false unless payment_processor&.paddle?
+
     (subscription = payment_processor.subscription) && (subscription.active? || subscription.paused?)
   end
 end

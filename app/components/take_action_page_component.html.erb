@@ -1,0 +1,40 @@
+<%= form_with(model: @action_event,
+              url: take_action_action_event_path(@action_event),
+              method: "patch",
+              id: "#{dom_id(@action_event)}_take_action_form",
+              class: "space-y-8 divide-y divide-gray-200") do |form| %>
+  <div class="mt-8 flex flex-col">
+    <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+        <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+          <table class="min-w-full divide-y divide-gray-300">
+            <thead class="bg-gray-50">
+            <tr>
+              <% @header_fields.each do |header_field| %>
+                <%= render Structures::Table::HeaderFieldComponent.new(title: header_field) %>
+              <% end %>
+            </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200 bg-white">
+
+            <%= form.fields_for :action_event_records do |event_record_form| %>
+              <%= render EventRecordRowComponent.new(event_record_form: event_record_form) %>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="space-y-6 sm:space-y-5">
+    <div class="pt-5">
+      <div class="flex justify-end">
+        <% primary_css_config = "ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+        <% secondary_css_config = "inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+        <%= form.submit name: 'button_text', value: @in_progress_button_text, class: secondary_css_config %>
+        <%= form.submit name: 'button_text', value: @finish_task_button_text, class: primary_css_config %>
+      </div>
+    </div>
+  </div>
+<% end %>

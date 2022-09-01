@@ -1,0 +1,16 @@
+<%= render partial: 'header',
+locals: { level_one_name:
+ 'Reminders',
+level_two_name: 'List view', level_three_name: '',  header_name: 'List view', primary_button_title: 'Add New Reminder', primary_button_link: new_action_event_path, secondary_button_title: '', secondary_button_link: ''} %>
+<div class="px-4 sm:px-6 lg:px-8">
+</div>
+<div class="mt-8 flex flex-col">
+  <div class="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+    <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+      <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+        <%= render ActionEvents::ActionEventsTableComponent.new(action_events: @action_events) %>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

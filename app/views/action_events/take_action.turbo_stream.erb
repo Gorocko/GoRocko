@@ -1,0 +1,11 @@
+<%= @target_dom_id = "#{dom_id(@action_event)}_take_action_form" %>
+<turbo-stream action="replace" target=<%= @target_dom_id %>>
+  <template>
+    <%=  render(TakeActionPageComponent.new(action_event: @action_event,
+                                                 in_progress_button_text: @in_progress_button_text,
+                                                 finish_task_button_text: @finish_task_button_text
+    )) %>
+  </template>
+</turbo-stream>
+
+<%= render_flash_stream %>

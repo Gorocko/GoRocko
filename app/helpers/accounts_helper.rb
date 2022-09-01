@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module AccountsHelper
   def account_avatar(account, options = {})
     size = options[:size] || 48
@@ -19,9 +21,7 @@ module AccountsHelper
     else
       content = tag.span(account.name.to_s.first, class: "initials")
 
-      if options[:include_user]
-        content += image_tag(avatar_url_for(current_user), class: "avatar-small")
-      end
+      content += image_tag(avatar_url_for(current_user), class: "avatar-small") if options[:include_user]
 
       tag.span(content, class: "avatar bg-blue-500 #{classes}")
     end
@@ -37,7 +37,7 @@ module AccountsHelper
   end
 
   def account_admin?(account, account_user)
-    AccountUser.find_by(account: account, user: account_user).admin?
+    AccountUser.find_by(account:, user: account_user).admin?
   end
 
   # A link to switch the account

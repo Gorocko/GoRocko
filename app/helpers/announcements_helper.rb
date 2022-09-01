@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module AnnouncementsHelper
   # Use the explicit class names so purgecss can find them
   def announcement_color(announcement)

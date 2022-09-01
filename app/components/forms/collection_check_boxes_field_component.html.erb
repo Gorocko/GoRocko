@@ -1,0 +1,15 @@
+<div class="space-y-6 sm:space-y-5">
+  <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+    <%= @form.label "Select dogs", class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
+    <div class="mt-1 sm:mt-0 sm:col-span-2">
+      <%= hidden_field_tag @input_name, nil %>
+      <% @collections.each do |model| %>
+        <%= render(Forms::CheckBoxFieldComponent.new(input_name: @input_name,
+                                                     label_field: model.name,
+                                                     checked: @inputs_value.include?(model.id),
+                                                     check_box_id: dom_id(model),
+                                                     box_value: model.id)) %>
+      <% end %>
+    </div>
+  </div>
+</div>
