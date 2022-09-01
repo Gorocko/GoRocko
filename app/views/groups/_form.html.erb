@@ -1,0 +1,31 @@
+<%= form_with(model: group, class: "space-y-8 divide-y divide-gray-200") do |form| %>
+  <div class="space-y-8 divide-y divide-gray-200 sm:space-y-5">
+    <div>
+      <div>
+        <h3 class="text-lg leading-6 font-medium text-gray-900">Add new group</h3>
+      </div>
+      <% if group.errors.any? %>
+        <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+          <h2><%= pluralize(group.errors.count, "error") %> prohibited this group from being saved:</h2>
+          <ul>
+            <% group.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <div class="space-y-6 sm:space-y-5">
+        <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+          <%= form.label :name, class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
+          <div class="mt-1 sm:mt-0 sm:col-span-2">
+            <%= form.text_field :name, class: "max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md" %>
+          </div>
+        </div>
+      </div>
+      <div class="pt-5">
+        <div class="flex justify-end">
+          <%= form.submit class: "ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+        </div>
+      </div>
+    </div>
+  <% end %>

@@ -1,0 +1,67 @@
+<%= form_with(model: dog, class: "space-y-8 divide-y divide-gray-200") do |form| %>
+  <div class="space-y-8 divide-y divide-gray-200 sm:space-y-5">
+    <div>
+      <div>
+        <h3 class="text-lg leading-6 font-medium text-gray-900">Add new dog</h3>
+        <p class="mt-1 max-w-2xl text-sm text-gray-500">Please enter dog information here</p>
+      </div>
+      <% if dog.errors.any? %>
+        <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+          <h2><%= pluralize(dog.errors.count, "error") %> prohibited this dog from being saved:</h2>
+          <ul>
+            <% dog.errors.each do |error| %>
+              <li><%= error.full_message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <%= render(Forms::TextFieldComponent.new(form: form, label_field: :name, attribute_field: :name)) %>
+      <%= render(Forms::TextFieldComponent.new(form: form, label_field: :registered_name, attribute_field: :registered_name)) %>
+      <%= render(Forms::TextFieldComponent.new(form: form, label_field: :registration_number, attribute_field: :registration_number)) %>
+      <div class="space-y-6 sm:space-y-5">
+        <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+          <%= form.label :birthday, class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
+          <div class="mt-1 sm:mt-0 sm:col-span-2">
+            <%= form.date_field :birthday, class: "max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md" %>
+          </div>
+        </div>
+      </div>
+      <div class="space-y-6 sm:space-y-5">
+        <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+          <%= form.label :sex, class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
+          <div class="mt-1 sm:mt-0 sm:col-span-2">
+            <%= form.select :sex, ["Male", "Female"], {}, { class: "mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md" } %>
+          </div>
+        </div>
+      </div>
+      <div class="space-y-6 sm:space-y-5">
+        <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+          <%= form.label :avatar, class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
+          <div class="mt-1 sm:mt-0 sm:col-span-2">
+            <%= form.file_field :avatar, class: "max-w-lg block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md" %>
+          </div>
+        </div>
+      </div>
+      <div class="space-y-6 sm:space-y-5">
+        <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+          <%= form.label :group, class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
+          <div class="mt-1 sm:mt-0 sm:col-span-2">
+            <%= form.collection_select :group_id, Group.order(:name), :id, :name, {prompt: true}, {class: "mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"} %>
+          </div>
+        </div>
+        <%= render(Forms::TextFieldComponent.new(form: form,
+                                                 label_field: :tags,
+                                                 override_value: dog.tag_list.join(","),
+                                                 attribute_field: :tag_list,
+                                                 data_controller: 'ts--select',
+                                                 data_value_pair: {ts__select_url_value: tags_auto_complete_url}
+        )) %>
+        <div class="pt-5">
+          <div class="flex justify-end">
+            <%= form.submit class: "ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

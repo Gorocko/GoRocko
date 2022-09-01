@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SubscriptionsHelper
   def braintree_env
     Rails.env.production? ? "production" : "sandbox"
@@ -24,7 +26,7 @@ module SubscriptionsHelper
     return unless Jumpstart.config.payment_processors.include?(processor_name)
 
     # Make sure we have a Plan ID for the payment processor
-    return false if plan && !plan.id_for_processor(processor_name).present?
+    return false if plan && plan.id_for_processor(processor_name).blank?
 
     # If a user has active subscriptions, only let them use that payment processor for new payments
     # Also show if user is on the fake processor (for trial)
@@ -42,6 +44,7 @@ module SubscriptionsHelper
   # Cancelled subscriptions are permanent and cannot be updated.
   def show_paddle_payment_method_form?(payment_processor)
     return false unless payment_processor&.paddle?
+
     (subscription = payment_processor.subscription) && (subscription.active? || subscription.paused?)
   end
 end

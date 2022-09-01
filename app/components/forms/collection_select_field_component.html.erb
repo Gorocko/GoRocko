@@ -1,0 +1,11 @@
+
+<div class="space-y-6 sm:space-y-5">
+  <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+    <%= @form.label @label_field, class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
+    <div class="mt-1 sm:mt-0 sm:col-span-2">
+      <%= @form.collection_select @attribute_field, EventType.order(:title),
+                @value_method,
+                @text_method, {prompt: true}, {class: "mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"} %>
+    </div>
+  </div>
+</div>

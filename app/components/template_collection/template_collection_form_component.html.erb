@@ -1,0 +1,33 @@
+<div data-controller="nested-form">
+  <div class="mx-auto md:w-2/3 w-full">
+    <%= form_with(model: @event_template_collection, class: "space-y-8 divide-y divide-gray-200") do |form| %>
+      <template data-target="nested-form.template">
+        <li class="bg-white shadow overflow-hidden px-4 py-4 sm:px-6 sm:rounded-md" data-target="nested-form.formList">
+          <%= form.fields_for :event_templates, EventTemplate.new, child_index: 'NEW_RECORD' do |event_template_form| %>
+            <%= render(TemplateCollection::EventTemplateFormComponent.new(event_template_form: event_template_form)) %>
+          <% end %>
+        </li>
+      </template>
+      <div class="space-y-8 divide-y divide-gray-200 sm:space-y-5">
+        <div>
+          <div>
+            <h3 class="text-lg leading-6 font-medium text-gray-900">Add new event template</h3>
+          </div>
+          <%= render(Forms::TextFieldComponent.new(form: form, label_field: :template_title, attribute_field: :title)) %>
+          <ul role="list" class="space-y-3">
+            <%= form.fields_for :event_templates do |event_template_form| %>
+              <li class="bg-white shadow overflow-hidden px-4 py-4 sm:px-6 sm:rounded-md" data-target="nested-form.formList">
+                <div>
+                <%= render(TemplateCollection::EventTemplateFormComponent.new(event_template_form: event_template_form)) %>
+                </div>
+              </li>
+            <% end %>
+          </ul>
+          <%= render TemplateCollection::AddMoreButtonComponent.new %>
+
+          <%= render(Forms::SubmitFieldComponent.new(form: form)) %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

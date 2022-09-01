@@ -1,0 +1,20 @@
+<!-- This example requires Tailwind CSS v2.0+ -->
+<div class="overflow-hidden shadow-sm ring-1 ring-black ring-opacity-5">
+  <table class="min-w-full divide-y divide-gray-300">
+    <thead class="bg-gray-50">
+      <tr>
+        <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6 lg:pl-8">Title</th>
+        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Due Date</th>
+        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Tags</th>
+        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Status</th>
+        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Action</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-200 bg-white">
+      <% @action_events.each do |action_event| %>
+        <%= render ActionEvents::ActionEventRowComponent.new(action_event: action_event) %>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+</div>

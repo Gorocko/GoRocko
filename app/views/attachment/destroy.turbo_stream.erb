@@ -1,0 +1,7 @@
+<turbo-stream action="replace" target=<%= dom_id(@attachment)%>>
+  <template>
+    <%= render Attachment::PhotoComponent.new(photo:@attachment)%>
+  </template>
+</turbo-stream>
+
+<%= render_flash_stream %>

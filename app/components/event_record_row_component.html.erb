@@ -1,0 +1,4 @@
+<tr>
+  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"><%= @event_record_form.object.eventable.name %></td>
+  <%= render EventActionCellComponent.new(event_record_form: @event_record_form) %>
+</tr>

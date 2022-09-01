@@ -1,0 +1,6 @@
+<%= content_tag(:div, class: "flash_messages",
+                id: 'flash_messages') do %>
+  <% @flash.each do |type, message| %>
+      <%= render Flash::FlashMessageComponent.new(type: type, msg: message) %>
+  <% end %>
+<% end %>

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   include Pagy::Frontend
 
@@ -14,6 +16,12 @@ module ApplicationHelper
 
   def disable_with(text)
     "<i class=\"far fa-spinner-third fa-spin\"></i> #{text}".html_safe
+  end
+
+  def render_flash_stream
+    turbo_stream.update("flash_messages") do
+      render(Flash::FlashesComponent.new(flash:))
+    end
   end
 
   def render_svg(name, options = {})
@@ -45,7 +53,8 @@ module ApplicationHelper
     content_for(:title) { page_title }
   end
 
-  def viewport_meta_tag(content: "width=device-width, initial-scale=1", turbo_native: "maximum-scale=1.0, user-scalable=0")
+  def viewport_meta_tag(content: "width=device-width, initial-scale=1",
+                        turbo_native: "maximum-scale=1.0, user-scalable=0")
     full_content = [content, (turbo_native if turbo_native_app?)].compact.join(", ")
     tag.meta name: "viewport", content: full_content
   end

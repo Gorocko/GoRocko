@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module NavHelper
   def nav_link_to(name = nil, options = {}, html_options = {}, &block)
     if block
@@ -13,10 +15,10 @@ module NavHelper
     inactive_class = html_options.delete(:inactive_class) || ""
 
     active = if (paths = Array.wrap(starts_with)) && paths.present?
-      paths.any? { |path| request.path.start_with?(path) }
-    else
-      request.path == url
-    end
+               paths.any? { |path| request.path.start_with?(path) }
+             else
+               request.path == url
+             end
 
     classes = active ? active_class : inactive_class
     html_options[:class] << classes unless classes.empty?

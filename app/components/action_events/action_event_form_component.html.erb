@@ -1,0 +1,26 @@
+<div class="mx-auto md:w-2/3 w-full">
+  <%= form_with(model: @action_event, class: "space-y-8 divide-y divide-gray-200", data:{
+    target: "batch-edit-form.actionEventForm"
+  }) do |form| %>
+    <div class="space-y-8 divide-y divide-gray-200 sm:space-y-5">
+      <h3 class="text-lg leading-6 font-medium text-gray-900">Add new Reminder</h3>
+      <%= render(Forms::TextFieldComponent.new(form: form, label_field: :title, attribute_field: :title)) %>
+      <%= render(Forms::DatetimeFieldComponent.new(form: form, label_field: :due_date, attribute_field: :due_date)) %>
+      <%= render(Forms::TextareaFieldComponent.new(form: form, label_field: :description, attribute_field: :description)) %>
+      <%= render(Forms::CollectionCheckBoxesFieldComponent.new(form: form,
+                                                               collections: Dog.order(:name),
+                                                               input_name: "action_event[action_event_records][eventable_ids][]",
+                                                               inputs_value: @action_event.action_event_records.map(&:eventable_id))) %>
+      <%= render(Forms::TextFieldComponent.new(form: form,
+                                               label_field: :tags,
+                                               override_value: @action_event.tag_list.join(","),
+                                               attribute_field: :tag_list,
+                                               data_controller: 'ts--select',
+                                               data_value_pair: {ts__select_url_value: tags_auto_complete_url}
+                                               )) %>
+      <% unless @button_disabled %>
+        <%= render(Forms::SubmitFieldComponent.new(form: form)) %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

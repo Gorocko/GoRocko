@@ -1,0 +1,25 @@
+<div class="bg-white shadow overflow-hidden rounded-md" data-controller="batch-edit-form">
+  <ul role="list" class="divide-y divide-gray-200">
+    <% @action_events.each do |action_event| %>
+      <li class="px-6 py-4">
+        <div>
+          <%= render ActionEvents::ActionEventFormComponent.new(action_event: action_event, button_disabled: true) %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+  <div class="space-y-6 sm:space-y-5">
+    <div class="pt-5">
+      <div class="flex justify-end">
+        <%= link_to "Create reminders", "#", data:
+          { batch_edit_form_url_value: action_event_collections_path,
+            batch_edit_form_redirect_url_value: action_events_path,
+            action: "click->batch-edit-form#submitForms" },
+                    class: "inline-flex items-center px-4 py-2 border
+                  border-transparent text-sm font-medium rounded-md shadow-sm
+                  text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2
+                   focus:ring-offset-2 focus:ring-indigo-500" %>
+      </div>
+    </div>
+  </div>
+</div>
