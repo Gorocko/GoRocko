@@ -12,11 +12,11 @@ module EventTemplateCollectionsHelper
       gap_from_last += event_template.days_delta_from_last || 0
       due_date += gap_from_last.days
       action_events.append(ActionEvent.new(title: event_template.title,
-                                           description: event_template.description,
-                                           due_date:,
-                                           action_event_records_attributes: action_event_records_attributes(
-                                             eventable_ids: selected_dogs_ids, due_date:
-                                           )))
+        description: event_template.description,
+        due_date:,
+        action_event_records_attributes: action_event_records_attributes(
+          eventable_ids: selected_dogs_ids, due_date:
+        )))
     end
     action_events
   end
