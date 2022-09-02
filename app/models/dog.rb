@@ -31,5 +31,6 @@ class Dog < ApplicationRecord
   has_one_attached :avatar
   acts_as_tenant :account
   acts_as_taggable_on :tags
+  acts_as_taggable_tenant :account_id
   has_many :action_event_records, as: :eventable, dependent: :destroy
 end

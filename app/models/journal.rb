@@ -21,4 +21,5 @@ class Journal < ApplicationRecord
   belongs_to :loggable, polymorphic: true
   has_many_attached :photos
   acts_as_tenant :account
+  acts_as_taggable_tenant :account_id
 end
