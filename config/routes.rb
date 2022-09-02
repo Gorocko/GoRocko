@@ -40,7 +40,7 @@ Rails.application.routes.draw do
   end
 
   # API routes
-  namespace :api, defaults: {format: :json} do
+  namespace :api, defaults: { format: :json } do
     namespace :v1 do
       resource :auth
       resource :me, controller: :me
@@ -53,11 +53,11 @@ Rails.application.routes.draw do
 
   # User account
   devise_for :users,
-    controllers: {
-      omniauth_callbacks: "users/omniauth_callbacks",
-      registrations: "users/registrations",
-      sessions: "users/sessions"
-    }
+             controllers: {
+               omniauth_callbacks: "users/omniauth_callbacks",
+               registrations: "users/registrations",
+               sessions: "users/sessions"
+             }
   devise_scope :user do
     get "session/otp", to: "sessions#otp"
   end
@@ -123,7 +123,7 @@ Rails.application.routes.draw do
   end
 
   namespace :action_text do
-    resources :embeds, only: [:create], constraints: {id: %r{[^/]+}} do
+    resources :embeds, only: [:create], constraints: { id: %r{[^/]+} } do
       collection do
         get :patterns
       end
@@ -173,5 +173,6 @@ Rails.application.routes.draw do
   end
   resources :journals
   resources :attachment
-  root "landing#index"
+  root to: "static#index"
+  # root "landing#index"
 end
