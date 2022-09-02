@@ -337,9 +337,7 @@ Devise.setup do |config|
     end
   end
 
-  if Rails.env.test?
-    config.omniauth :developer
-  end
+  config.omniauth :developer if Rails.env.test?
 
   # To add extra OmniAuth providers, copy this line and add the new ones
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'

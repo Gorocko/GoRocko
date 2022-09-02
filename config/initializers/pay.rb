@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Pay.setup do |config|
   config.application_name = Jumpstart.config.application_name
   config.business_name = Jumpstart.config.business_name
@@ -17,16 +19,14 @@ module SubscriptionExtensions
   end
 
   def plan
-    @plan ||= Plan.where("details @> ?", {"#{customer.processor}_id": processor_plan}.to_json).first
+    @plan ||= Plan.where("details @> ?", { "#{customer.processor}_id": processor_plan }.to_json).first
   end
 
-  def plan_interval
-    plan.interval
-  end
+  delegate :interval, to: :plan, prefix: true
 
   def amount_with_currency(**options)
-    total = quantity == 0 ? plan.amount : plan.amount * quantity
-    Pay::Currency.format(total, **{currency: plan.currency}.merge(options))
+    total = quantity.zero? ? plan.amount : plan.amount * quantity
+    Pay::Currency.format(total, **{ currency: plan.currency }.merge(options))
   end
 end
 
