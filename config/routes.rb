@@ -174,5 +174,4 @@ Rails.application.routes.draw do
   resources :journals
   resources :attachment
   root to: "static#index"
-  # root "landing#index"
 end
