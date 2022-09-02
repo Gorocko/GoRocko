@@ -12,6 +12,7 @@
 #  sex                 :string
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
+#  account_id          :integer          default(0), not null
 #  group_id            :bigint           not null
 #
 # Indexes
@@ -28,6 +29,8 @@ class Dog < ApplicationRecord
   belongs_to :group
 
   has_one_attached :avatar
+  acts_as_tenant :account
   acts_as_taggable_on :tags
+  acts_as_taggable_tenant :account_id
   has_many :action_event_records, as: :eventable, dependent: :destroy
 end

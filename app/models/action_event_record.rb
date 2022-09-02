@@ -11,6 +11,7 @@
 #  status          :integer          default("Not Started"), not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  account_id      :integer          default(0), not null
 #  action_event_id :bigint           not null
 #  eventable_id    :bigint           not null
 #
@@ -25,6 +26,7 @@
 #
 class ActionEventRecord < ApplicationRecord
   include HasStatus
+  acts_as_tenant :account
   belongs_to :eventable, polymorphic: true
   belongs_to :action_event
   has_many_attached :photos

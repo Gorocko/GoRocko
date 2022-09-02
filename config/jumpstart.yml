@@ -9,10 +9,9 @@ background_job_processor: async
 email_provider: ''
 personal_accounts: true
 solargraph: true
-register_with_account: false
+register_with_account: true
 apns: false
 fcm: false
 collect_billing_address: false
 multitenancy:
-- subdomain
-- domain
+- path

@@ -11,6 +11,7 @@
 #  title                        :string
 #  created_at                   :datetime         not null
 #  updated_at                   :datetime         not null
+#  account_id                   :integer          default(0), not null
 #  event_template_collection_id :bigint           default(0), not null
 #  last_event_template_id       :bigint
 #
@@ -27,6 +28,7 @@
 class EventTemplate < ApplicationRecord
   belongs_to :last_event_template, class_name: "EventTemplate", optional: true
   belongs_to :event_template_collection
+  acts_as_tenant :account
   has_one :next_event_template, class_name: "EventTemplate", foreign_key: "last_event_template", dependent: :nullify,
-    inverse_of: :last_event_template
+                                inverse_of: :last_event_template
 end
