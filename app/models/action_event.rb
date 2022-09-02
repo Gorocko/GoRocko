@@ -11,10 +11,12 @@
 #  title       :string           not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  account_id  :integer          default(0), not null
 #
 class ActionEvent < ApplicationRecord
   acts_as_taggable_on :tags
   include HasStatus
+  acts_as_tenant :account
   has_many :action_event_records, inverse_of: :action_event, dependent: :destroy
   has_many :dogs, through: :action_event_records, source: :eventable, source_type: "Dog"
   accepts_nested_attributes_for :action_event_records

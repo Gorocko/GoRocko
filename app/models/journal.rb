@@ -9,6 +9,7 @@
 #  notes         :text
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  account_id    :integer          default(0), not null
 #  loggable_id   :bigint           not null
 #
 # Indexes
@@ -19,4 +20,5 @@ class Journal < ApplicationRecord
   acts_as_taggable_on :tags
   belongs_to :loggable, polymorphic: true
   has_many_attached :photos
+  acts_as_tenant :account
 end

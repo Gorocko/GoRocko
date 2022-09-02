@@ -41,7 +41,7 @@ gem "tzinfo-data"
 gem "bootsnap", ">= 1.4.2", require: false
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-gem "image_processing", "~> 1.12"
+gem "image_processing", "~> 1.2"
 
 # Security update
 gem "nokogiri", ">= 1.12.5"
@@ -52,7 +52,7 @@ group :development, :test do
 
   # Optional other debugging tools
   # gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
-  # gem "pry-rails"
+  gem "pry-rails"
 
   gem "annotate", github: "excid3/annotate_models", branch: "rails7"
   gem "erb_lint", require: false
@@ -92,6 +92,7 @@ gem "yaaf"
 
 gem "view_component"
 
+gem "acts-as-taggable-on", "~> 9.0"
 gem "acts_as_tenant", "~> 0.5.1"
 gem "administrate", github: "excid3/administrate", branch: "jumpstart" # '~> 0.10.0'
 gem "administrate-field-active_storage", "~> 0.4.1"
@@ -122,7 +123,6 @@ gem "rqrcode", "~> 2.1"
 gem "rubocop-rails", require: false
 gem "ruby-oembed", "~> 0.16.0", require: "oembed"
 gem "whenever", "~> 1.0", require: false
-gem "acts-as-taggable-on", "~> 9.0"
 
 # Jumpstart manages a few gems for us, so install them from the extra Gemfile
 eval_gemfile "config/jumpstart/Gemfile" if File.exist?("config/jumpstart/Gemfile")

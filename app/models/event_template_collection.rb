@@ -9,10 +9,12 @@
 #  title      :string           not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  account_id :integer          default(0), not null
 #
 class EventTemplateCollection < ApplicationRecord
-  enum status: {unknown: 0, Active: 1, Draft: 2}
+  enum status: { unknown: 0, Active: 1, Draft: 2 }
 
+  acts_as_tenant :account
   has_many :event_templates, inverse_of: :event_template_collection, dependent: :delete_all
   accepts_nested_attributes_for :event_templates, allow_destroy: true
 end
