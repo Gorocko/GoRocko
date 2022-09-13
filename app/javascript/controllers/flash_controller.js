@@ -2,12 +2,12 @@ import { Controller } from "@hotwired/stimulus"
 import { useTransition, useClickOutside } from 'stimulus-use'
 // Connects to data-controller="flash"
 export default class extends Controller {
-  static targets = ['flash_message']
+  static targets = ['flash_message', 'button', 'body']
   connect() {
     this.element.style.animation = "fade-in-and-out 3s"
     setTimeout(() => {this.leave()}, 3000)
     useTransition(this, {
-      element: this.flashMessageTarget,
+      element: this.flash_messageTarget,
       enterActive: 'transform ease-out duration-300 transition',
       enterFrom: 'translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2',
       enterTo: 'translate-y-0 opacity-100 sm:translate-x-0',
@@ -17,16 +17,15 @@ export default class extends Controller {
       // set this, because the item *starts* in an open state
       transitioned: true,
     });
-    // useClickOutside(this, { element: this.flashMessageTarget})
+    useClickOutside(this, { element: this.bodyTarget})
   }
 
   close(event) {
     this.leave();
   }
 
-  // clickOutside(event) {
-  //   event.preventDefault()
-  //   this.close()
-  // }
+  clickOutside(event) {
+    this.close()
+  }
 
 }
