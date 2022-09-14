@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
 class JournalsController < ApplicationController
-  before_action :set_journal, only: [:show, :edit, :update, :destroy]
-  before_action :set_dog, only: [:new, :create]
+  before_action :set_journal, only: %i[show edit update destroy]
+  before_action :set_dog, only: %i[new create]
 
-  def show
-  end
+  def show; end
 
   def new
     @journal = Journal.new
@@ -13,6 +12,7 @@ class JournalsController < ApplicationController
 
   def create
     @journal = Journal.new(journal_params)
+    @journal.account_id = current_user.id
     @journal.update(loggable: @dog)
     if @journal.save
       flash[:success] = "Object successfully created"
@@ -28,6 +28,7 @@ class JournalsController < ApplicationController
   end
 
   def update
+    # TODO: check if user can access this
     respond_to do |format|
       if @journal.update(journal_params)
         format.html { redirect_to(journal_url(@journal), success: "Dog was successfully updated.") }
@@ -59,6 +60,6 @@ class JournalsController < ApplicationController
   end
 
   def journal_params
-    params.require(:journal).permit(:notes, :tag_list, photos: [])
+    params.require(:journal).permit(:title, :notes, :tag_list, photos: [])
   end
 end
