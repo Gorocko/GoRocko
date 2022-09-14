@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class DogsController < ApplicationController
-  before_action :set_dog, only: [:show, :edit, :update, :destroy]
+  include TimeDisplayHelper
+  before_action :set_dog, only: %i[show edit update destroy]
 
   # GET /dogs or /dogs.json
   def index
@@ -20,8 +21,7 @@ class DogsController < ApplicationController
   end
 
   # GET /dogs/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /dogs or /dogs.json
   def create
@@ -72,6 +72,6 @@ class DogsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def dog_params
     params.require(:dog).permit(:name, :registered_name, :registration_number, :birthday, :sex,
-      :group_id, :avatar, :tag_list)
+                                :group_id, :avatar, :tag_list)
   end
 end
