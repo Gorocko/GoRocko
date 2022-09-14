@@ -2,6 +2,7 @@
 
 module ActionEvents
   class ActionEventRowComponent < ViewComponent::Base
+    include TimeDisplayHelper
     def initialize(action_event:)
       @action_event = action_event
     end

@@ -96,6 +96,7 @@ gem "acts-as-taggable-on", "~> 9.0"
 gem "acts_as_tenant", "~> 0.5.1"
 gem "administrate", github: "excid3/administrate", branch: "jumpstart" # '~> 0.10.0'
 gem "administrate-field-active_storage", "~> 0.4.1"
+gem "aws-sdk-s3", require: false
 gem "country_select", "~> 8.0"
 gem "cssbundling-rails", "~> 1.1.0"
 gem "devise", "~> 4.8", ">= 4.8.1"
