@@ -13,6 +13,10 @@
 #  updated_at  :datetime         not null
 #  account_id  :integer          default(0), not null
 #
+# Indexes
+#
+#  index_action_events_on_status  (status)
+#
 class ActionEvent < ApplicationRecord
   acts_as_taggable_on :tags
   include HasStatus
@@ -21,6 +25,7 @@ class ActionEvent < ApplicationRecord
   has_many :action_event_records, inverse_of: :action_event, dependent: :destroy
   has_many :dogs, through: :action_event_records, source: :eventable, source_type: "Dog"
   accepts_nested_attributes_for :action_event_records
+  belongs_to :account
 
   def record_changes
     action_event_records.each(&:record_changes)
