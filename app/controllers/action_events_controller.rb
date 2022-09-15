@@ -2,7 +2,7 @@
 
 class ActionEventsController < ApplicationController
   include ActionEventsHelper
-  before_action :set_action_event, only: [:show, :destroy, :edit, :take_action, :update]
+  before_action :set_action_event, only: %i[show destroy edit take_action update]
   def index
     @action_events = ActionEvent.all
   end
@@ -12,8 +12,7 @@ class ActionEventsController < ApplicationController
     @action_event.action_event_records.build
   end
 
-  def show
-  end
+  def show; end
 
   def destroy
     @action_event.destroy
@@ -24,8 +23,7 @@ class ActionEventsController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     action_event_form = ActionEventForm.new(action_event_params)
@@ -39,6 +37,8 @@ class ActionEventsController < ApplicationController
         format.json { render(json: action_event_form.errors, status: :unprocessable_entity) }
       end
     end
+
+    ActionEventReminderJob.perform_async(current_user.id, @action_event.id)
   end
 
   def take_action
@@ -46,8 +46,8 @@ class ActionEventsController < ApplicationController
     @finish_task_button_text = "Mark as Finished"
     if request.method == "GET"
       render(TakeActionPageComponent.new(action_event: @action_event,
-        in_progress_button_text: @in_progress_button_text,
-        finish_task_button_text: @finish_task_button_text))
+                                         in_progress_button_text: @in_progress_button_text,
+                                         finish_task_button_text: @finish_task_button_text))
     end
     if request.method == "POST"
       if @action_event.update(take_action_params)
@@ -77,7 +77,7 @@ class ActionEventsController < ApplicationController
     action_event_form = ActionEventForm.new(action_event_params)
     if action_event_form.save
       redirect_to(action_event_path(action_event_form.action_event),
-        success: "Event Successfully Updated!")
+                  success: "Event Successfully Updated!")
     else
       redirect_to(action_events_path)
     end
@@ -85,7 +85,7 @@ class ActionEventsController < ApplicationController
 
   def action_event_params
     params.require(:action_event).permit(:title, :due_date, :description, :tag_list,
-      action_event_records: {eventable_ids: []})
+                                         action_event_records: { eventable_ids: [] })
   end
 
   def take_action_params

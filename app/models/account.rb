@@ -33,6 +33,7 @@ class Account < ApplicationRecord
   has_many :notifications, dependent: :destroy
   has_many :users, through: :account_users
   has_many :addresses, as: :addressable, dependent: :destroy
+  has_many :action_events, dependent: :destroy
   has_one :billing_address, -> { where(address_type: :billing) }, class_name: "Address", as: :addressable
   has_one :shipping_address, -> { where(address_type: :shipping) }, class_name: "Address", as: :addressable
 
@@ -45,9 +46,9 @@ class Account < ApplicationRecord
   pay_customer stripe_attributes: :stripe_attributes
 
   validates :name, presence: true
-  validates :domain, exclusion: {in: RESERVED_DOMAINS, message: :reserved}
-  validates :subdomain, exclusion: {in: RESERVED_SUBDOMAINS, message: :reserved},
-    format: {with: /\A[a-zA-Z0-9]+[a-zA-Z0-9\-_]*[a-zA-Z0-9]+\Z/, message: :format, allow_blank: true}
+  validates :domain, exclusion: { in: RESERVED_DOMAINS, message: :reserved }
+  validates :subdomain, exclusion: { in: RESERVED_SUBDOMAINS, message: :reserved },
+                        format: { with: /\A[a-zA-Z0-9]+[a-zA-Z0-9\-_]*[a-zA-Z0-9]+\Z/, message: :format, allow_blank: true }
   validates :avatar, resizable_image: true
 
   def find_or_build_billing_address
@@ -94,7 +95,7 @@ class Account < ApplicationRecord
 
     # Notify the new owner of the change
     Account::OwnershipNotification.with(account: self, previous_owner: previous_owner.name).deliver_later(user)
-  rescue
+  rescue StandardError
     false
   end
 
@@ -121,6 +122,6 @@ class Account < ApplicationRecord
 
   # Attributes to sync to the Stripe Customer
   def stripe_attributes(*_args)
-    {address: billing_address&.to_stripe}.compact
+    { address: billing_address&.to_stripe }.compact
   end
 end
