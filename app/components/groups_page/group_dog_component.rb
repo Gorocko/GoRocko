@@ -16,7 +16,9 @@ module GroupsPage
         @upcoming_action_event_display = "No Action Needed"
       else
         @upcoming_action_event_display = "#{upcoming_unfinished_event_record.action_event.title} on
-                                            #{formatted_time_display(upcoming_unfinished_event_record.due_date)}"
+                                            #{formatted_time_display(
+                                              upcoming_unfinished_event_record.action_event.due_date
+                                            )}"
       end
     end
   end
