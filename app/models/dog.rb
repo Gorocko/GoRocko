@@ -33,4 +33,6 @@ class Dog < ApplicationRecord
   acts_as_taggable_on :tags
   acts_as_taggable_tenant :account_id
   has_many :action_event_records, as: :eventable, dependent: :destroy
+
+  validates :name, presence: true
 end

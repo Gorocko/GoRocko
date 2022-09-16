@@ -1,6 +1,8 @@
 <div data-controller="nested-form">
   <div class="mx-auto md:w-2/3 w-full">
     <%= form_with(model: @event_template_collection, class: "space-y-8 divide-y divide-gray-200") do |form| %>
+
+      <%= render ErrorsBadgeComponent.new(errors: @event_template_collection.errors) %>
       <template data-target="nested-form.template">
         <li class="bg-white shadow overflow-hidden px-4 py-4 sm:px-6 sm:rounded-md" data-target="nested-form.formList">
           <%= form.fields_for :event_templates, EventTemplate.new, child_index: 'NEW_RECORD' do |event_template_form| %>

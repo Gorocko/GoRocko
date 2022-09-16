@@ -75,11 +75,22 @@ class ActionEventsController < ApplicationController
 
   def create
     action_event_form = ActionEventForm.new(action_event_params)
-    if action_event_form.save
-      redirect_to(action_event_path(action_event_form.action_event),
-                  success: "Event Successfully Updated!")
-    else
-      redirect_to(action_events_path)
+    respond_to do |format|
+      if action_event_form.save
+        format.html do
+          redirect_to(action_event_path(action_event_form.action_event),
+                      success: "Event Successfully Updated!")
+        end
+      else
+
+        format.html do
+          render ::ActionEvents::ActionEventFormComponent.new(action_event:
+                                                                            action_event_form.action_event,
+                                                              button_disabled: false),
+                 status: :unprocessable_entity
+        end
+        format.json { render(json: action_event_form.errors, status: :unprocessable_entity) }
+      end
     end
   end
 

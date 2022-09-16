@@ -17,4 +17,5 @@ class EventTemplateCollection < ApplicationRecord
   acts_as_tenant :account
   has_many :event_templates, inverse_of: :event_template_collection, dependent: :delete_all
   accepts_nested_attributes_for :event_templates, allow_destroy: true
+  validates :title, presence: true
 end

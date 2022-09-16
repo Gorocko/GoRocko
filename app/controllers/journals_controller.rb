@@ -18,8 +18,8 @@ class JournalsController < ApplicationController
       flash[:success] = "Object successfully created"
       redirect_to(@dog)
     else
+      render(:new, status: :unprocessable_entity)
       flash[:error] = "Something went wrong"
-      render("new")
     end
   end
 
@@ -60,6 +60,6 @@ class JournalsController < ApplicationController
   end
 
   def journal_params
-    params.require(:journal).permit(:title, :notes, :tag_list, photos: [])
+    params.require(:journal).permit(:title, :notes, :tag_list, :created_at, photos: [])
   end
 end

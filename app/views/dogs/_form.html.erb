@@ -5,16 +5,7 @@
         <h3 class="text-lg leading-6 font-medium text-gray-900">Add new dog</h3>
         <p class="mt-1 max-w-2xl text-sm text-gray-500">Please enter dog information here</p>
       </div>
-      <% if dog.errors.any? %>
-        <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
-          <h2><%= pluralize(dog.errors.count, "error") %> prohibited this dog from being saved:</h2>
-          <ul>
-            <% dog.errors.each do |error| %>
-              <li><%= error.full_message %></li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
+      <%= render ErrorsBadgeComponent.new(errors: dog.errors) %>
       <%= render(Forms::TextFieldComponent.new(form: form, label_field: :name, attribute_field: :name)) %>
       <%= render(Forms::TextFieldComponent.new(form: form, label_field: :registered_name, attribute_field: :registered_name)) %>
       <%= render(Forms::TextFieldComponent.new(form: form, label_field: :registration_number, attribute_field: :registration_number)) %>
