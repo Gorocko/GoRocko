@@ -15,3 +15,5 @@ fcm: false
 collect_billing_address: false
 multitenancy:
 - path
+integrations:
+- honeybadger
