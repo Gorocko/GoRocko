@@ -4,6 +4,7 @@
   }) do |form| %>
     <div class="space-y-8 divide-y divide-gray-200 sm:space-y-5">
       <h3 class="text-lg leading-6 font-medium text-gray-900">Add new Reminder</h3>
+      <%= render ErrorsBadgeComponent.new(errors: @action_event.errors) %>
       <%= render(Forms::TextFieldComponent.new(form: form, label_field: :title, attribute_field: :title)) %>
       <%= render(Forms::DatetimeFieldComponent.new(form: form, label_field: :due_date, attribute_field: :due_date)) %>
       <%= render(Forms::TextareaFieldComponent.new(form: form, label_field: :description, attribute_field: :description)) %>

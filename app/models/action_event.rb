@@ -27,6 +27,8 @@ class ActionEvent < ApplicationRecord
   accepts_nested_attributes_for :action_event_records
   belongs_to :account
 
+  validates :title, :due_date, presence: true
+
   def record_changes
     action_event_records.each(&:record_changes)
   end

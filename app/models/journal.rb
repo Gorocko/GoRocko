@@ -30,4 +30,6 @@ class Journal < ApplicationRecord
   has_many_attached :photos
   acts_as_tenant :account
   acts_as_taggable_tenant :account_id
+
+  validates :title, presence: true
 end

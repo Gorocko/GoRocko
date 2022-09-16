@@ -5,6 +5,7 @@
         <h3 class="text-lg leading-6 font-medium text-gray-900">Add New Journal</h3>
         <p class="mt-1 max-w-2xl text-sm text-gray-500">You are adding journal for <%= link_to @dog.name, @dog %></p>
       </div>
+      <%= render ErrorsBadgeComponent.new(errors: @journal.errors) %>
       <%= render(Forms::TextFieldComponent.new(form: form, label_field: :title, attribute_field: :title)) %>
       <%= render(Forms::TextareaFieldComponent.new(form: form, label_field: :notes, attribute_field: :notes)) %>
       <%= render(Forms::DatetimeFieldComponent.new(form: form, label_field: :created_at, attribute_field: :created_at)) %>

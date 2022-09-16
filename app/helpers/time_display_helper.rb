@@ -2,6 +2,6 @@
 
 module TimeDisplayHelper
   def formatted_time_display(time)
-    time.strftime("%d/%m/%Y %H:%M:%S %Z")
+    time.strftime("%m/%d/%Y %H:%M:%S %Z")
   end
 end
