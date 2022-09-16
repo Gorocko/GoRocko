@@ -1,3 +1,4 @@
+gem 'honeybadger'
 gem 'sidekiq'
 
 group :development do
