@@ -25,7 +25,6 @@ class ActionEvent < ApplicationRecord
   has_many :action_event_records, inverse_of: :action_event, dependent: :destroy
   has_many :dogs, through: :action_event_records, source: :eventable, source_type: "Dog"
   accepts_nested_attributes_for :action_event_records
-  belongs_to :account
 
   validates :title, :due_date, presence: true
 

@@ -12,8 +12,7 @@ class JournalsController < ApplicationController
 
   def create
     @journal = Journal.new(journal_params)
-    @journal.account_id = current_user.id
-    @journal.update(loggable: @dog)
+    @journal.update(loggable: @dog, author: current_user)
     if @journal.save
       flash[:success] = "Object successfully created"
       redirect_to(@dog)

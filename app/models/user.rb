@@ -57,12 +57,12 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable, andle :trackable
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, :confirmable,
-    :omniauthable
+         :omniauthable
 
   has_noticed_notifications
   has_person_name
 
-  pg_search_scope :search_by_full_name, against: %i[first_name last_name], using: {tsearch: {prefix: true}}
+  pg_search_scope :search_by_full_name, against: %i[first_name last_name], using: { tsearch: { prefix: true } }
 
   # ActiveStorage Associations
   has_one_attached :avatar
@@ -72,6 +72,7 @@ class User < ApplicationRecord
   has_many :connected_accounts, dependent: :destroy
   has_many :notifications, as: :recipient, dependent: :destroy
   has_many :notification_tokens, dependent: :destroy
+  has_many :journals, foreign_key: :author_id, dependent: :destroy
 
   # We don't need users to confirm their email address on create,
   # just when they change it
