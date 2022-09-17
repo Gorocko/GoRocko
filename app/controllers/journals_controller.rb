@@ -8,6 +8,7 @@ class JournalsController < ApplicationController
 
   def new
     @journal = Journal.new
+    @journal.created_at = Time.zone.now
   end
 
   def create
