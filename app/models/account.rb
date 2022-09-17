@@ -28,12 +28,12 @@ class Account < ApplicationRecord
   RESERVED_SUBDOMAINS = %w[app help support].freeze
 
   belongs_to :owner, class_name: "User"
+  has_many :action_events, dependent: :destroy
   has_many :account_invitations, dependent: :destroy
   has_many :account_users, dependent: :destroy
   has_many :notifications, dependent: :destroy
   has_many :users, through: :account_users
   has_many :addresses, as: :addressable, dependent: :destroy
-  has_many :action_events, dependent: :destroy
   has_one :billing_address, -> { where(address_type: :billing) }, class_name: "Address", as: :addressable
   has_one :shipping_address, -> { where(address_type: :shipping) }, class_name: "Address", as: :addressable
 
