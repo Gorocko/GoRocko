@@ -29,6 +29,7 @@ class Dog < ApplicationRecord
   belongs_to :group
 
   has_one_attached :avatar
+  has_rich_text :notes
   acts_as_tenant :account
   acts_as_taggable_on :tags
   acts_as_taggable_tenant :account_id
