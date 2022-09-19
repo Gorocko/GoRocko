@@ -3,7 +3,7 @@
 class GroupsController < ApplicationController
   before_action :set_group, only: %i[show edit update destroy]
   def index
-    @groups = Group.all
+    @groups = Group.order(position: :asc)
   end
 
   def edit; end
@@ -30,6 +30,7 @@ class GroupsController < ApplicationController
 
     respond_to do |format|
       if @group.save
+        @group.move_to_top
         format.html { redirect_to(groups_path, notice: "Group was successfully created.") }
         format.json { render(:show, status: :created, location: @dog) }
       else
