@@ -1,5 +1,20 @@
-<tr class="border-t border-gray-200">
-  <% groups.each do |group| %>
-    <%= render partial: "group", locals: {group: group} %>
-  <% end %>
-</tr>
+
+<!--<tr class="border-t border-gray-200">-->
+  <%# groups.each do |group| %>
+      <%#= render partial: "group", locals: {group: group} %>
+  <%# end %>
+<!--</tr>-->
+<!-- This example requires Tailwind CSS v2.0+ -->
+
+<div class="overflow-hidden bg-white shadow sm:rounded-md">
+  <ul role="list" class="divide-y divide-gray-200"
+      data-controller="sortable"
+      data-sortable-animation-value="150"
+      data-sortable-response-kind-value="json"
+      data-sortable-resource-name-value="group"
+  >
+    <% groups.order(:position).each do |group|%>
+      <%= render GroupViewComponent.new(group: group) %>
+    <% end %>
+  </ul>
+</div>

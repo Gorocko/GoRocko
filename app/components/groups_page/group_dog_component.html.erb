@@ -1,15 +1,51 @@
-<tr class="border-t border-gray-300">
-  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-    <%= link_to @dog.name, @dog %>
-  </td>
-  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-    <% if @upcoming_action_event.nil? %>
-    <%= @upcoming_action_event_display %>
-      <% else %>
-      <%= link_to @upcoming_action_event_display, @upcoming_action_event %>
-    <% end %>
-  </td>
-  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-    <%= render TagsComponent.new(tags:@dog.tag_list) %>
-  </td>
-</tr>
+<!-- This example requires Tailwind CSS v2.0+ -->
+<div class="overflow-hidden bg-white shadow sm:rounded-md">
+  <ul role="list" class="divide-y divide-gray-200">
+    <li>
+      <div href="#" class="block hover:bg-gray-20">
+        <div class="px-4 py-4 sm:px-6">
+          <div class="flex items-center justify-between">
+            <p class="truncate text-m font-medium text-indigo-600">  <%= link_to @dog.name, @dog %></p>
+            <div class="ml-2 flex flex-shrink-0">
+              <% if @due_events_24_hours.length == 0 %>
+                <div class="rounded-full py-1 px-4 bg-secondary-500 text-xs inline-block text-white font-bold leading-normal uppercase mr-2">
+                  No Due Action item in the next 24 hours
+                </div>
+                <% else %>
+                <div class="rounded-full py-1 px-4 bg-orange-400 text-sm inline-block text-white font-bold leading-normal uppercase mr-2">
+                  <%= @due_events_24_hours.length %> Action item due  in the next 24 hours
+                </div>
+              <% end %>
+            </div>
+          </div>
+          <div class="mt-2 sm:flex sm:justify-between">
+            <div class="sm:flex">
+              <p class="flex items-center text-sm rounded-full py-1 px-2 bg-transparent border-2 border-tertiary-500 text-xs inline-block text-tertiary-500 font-bold leading-normal  mr-2">
+                SEX: <%= if @dog.sex.present?
+                           @dog.sex
+                         else
+                           "missing"
+                         end
+              %>
+              </p>
+              <p class="mt-2 flex items-center text-sm sm:mt-0 sm:ml-6 rounded-full py-1 px-2 bg-transparent border-2 border-tertiary-500 text-xs inline-block text-tertiary-500 font-bold leading-normal  mr-2">
+                <% if @upcoming_action_event.nil? %>
+                  <%= @upcoming_action_event_display %>
+                <% else %>
+                  <%= link_to @upcoming_action_event_display, @upcoming_action_event %>
+                <% end %>
+                <!--                <time datetime="2020-01-07"> January 7, 2020</time>-->
+              </p>
+              <% if @dog.tag_list.present? %>
+                <p class="mt-2 flex items-center text-sm sm:mt-0 sm:ml-6 rounded-full py-1 px-2 bg-transparent border-2 border-tertiary-500 text-xs inline-block text-tertiary-500 font-bold leading-normal  mr-2 ">
+                  <!-- Heroicon name: mini/map-pin -->
+                  <%= render TagsComponent.new(tags: @dog.tag_list) %>
+                </p>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
