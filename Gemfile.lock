@@ -134,6 +134,8 @@ GEM
       tzinfo (~> 2.0)
     acts-as-taggable-on (9.0.1)
       activerecord (>= 6.0, < 7.1)
+    acts_as_list (1.0.4)
+      activerecord (>= 4.2)
     acts_as_tenant (0.5.1)
       rails (>= 5.2)
       request_store (>= 1.0.5)
@@ -548,6 +550,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts-as-taggable-on (~> 9.0)
+  acts_as_list
   acts_as_tenant (~> 0.5.1)
   administrate!
   administrate-field-active_storage (~> 0.4.1)

@@ -1,23 +1,29 @@
 # frozen_string_literal: true
 
 class GroupsController < ApplicationController
-  before_action :set_group, only: [:show, :edit, :update, :destroy]
+  before_action :set_group, only: %i[show edit update destroy]
   def index
     @groups = Group.all
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
+    @group.insert_at(group_params[:position].to_i) if group_params[:position].present?
+    respond_to do |format|
+      if @group.save
+        format.json { render(json: format) }
+      else
+        format.json { render(json: @dog.errors, status: :unprocessable_entity) }
+      end
+    end
   end
 
   def new
     @group = Group.new
   end
 
-  def show
-  end
+  def show; end
 
   def create
     @group = Group.new(group_params)
@@ -64,6 +70,6 @@ class GroupsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def group_params
-    params.require(:group).permit(:name)
+    params.require(:group).permit(:name, :position)
   end
 end

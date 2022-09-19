@@ -92,6 +92,7 @@ gem "yaaf"
 
 gem "view_component"
 
+gem 'acts_as_list'
 gem "acts-as-taggable-on", "~> 9.0"
 gem "acts_as_tenant", "~> 0.5.1"
 gem "administrate", github: "excid3/administrate", branch: "jumpstart" # '~> 0.10.0'

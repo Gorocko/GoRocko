@@ -19,3 +19,6 @@ application.register('slideover', Slideover)
 
 import Flatpickr from 'stimulus-flatpickr'
 application.register('flatpickr', Flatpickr)
+
+import Sortable from 'stimulus-sortable'
+application.register('sortable', Sortable)

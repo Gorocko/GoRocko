@@ -1,0 +1,36 @@
+<li data-controller="dropdown" data-dropdown-open-value="true" data-sortable-update-url="<%= group_path(@group) %>">
+  <div class="block bg-gray-100 hover:bg-gray-150" data-action="click->dropdown#toggle"  role="button" data-dropdown-target="button" >
+    <div class="flex items-center px-4 py-4 sm:px-6">
+      <div class="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
+        <div class="truncate">
+          <div class="flex text-m">
+            <p class="truncate font-medium text-indigo-600"><%= @group.name.capitalize %></p>
+<!--            <p class="ml-1 flex-shrink-0 font-normal text-gray-500">in Engineering</p>-->
+          </div>
+          <div class="mt-2 flex">
+            <div class="flex items-center text-sm text-gray-500">
+              <p>
+                Number of Dogs: <%= @dogs.length %>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="mt-4 flex-shrink-0 sm:mt-0 sm:ml-5">
+          <div class="flex -space-x-1 overflow-hidden">
+            <%# @dogs.each do |dog| %>
+              <%#= image_tag dog.avatar, class: "inline-block h-6 w-6 rounded-full ring-2 ring-white" %>
+            <%# end %>
+          </div>
+        </div>
+      </div>
+      <div class="ml-5 flex-shrink-0">
+        <%= render_svg "icons/menu", styles: "fill-current icon-sm text-gray-600 inline-block" %>
+      </div>
+    </div>
+  </div>
+  <div data-dropdown-target="menu" >
+    <% @dogs.each do |dog| %>
+      <%= render GroupsPage::GroupDogComponent.new(dog: dog) %>
+    <% end %>
+  </div>
+</li>
