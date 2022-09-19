@@ -28,7 +28,7 @@
                          end
               %>
               </p>
-              <p class="mt-2 flex items-center text-sm sm:mt-0 sm:ml-6 rounded-full py-1 px-2 bg-transparent border-2 border-tertiary-500 text-xs inline-block text-tertiary-500 font-bold leading-normal  mr-2">
+              <p class="mt-2 flex items-center text-sm sm:mt-0 sm:ml-6 rounded-full py-1 px-2 bg-transparent border-2 border-tertiary-500 text-xs inline-block text-tertiary-500 font-bold leading-normal mr-2">
                 <% if @upcoming_action_event.nil? %>
                   <%= @upcoming_action_event_display %>
                 <% else %>
@@ -37,10 +37,10 @@
                 <!--                <time datetime="2020-01-07"> January 7, 2020</time>-->
               </p>
               <% if @dog.tag_list.present? %>
-                <p class="mt-2 flex items-center text-sm sm:mt-0 sm:ml-6 rounded-full py-1 px-2 bg-transparent border-2 border-tertiary-500 text-xs inline-block text-tertiary-500 font-bold leading-normal  mr-2 ">
-                  <!-- Heroicon name: mini/map-pin -->
-                  <%= render TagsComponent.new(tags: @dog.tag_list) %>
-                </p>
+                  <p class="mt-2 flex items-center text-sm sm:mt-0 sm:ml-6 rounded-full py-1 px-2 bg-transparent border-2 border-tertiary-500 text-xs inline-block text-tertiary-500 font-bold leading-normal mr-2">
+                    <%= @dog.tag_list %>
+                  </p>
+                <%#= render TagsComponent.new(tags: @dog.tag_list) %>
               <% end %>
             </div>
           </div>

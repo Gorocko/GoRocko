@@ -11,9 +11,8 @@
       data-controller="sortable"
       data-sortable-animation-value="150"
       data-sortable-response-kind-value="json"
-      data-sortable-resource-name-value="group"
-  >
-    <% groups.order(:position).each do |group|%>
+      data-sortable-resource-name-value="group">
+    <% groups.order(:position).each do |group| %>
       <%= render GroupViewComponent.new(group: group) %>
     <% end %>
   </ul>
