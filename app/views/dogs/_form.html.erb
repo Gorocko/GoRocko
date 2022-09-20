@@ -17,14 +17,17 @@
           </div>
         </div>
       </div>
-      <div class="space-y-6 sm:space-y-5">
-        <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
-          <%= form.label :sex, class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
-          <div class="mt-1 sm:mt-0 sm:col-span-2">
-            <%= form.select :sex, ["Male", "Female"], {}, { class: "mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md" } %>
-          </div>
-        </div>
-      </div>
+      <%= render Forms::SelectComponent.new(form: form,
+        label_field: :sex, attribute_field: :sex, data_controller: '', options: ["Male", "Female"]
+      ) %>
+      <% color_options = ActsAsTaggableOn::Tag.for_context(:colors).for_tenant(current_account.id) %>
+      <%= render Forms::SelectComponent.new(form: form,
+                                            label_field: :color, attribute_field: :color_list, data_controller: 'ts--drop-down-select', options: color_options
+      ) %>
+      <% pattern_options = ActsAsTaggableOn::Tag.for_context(:patterns).for_tenant(current_account.id) %>
+      <%= render Forms::SelectComponent.new(form: form,
+                                            label_field: :pattern, attribute_field: :pattern_list, data_controller: 'ts--drop-down-select', options: pattern_options
+      ) %>
       <div class="space-y-6 sm:space-y-5">
         <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
           <%= form.label :avatar, class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
