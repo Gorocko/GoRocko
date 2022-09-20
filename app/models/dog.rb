@@ -32,6 +32,7 @@ class Dog < ApplicationRecord
   has_rich_text :notes
   acts_as_tenant :account
   acts_as_taggable_on :tags
+  acts_as_taggable_on :colors, :patterns
   acts_as_taggable_tenant :account_id
   has_many :action_event_records, as: :eventable, dependent: :destroy
 
