@@ -13,6 +13,7 @@ class GroupsController < ApplicationController
     respond_to do |format|
       if @group.save
         format.json { render(json: format) }
+        format.turbo_stream { render(:update, locals: { groups: Group.order(position: :asc) }) }
       else
         format.json { render(json: @dog.errors, status: :unprocessable_entity) }
       end

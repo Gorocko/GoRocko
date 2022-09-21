@@ -27,6 +27,7 @@
     "postcss": "^8.4.8",
     "postcss-import": "^14.0.2",
     "slim-select": "^1.27.0",
+    "sortablejs": "^1.15.0",
     "stimulus-flatpickr": "^3.0.0-0",
     "stimulus-sortable": "^3.2.0",
     "stimulus-use": "^0.50.0",
