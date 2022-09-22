@@ -28,6 +28,7 @@
     "postcss-import": "^14.0.2",
     "slim-select": "^1.27.0",
     "sortablejs": "^1.15.0",
+    "stimulus-checkbox-select-all": "^5.1.0",
     "stimulus-flatpickr": "^3.0.0-0",
     "stimulus-sortable": "^3.2.0",
     "stimulus-use": "^0.50.0",

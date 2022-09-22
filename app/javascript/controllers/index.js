@@ -11,6 +11,7 @@ controllers.forEach((controller) => {
 })
 
 import { Dropdown, Modal, Tabs, Popover, Toggle, Slideover } from "tailwindcss-stimulus-components"
+import CheckboxSelectAll from 'stimulus-checkbox-select-all'
 application.register('dropdown', Dropdown)
 application.register('modal', Modal)
 application.register('tabs', Tabs)
@@ -23,3 +24,4 @@ application.register('flatpickr', Flatpickr)
 
 import Sortable from 'stimulus-sortable'
 application.register('sortable', Sortable)
+application.register('checkbox-select-all', CheckboxSelectAll)
