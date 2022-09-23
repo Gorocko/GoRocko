@@ -1,5 +1,11 @@
 <div class="border-t border-gray-200">
   <dl>
+    <% if dog.avatar.attached? %>
+      <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">Avatar</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"> <%= image_tag avatar_url_for(dog, size: 100), class: "rounded-full" %></dd>
+      </div>
+    <% end %>
     <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
       <dt class="text-sm font-medium text-gray-500"> Name</dt>
       <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><%= dog.name %></dd>
@@ -32,17 +38,23 @@
       <dt class="text-sm font-medium text-gray-500">Notes</dt>
       <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"> <%= dog.notes %></dd>
     </div>
+
     <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
       <dt class="text-sm font-medium text-gray-500">Tags</dt>
       <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
         <%= render TagsComponent.new(tags:dog.tag_list) %>
       </dd>
     </div>
-    <% if dog.avatar.present? %>
-      <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-        <dt class="text-sm font-medium text-gray-500">Avatar</dt>
-        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"> <%= image_tag dog.avatar %></dd>
-      </div>
-    <% end %>
+    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+      <dt class="text-sm font-medium text-gray-500">Photos</dt>
+      <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+        <ul role="list" class="border border-gray-200 rounded-md divide-y divide-gray-200">
+          <% dog.photos.each do |photo | %>
+            <%= render Attachment::PhotoComponent.new(photo:photo) %>
+          <% end %>
+        </ul>
+      </dd>
+    </div>
+
   </dl>
 </div>

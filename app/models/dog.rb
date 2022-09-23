@@ -29,6 +29,7 @@ class Dog < ApplicationRecord
   belongs_to :group
 
   has_one_attached :avatar
+  has_many_attached :photos
   has_rich_text :notes
   acts_as_tenant :account
   acts_as_taggable_on :tags
@@ -37,4 +38,8 @@ class Dog < ApplicationRecord
   has_many :action_event_records, as: :eventable, dependent: :destroy
 
   validates :name, presence: true
+
+  def append_photos=(attachables)
+    photos.attach(attachables)
+  end
 end

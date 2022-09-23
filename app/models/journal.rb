@@ -32,4 +32,8 @@ class Journal < ApplicationRecord
   acts_as_taggable_tenant :account_id
 
   validates :title, presence: true
+
+  def append_photos=(attachables)
+    photos.attach(attachables)
+  end
 end
