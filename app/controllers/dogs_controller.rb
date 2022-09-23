@@ -2,6 +2,7 @@
 
 class DogsController < ApplicationController
   include TimeDisplayHelper
+  include AvatarHelper
   before_action :set_dog, only: %i[show edit update destroy]
 
   # GET /dogs or /dogs.json
