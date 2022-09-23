@@ -60,6 +60,6 @@ class JournalsController < ApplicationController
   end
 
   def journal_params
-    params.require(:journal).permit(:title, :notes, :tag_list, :created_at, photos: [])
+    params.require(:journal).permit(:title, :notes, :tag_list, :created_at, append_photos: [])
   end
 end
