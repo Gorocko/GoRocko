@@ -28,6 +28,7 @@ class Journal < ApplicationRecord
   belongs_to :loggable, polymorphic: true
   belongs_to :author, class_name: "User"
   has_many_attached :photos
+  has_many_attached :files
   acts_as_tenant :account
   acts_as_taggable_tenant :account_id
 
@@ -35,5 +36,9 @@ class Journal < ApplicationRecord
 
   def append_photos=(attachables)
     photos.attach(attachables)
+  end
+
+  def append_files=(attachables)
+    files.attach(attachables)
   end
 end
