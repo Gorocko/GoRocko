@@ -75,6 +75,6 @@ class DogsController < ApplicationController
     params.require(:dog).permit(:name, :registered_name,
                                 :registration_number,
                                 :birthday, :notes, :sex, :color_list, :pattern_list,
-                                :group_id, :avatar, :tag_list, append_photos: [])
+                                :group_id, :avatar, :tag_list, append_photos: [], append_files: [])
   end
 end

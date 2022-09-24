@@ -30,6 +30,7 @@ class Dog < ApplicationRecord
 
   has_one_attached :avatar
   has_many_attached :photos
+  has_many_attached :files
   has_rich_text :notes
   acts_as_tenant :account
   acts_as_taggable_on :tags
@@ -41,5 +42,9 @@ class Dog < ApplicationRecord
 
   def append_photos=(attachables)
     photos.attach(attachables)
+  end
+
+  def append_files=(attachables)
+    files.attach(attachables)
   end
 end

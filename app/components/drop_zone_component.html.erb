@@ -1,23 +1,21 @@
-<div class="space-y-6 sm:space-y-5">
-  <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
-    <label for="cover-photo" class="block text-sm font-medium text-gray-700"> <%= @label_title %> </label>
-    <div class="sm:col-span-6">
-      <ul role="list" class="border border-gray-200 rounded-md divide-y divide-gray-200">
-        <%= list_area %>
-      </ul>
-      <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
-        <div class="space-y-1 text-center">
-          <%= svg_icon %>
-          <div class="flex text-sm text-gray-600">
-            <label for="file-upload" class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
-              <%= @form.file_field @file_field, multiple: true, accept: @accept_format,
-                                  id: "file-upload",
-                                  class:"file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-gray-50 file:text-gray-700 hover:file:bg-gray-100" %>
-              <input id="file-upload" name="file-upload" type="file" class="sr-only">
-            </label>
-          </div>
-          <p class="text-xs text-gray-500"><%= @hint_text %></p>
+<div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+  <label for="cover-photo" class="block text-sm font-medium text-gray-700"> <%= @label_title %> </label>
+  <div class="mt-1 sm:col-span-2 sm:mt-0">
+    <ul role="list" class="border border-gray-200 rounded-md divide-y divide-gray-200">
+      <%= list_area %>
+    </ul>
+    <div class="flex max-w-lg justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
+      <div class="space-y-1 text-center">
+        <%= svg_icon %>
+        <div class="flex text-sm text-gray-600">
+          <label for="file-upload" class="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:text-indigo-500">
+            <input id="file-upload" name="file-upload" type="file" class="sr-only">
+          </label>
+          <%= @form.file_field @file_field, multiple: true, accept: @accept_format,
+                               id: "file-upload",
+                               class:"file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-gray-50 file:text-gray-700 hover:file:bg-gray-100" %>
         </div>
+        <p class="text-xs text-gray-500"><%= @hint_text %></p>
       </div>
     </div>
   </div>
