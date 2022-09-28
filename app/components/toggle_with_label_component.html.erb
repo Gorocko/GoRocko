@@ -1,10 +1,9 @@
 <div class="space-y-6 sm:space-y-5"
-     data-controller="toggle-occurence-button"
-     data-toggle-occurence-button-button-disabled-class="bg-gray-200"
-     data-toggle-occurence-button-button-enabled-class="bg-indigo-600"
-     data-toggle-occurence-button-span-disabled-class="translate-x-0"
-     data-toggle-occurence-button-span-enabled-class="translate-x-5"
->
+     data-controller="toggle-occurrence-button toggle"
+     data-toggle-occurrence-button-button-disabled-class="bg-gray-200"
+     data-toggle-occurrence-button-button-enabled-class="bg-indigo-600"
+     data-toggle-occurrence-button-span-disabled-class="translate-x-0"
+     data-toggle-occurrence-button-span-enabled-class="translate-x-5">
   <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
     <div class="flex items-center justify-between">
   <span class="flex-grow flex flex-col">
@@ -13,19 +12,22 @@
   </span>
     </div>
     <!-- Enabled: "bg-indigo-600", Not Enabled: "bg-gray-200" -->
+    <%= @form.hidden_field :recurrent_event,  value: false, data:{
+      toggle_occurrence_button_target: "recurrentEventField"
+    } %>
     <button type="button"
-            data-toggle-occurence-button-target="button"
-            data-action="click->toggle-occurence-button#toggle"
+            data-toggle-occurrence-button-target="button"
+            data-action="click->toggle-occurrence-button#toggle click->toggle#toggle"
             class="bg-gray-200 relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" role="switch" aria-checked="false" aria-labelledby="availability-label" aria-describedby="availability-description">
       <!-- Enabled: "translate-x-5", Not Enabled: "translate-x-0" -->
       <span aria-hidden="true"
-            data-toggle-occurence-button-target="span"
+            data-toggle-occurrence-button-target="span"
             class="translate-x-0 pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200">
       </span>
     </button>
   </div>
 
-  <%#= content_tag(:div, data: {toggle_target: }) %>
-  <%= render OccurrenceComponent.new %>
+  <%= content_tag(:div, data: {toggle_target: "toggleable"}, class: "hidden") do %>
+  <%= render OccurrenceComponent.new(form: @form) %>
+  <% end %>
 </div>
-

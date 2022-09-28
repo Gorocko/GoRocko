@@ -37,8 +37,6 @@ class ActionEventsController < ApplicationController
         format.json { render(json: action_event_form.errors, status: :unprocessable_entity) }
       end
     end
-
-    ActionEventReminderJob.perform_async(current_user.id, @action_event.id)
   end
 
   def take_action

@@ -7,7 +7,9 @@
       <%= render ErrorsBadgeComponent.new(errors: @action_event.errors) %>
       <%= render(Forms::TextFieldComponent.new(form: form, label_field: :title, attribute_field: :title)) %>
       <%= render(Forms::DatetimeFieldComponent.new(form: form, label_field: :due_date, attribute_field: :due_date)) %>
-      <%= render(ToggleWithLabelComponent.new(title: "Recurrent Event", subtitle: "")) %>
+      <%= form.fields_for :occurrence_schedule do |occurrence_schedule_form| %>
+        <%= render(ToggleWithLabelComponent.new(title: "Recurrent Event", subtitle: "", form: occurrence_schedule_form)) %>
+        <% end %>
       <%= render(Forms::TextareaFieldComponent.new(form: form, label_field: :description, attribute_field: :description)) %>
       <%= render(Forms::CollectionCheckBoxesFieldComponent.new(form: form,
                                                                collections: Dog.order(:name),
