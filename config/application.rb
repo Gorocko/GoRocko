@@ -43,5 +43,7 @@ module JumpstartApp
     # libvips is up to 10x faster and consumes 1/10th the memory of imagemagick
     # If you need to use imagemagick, uncomment this to switch
     config.active_storage.variant_processor = :mini_magick
+
+    config.active_record.use_yaml_unsafe_load = true
   end
 end

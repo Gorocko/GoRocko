@@ -72,6 +72,7 @@ class ActionEventsController < ApplicationController
   end
 
   def create
+    s
     action_event_form = ActionEventForm.new(action_event_params)
     respond_to do |format|
       if action_event_form.save
@@ -94,7 +95,10 @@ class ActionEventsController < ApplicationController
 
   def action_event_params
     params.require(:action_event).permit(:title, :due_date, :description, :tag_list,
-                                         action_event_records: { eventable_ids: [] })
+                                         action_event_records: {
+                                           eventable_ids: []
+                                         },
+                                         occurrence_schedule: {})
   end
 
   def take_action_params

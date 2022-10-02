@@ -126,6 +126,7 @@ gem "rubocop-rails", require: false
 gem "ruby-oembed", "~> 0.16.0", require: "oembed"
 gem "whenever", "~> 1.0", require: false
 # gem "sidekiq-cron"
+gem 'ice_cube'
 
 # Jumpstart manages a few gems for us, so install them from the extra Gemfile
 eval_gemfile "config/jumpstart/Gemfile" if File.exist?("config/jumpstart/Gemfile")

@@ -4,20 +4,22 @@
 #
 # Table name: action_events
 #
-#  id          :bigint           not null, primary key
-#  description :string
-#  due_date    :datetime         not null
-#  status      :integer          default("Not Started"), not null
-#  title       :string           not null
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  account_id  :integer          default(0), not null
+#  id                 :bigint           not null, primary key
+#  description        :string
+#  due_date           :datetime         not null
+#  recurring_schedule :text
+#  status             :integer          default("Not Started"), not null
+#  title              :string           not null
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  account_id         :integer          default(0), not null
 #
 # Indexes
 #
 #  index_action_events_on_status  (status)
 #
 class ActionEvent < ApplicationRecord
+  serialize :recurring_schedule
   acts_as_taggable_on :tags
   include HasStatus
   acts_as_tenant :account
