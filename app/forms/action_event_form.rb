@@ -28,11 +28,11 @@ class ActionEventForm < YAAF::Form
     action_event_to_update.due_date = due_date
     action_event_to_update.tag_list = tag_list
     recurring_schedule_rule = recurring_schedule_rule(occurrence_schedule)
-    if recurring_schedule_rule(occurrence_schedule).present?
-      action_event_to_update.recurring_schedule = IceCube::Schedule.new(start_time = Time.zone.parse(due_date)) do |s|
-        s.add_recurrence_rule(recurring_schedule_rule)
-      end
-    end
+    action_event_to_update.recurring_schedule = if recurring_schedule_rule(occurrence_schedule).present?
+                                                  IceCube::Schedule.new(start_time = Time.zone.parse(due_date)) do |s|
+                                                    s.add_recurrence_rule(recurring_schedule_rule)
+                                                  end
+                                                end
 
     update_action_event_selected_dogs(action_event: action_event_to_update,
                                       new_selected_eventable_ids: action_event_records["eventable_ids"])
