@@ -42,6 +42,10 @@ class ActionEvent < ApplicationRecord
     update_status_to(status: 2)
   end
 
+  def recurrent?
+    recurring_schedule.present?
+  end
+
   def update_status_to(status: Integer)
     action_event_records.each do |event_record|
       event_record.update_status_to(status:)
