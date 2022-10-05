@@ -31,13 +31,13 @@ class ActionEventRecord < ApplicationRecord
   belongs_to :action_event
   has_many_attached :photos
 
-  def record_changes
+  def record_changes(author)
     log_info = "Title: #{action_event.title} \n
                 Description:  #{action_event.description} \n
                 Reminder due date: #{due_date} \n
                 Notes: #{content} \n
     "
-    journal = Journal.create!(notes: log_info, loggable: eventable, author: current_user)
+    journal = Journal.create!(title: action_event.title.to_s, notes: log_info, loggable: eventable, author:)
     journal.photos.attach(photos.map(&:blob))
   end
 

@@ -28,8 +28,10 @@ class ActionEvent < ApplicationRecord
 
   validates :title, :due_date, presence: true
 
-  def record_changes
-    action_event_records.each(&:record_changes)
+  def record_changes(author)
+    action_event_records.each do |action_event_record|
+      action_event_record.record_changes(author)
+    end
   end
 
   def set_finished_status
