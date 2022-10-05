@@ -37,7 +37,7 @@ class ActionEventRecord < ApplicationRecord
                 Reminder due date: #{due_date} \n
                 Notes: #{content} \n
     "
-    journal = Journal.create!(notes: log_info, loggable: eventable)
+    journal = Journal.create!(notes: log_info, loggable: eventable, author: current_user)
     journal.photos.attach(photos.map(&:blob))
   end
 

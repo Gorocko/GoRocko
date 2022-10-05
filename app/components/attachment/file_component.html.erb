@@ -8,7 +8,11 @@
         </svg>
         <span class="ml-2 flex-1 w-0 truncate">
           <%= link_to @file do %>
-                    <%= image_tag  @file.preview(resize_to_fit: [400, nil]) %>
+            <% if @file.previewable? %>
+              <%= image_tag  @file.preview(resize_to_fit: [400, nil]) %>
+            <% else %>
+              <span class="attachment__name"><%= @file.filename %></span>
+              <% end %>
           <% end %>
         </span>
         <%= link_to "Delete",
