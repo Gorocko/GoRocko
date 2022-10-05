@@ -51,7 +51,7 @@ class ActionEventsController < ApplicationController
       if @action_event.update(take_action_params)
         if button_text_param[:button_text] == @finish_task_button_text
           @action_event.set_finished_status
-          @action_event.record_changes
+          @action_event.record_changes(current_user)
           respond_to do |format|
             format.turbo_stream { redirect_to(action_events_path) }
             format.html { redirect_to(action_events_path) }
