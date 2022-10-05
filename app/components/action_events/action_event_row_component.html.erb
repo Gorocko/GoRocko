@@ -1,6 +1,6 @@
 <tr>
   <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
-    <%= link_to @action_event.title, @action_event %></td>
+    <%= link_to @action_event.title, action_event_path(@action_event) %></td>
   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
     <!--    <div class="relative inline-block text-left" data-controller="dropdown">-->
     <!--      <div>-->
@@ -31,5 +31,9 @@
     <%= render TagsComponent.new(tags: @action_event.tag_list) %>
   </td>
   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= render StatusBadgeComponent.new(status: @action_event.status) %></td>
+  <% if @actionable_event %>
   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= render(PrimaryButtonWithLinkComponent.new(button_text: "take action", button_link: take_action_action_event_url(@action_event), button_size: 2)) %></td>
+  <%else %>
+    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= render(PrimaryButtonWithLinkComponent.new(button_text: "No action", button_link: '', button_size: 2)) %></td>
+<% end %>
 </tr>

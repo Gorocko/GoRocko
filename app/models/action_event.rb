@@ -16,7 +16,8 @@
 #
 # Indexes
 #
-#  index_action_events_on_status  (status)
+#  index_action_events_on_due_date  (due_date)
+#  index_action_events_on_status    (status)
 #
 class ActionEvent < ApplicationRecord
   serialize :recurring_schedule
@@ -40,6 +41,31 @@ class ActionEvent < ApplicationRecord
 
   def set_in_progress_status
     update_status_to(status: 2)
+  end
+
+  def schedule
+    if recurrent?
+      # recurrent schedule
+      IceCube::Schedule.from_hash(recurring_schedule)
+    else
+      # one time schedule
+      IceCube::Schedule.new(due_date)
+    end
+  end
+
+  def all_future_events(end_time)
+    schedule.occurrences_between(due_date, end_time).flat_map do |occurrence_time|
+      if occurrence_time == due_date
+        self
+      else
+        temp = deep_clone include: [:dogs] do |original, kopy|
+          kopy.tag_list = original.tag_list
+        end
+        temp.id = id
+        temp.due_date = occurrence_time
+        temp
+      end
+    end
   end
 
   def recurrent?

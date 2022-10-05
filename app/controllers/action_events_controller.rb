@@ -4,7 +4,7 @@ class ActionEventsController < ApplicationController
   include ActionEventsHelper
   before_action :set_action_event, only: %i[show destroy edit take_action update]
   def index
-    @action_events = ActionEvent.all
+    @action_events = action_events_in_order_until(Time.zone.today + 30.days)
   end
 
   def new
