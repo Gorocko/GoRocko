@@ -20,6 +20,13 @@ class ActionEventForm < YAAF::Form
         eventable_ids: action_event_records["eventable_ids"], due_date: Time.zone.parse(due_date)
       )
     )
+    recurring_schedule_rule = recurring_schedule_rule(occurrence_schedule)
+    @action_event.recurring_schedule = if recurring_schedule_rule(occurrence_schedule).present?
+                                         IceCube::Schedule.new(start_time = Time.zone.parse(due_date)) do |s|
+                                           s.add_recurrence_rule(recurring_schedule_rule)
+                                         end
+                                       end
+    @action_event
   end
 
   def update_reminder(action_event_to_update:)
