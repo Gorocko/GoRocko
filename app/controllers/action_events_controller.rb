@@ -4,7 +4,7 @@ class ActionEventsController < ApplicationController
   include ActionEventsHelper
   before_action :set_action_event, only: %i[show destroy edit take_action update]
   def index
-    @action_events = action_events_in_order_until(Time.zone.today + 30.days)
+    @action_events = action_events_in_order_until(Time.zone.now + 30.days)
   end
 
   def new
@@ -50,8 +50,7 @@ class ActionEventsController < ApplicationController
     if request.method == "POST"
       if @action_event.update(take_action_params)
         if button_text_param[:button_text] == @finish_task_button_text
-          @action_event.set_finished_status
-          @action_event.record_changes(current_user)
+          @action_event.finish_event(current_user)
           respond_to do |format|
             format.turbo_stream { redirect_to(action_events_path) }
             format.html { redirect_to(action_events_path) }
@@ -72,7 +71,6 @@ class ActionEventsController < ApplicationController
   end
 
   def create
-    s
     action_event_form = ActionEventForm.new(action_event_params)
     respond_to do |format|
       if action_event_form.save

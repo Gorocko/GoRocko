@@ -33,7 +33,7 @@
   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= render StatusBadgeComponent.new(status: @action_event.status) %></td>
   <% if @actionable_event %>
   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= render(PrimaryButtonWithLinkComponent.new(button_text: "take action", button_link: take_action_action_event_url(@action_event), button_size: 2)) %></td>
-  <%else %>
-    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%= render(PrimaryButtonWithLinkComponent.new(button_text: "No action", button_link: '', button_size: 2)) %></td>
+  <%#else %>
+<!--    <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><%#= render(PrimaryButtonWithLinkComponent.new(button_text: "No action", button_link: '', button_size: 2)) %></td>-->
 <% end %>
 </tr>
