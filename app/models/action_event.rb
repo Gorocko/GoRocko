@@ -91,6 +91,7 @@ class ActionEvent < ApplicationRecord
         end
         temp.id = id
         temp.due_date = occurrence_time
+        temp.status = 1
         temp
       end
     end

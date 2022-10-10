@@ -3,6 +3,7 @@
 class DogsController < ApplicationController
   include TimeDisplayHelper
   include AvatarHelper
+  include DogsHelper
   before_action :set_dog, only: %i[show edit update destroy]
 
   # GET /dogs or /dogs.json
@@ -13,7 +14,7 @@ class DogsController < ApplicationController
 
   # GET /dogs/1 or /dogs/1.json
   def show
-    @action_event_records = ActionEventRecord.where(eventable_id: @dog.id)
+    @action_event_records = action_event_records_in_order_until(30.days.from_now)
   end
 
   # GET /dogs/new

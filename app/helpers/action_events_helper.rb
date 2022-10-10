@@ -8,7 +8,7 @@ module ActionEventsHelper
 
   def action_events_in_order_until(until_date)
     finished_action_events = ActionEvent.where(status: 3).order(due_date: :asc)
-    unfinished_action_events = ActionEvent.where(status: 1).where(due_date: ..until_date).flat_map do |action_event|
+    unfinished_action_events = ActionEvent.where.not(status: 3).where(due_date: ..until_date).flat_map do |action_event|
       action_event.all_future_events(until_date)
     end
     unfinished_action_events.sort_by(&:due_date) + finished_action_events
