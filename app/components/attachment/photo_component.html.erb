@@ -8,10 +8,10 @@
         </svg>
         <span class="ml-2 flex-1 w-0 truncate">
           <%= link_to @photo do %>
-            <% if @file.variable? %>
+            <% if @photo.variable? %>
               <%= image_tag @photo.variant(resize_to_fit: [200, nil]) %>
             <% else %>
-              <span class="attachment__name"><%= @file.filename %></span>
+              <span class="attachment__name"><%= @photo.filename %></span>
             <% end %>
           <% end %>
         </span>
