@@ -41,6 +41,23 @@ class ActionEventRecord < ApplicationRecord
     journal.photos.attach(photos.map(&:blob))
   end
 
+  def all_future_events(end_time)
+    action_event.schedule.occurrences_between(due_date, end_time).flat_map do |occurrence_time|
+      if occurrence_time == action_event.due_date
+        self
+      else
+        temp = deep_clone include: [:action_event] do |original, kopy|
+          kopy.due_date = occurrence_time
+          kopy.id = original.id
+          kopy.status = 1
+        end
+        temp.id = id
+        temp.due_date = occurrence_time
+        temp
+      end
+    end
+  end
+
   def update_status_to(status: Integer)
     self.status = status
     save
