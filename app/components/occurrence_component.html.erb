@@ -1,0 +1,39 @@
+<div class="space-y-6 sm:space-y-5">
+  <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start  sm:pt-5">
+    <%= @form.label "Repeats Every", class: "block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2" %>
+    <div class="mt-1 sm:mt-0 sm:col-span-2 flex">
+      <%= @form.number_field "occurrence_frequency", value: @occurrence_interval, class: "max-w-lg block mr-4 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md" %>
+      <%= @form.select "occurrence_type", [:days, :weeks, :months, :years],{selected: @occurrence_interval_option}, class: "block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" %>
+    </div>
+  </div>
+  <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:pt-5">
+    <%= @form.label "Ends on", class: "text-sm font-medium text-gray-700" %>
+    <fieldset class="mt-4">
+      <div class="space-y-4">
+        <div class="flex items-center">
+          <%= @form.radio_button "schedule_end_method", 'never', checked: @never_option_checked, class: "h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500" %>
+          <%= @form.label "Never", class: "ml-3 block text-sm font-medium text-gray-700" %>
+        </div>
+
+        <div class="flex items-center">
+          <%= @form.radio_button "schedule_end_method", 'date', checked: @date_option_checked, class: "h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500" %>
+          <%= @form.label "On", class: "ml-3 block text-sm font-medium text-gray-700 mr-6" %>
+          <%= @form.date_field "schedule_end_date", value: @date_option_value, class: "max-w-lg block mr-4 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:max-w-xs sm:text-sm border-gray-300 rounded-md" %>
+        </div>
+
+        <div class="flex items-center">
+          <%= @form.radio_button "schedule_end_method", 'occurrence_times',checked: @count_option_checked, class: "h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500" %>
+          <%= @form.label "After", class: "ml-3 mr-4 block text-sm font-medium text-gray-700" %>
+          <div>
+            <div class="relative mt-1 rounded-md shadow-sm">
+              <%= @form.number_field "schedule_end_counts", value: @count_option_value, class: "block w-full rounded-md border-gray-300 pl-7 pr-12 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" %>
+              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                <span class="text-gray-500 sm:text-sm" id="schedule-occurrences">times</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</div>

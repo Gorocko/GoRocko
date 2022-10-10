@@ -1,0 +1,33 @@
+<div class="space-y-6 sm:space-y-5"
+     data-controller="toggle-occurrence-button toggle"
+     data-toggle-occurrence-button-button-disabled-class="bg-gray-200"
+     data-toggle-occurrence-button-button-enabled-class="bg-indigo-600"
+     data-toggle-occurrence-button-span-disabled-class="translate-x-0"
+     data-toggle-occurrence-button-span-enabled-class="translate-x-5">
+  <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+    <div class="flex items-center justify-between">
+  <span class="flex-grow flex flex-col">
+    <span class="text-sm font-medium text-gray-900" id="availability-label"><%= @title %></span>
+    <span class="text-sm text-gray-500" id="availability-description"><%= @subtitle %></span>
+  </span>
+    </div>
+    <!-- Enabled: "bg-indigo-600", Not Enabled: "bg-gray-200" -->
+    <%= @form.hidden_field :recurrent_event, value: @enabled, data: {
+      toggle_occurrence_button_target: "recurrentEventField"
+    } %>
+    <button type="button"
+            data-toggle-occurrence-button-target="button"
+            data-action="click->toggle-occurrence-button#toggle click->toggle#toggle"
+            class="<%= @button_class %>" role="switch" aria-checked="false" aria-labelledby="availability-label" aria-describedby="availability-description">
+      <!-- Enabled: "translate-x-5", Not Enabled: "translate-x-0" -->
+      <span aria-hidden="true"
+            data-toggle-occurrence-button-target="span"
+            class="<%= @span_class %>">
+      </span>
+    </button>
+  </div>
+
+  <%= content_tag(:div, data: { toggle_target: "toggleable" }, class: @occurrence_class) do %>
+    <%= render OccurrenceComponent.new(form: @form, recurring_schedule: @recurring_schedule) %>
+  <% end %>
+</div>

@@ -5,6 +5,7 @@ module ActionEvents
     include TimeDisplayHelper
     def initialize(action_event:)
       @action_event = action_event
+      @actionable_event = !action_event.new_record? && !action_event.finished?
     end
   end
 end

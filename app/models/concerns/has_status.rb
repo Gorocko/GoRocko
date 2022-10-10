@@ -3,6 +3,9 @@
 module HasStatus
   extend ActiveSupport::Concern
   included do
-    enum status: {unknown: 0, "Not Started": 1, "In Progress": 2, Finished: 3}
+    enum status: { unknown: 0, 'Not Started': 1, 'In Progress': 2, Finished: 3 }
+    def finished?
+      status == "Finished"
+    end
   end
 end

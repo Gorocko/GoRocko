@@ -2,11 +2,23 @@
 
 class ActionEventForm < YAAF::Form
   include ActionEventsHelper
-  attr_accessor :title, :due_date, :description, :tag_list, :action_event_records
+  attr_accessor :title, :due_date, :description, :tag_list, :action_event_records, :occurrence_schedule
+
+  validate :check_occurrence_schedule
+  before_save :set_recurring_schedule_rule
 
   def initialize(attributes)
     super(attributes)
     @models = [action_event]
+  end
+
+  def set_recurring_schedule_rule
+    recurring_schedule_rule = recurring_schedule_rule(occurrence_schedule)
+    @action_event.recurring_schedule = if recurring_schedule_rule(occurrence_schedule).present?
+                                         IceCube::Schedule.new(start_time = Time.zone.parse(due_date)) do |s|
+                                           s.add_recurrence_rule(recurring_schedule_rule)
+                                         end
+                                       end
   end
 
   def action_event
@@ -29,9 +41,9 @@ class ActionEventForm < YAAF::Form
     action_event_to_update.tag_list = tag_list
 
     update_action_event_selected_dogs(action_event: action_event_to_update,
-      new_selected_eventable_ids: action_event_records["eventable_ids"])
-
-    @models = [action_event_to_update]
+                                      new_selected_eventable_ids: action_event_records["eventable_ids"])
+    @action_event = action_event_to_update
+    @models = [@action_event]
   end
 
   def update_action_event_selected_dogs(action_event:, new_selected_eventable_ids:)

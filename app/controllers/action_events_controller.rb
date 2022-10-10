@@ -4,7 +4,7 @@ class ActionEventsController < ApplicationController
   include ActionEventsHelper
   before_action :set_action_event, only: %i[show destroy edit take_action update]
   def index
-    @action_events = ActionEvent.all
+    @action_events = action_events_in_order_until(Time.zone.now + 30.days)
   end
 
   def new
@@ -37,8 +37,6 @@ class ActionEventsController < ApplicationController
         format.json { render(json: action_event_form.errors, status: :unprocessable_entity) }
       end
     end
-
-    ActionEventReminderJob.perform_async(current_user.id, @action_event.id)
   end
 
   def take_action
@@ -52,8 +50,7 @@ class ActionEventsController < ApplicationController
     if request.method == "POST"
       if @action_event.update(take_action_params)
         if button_text_param[:button_text] == @finish_task_button_text
-          @action_event.set_finished_status
-          @action_event.record_changes(current_user)
+          @action_event.finish_event(current_user)
           respond_to do |format|
             format.turbo_stream { redirect_to(action_events_path) }
             format.html { redirect_to(action_events_path) }
@@ -96,7 +93,10 @@ class ActionEventsController < ApplicationController
 
   def action_event_params
     params.require(:action_event).permit(:title, :due_date, :description, :tag_list,
-                                         action_event_records: { eventable_ids: [] })
+                                         action_event_records: {
+                                           eventable_ids: []
+                                         },
+                                         occurrence_schedule: {})
   end
 
   def take_action_params
