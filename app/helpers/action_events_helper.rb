@@ -22,8 +22,23 @@ module ActionEventsHelper
     ).permit(id: {})[:id][event_record_id.to_s].permit(:content, :photos)
   end
 
+  def check_occurrence_schedule
+    unless valid_occurrence_schedule_rule(occurrence_schedule)
+      errors.add(:base, 'not valid')
+      @action_event.errors.add(:recurrent_event, 'Repeats interval is not valid')
+    end
+  end
+
+  def valid_occurrence_schedule_rule(occurrence_schedule)
+    if occurrence_schedule.nil? || (occurrence_schedule[:recurrent_event] != 'true') || occurrence_schedule[:occurrence_frequency].blank?
+      return false
+    end
+
+    true
+  end
+
   def recurring_schedule_rule(occurrence_schedule)
-    return nil if occurrence_schedule.nil? || (occurrence_schedule[:recurrent_event] != 'true')
+    return nil unless valid_occurrence_schedule_rule(occurrence_schedule)
 
     recurring_schedule_rule =
       case occurrence_schedule[:occurrence_type]
