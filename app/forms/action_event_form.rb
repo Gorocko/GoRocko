@@ -14,6 +14,7 @@ class ActionEventForm < YAAF::Form
 
   def set_recurring_schedule_rule
     recurring_schedule_rule = recurring_schedule_rule(occurrence_schedule)
+
     @action_event.recurring_schedule = if recurring_schedule_rule(occurrence_schedule).present?
                                          IceCube::Schedule.new(start_time = Time.zone.parse(due_date)) do |s|
                                            s.add_recurrence_rule(recurring_schedule_rule)

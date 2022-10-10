@@ -23,6 +23,8 @@ module ActionEventsHelper
   end
 
   def check_occurrence_schedule
+    return unless should_check_schedule_rule
+
     unless valid_occurrence_schedule_rule(occurrence_schedule)
       errors.add(:base, 'not valid')
       @action_event.errors.add(:recurrent_event, 'Repeats interval is not valid')
@@ -30,14 +32,20 @@ module ActionEventsHelper
   end
 
   def valid_occurrence_schedule_rule(occurrence_schedule)
-    if occurrence_schedule.nil? || (occurrence_schedule[:recurrent_event] != 'true') || occurrence_schedule[:occurrence_frequency].blank?
-      return false
-    end
+    return false if occurrence_schedule[:occurrence_frequency].blank?
+
+    true
+  end
+
+  def should_check_schedule_rule
+    return false if occurrence_schedule.nil? || (occurrence_schedule[:recurrent_event] != 'true')
 
     true
   end
 
   def recurring_schedule_rule(occurrence_schedule)
+    return nil unless should_check_schedule_rule
+
     return nil unless valid_occurrence_schedule_rule(occurrence_schedule)
 
     recurring_schedule_rule =
