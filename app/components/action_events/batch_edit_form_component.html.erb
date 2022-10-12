@@ -3,7 +3,7 @@
     <% @action_events.each do |action_event| %>
       <li class="px-6 py-4">
         <div>
-          <%= render ActionEvents::ActionEventFormComponent.new(action_event: action_event, button_disabled: true) %>
+          <%= render ActionEvents::ActionEventFormComponent.new(action_event: action_event, button_disabled: true, main_app: @main_app) %>
         </div>
       </li>
     <% end %>

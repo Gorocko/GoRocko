@@ -1,4 +1,4 @@
-<%= render(Forms::TextareaFieldComponent.new(form: @event_record_form, label_field: '', attribute_field: :content)) %>
+<%= render(Forms::RichTextareaFieldComponent.new(form: @event_record_form, label_field: '', attribute_field: :content)) %>
 <% @event_record.photos.each do |photo| %>
   <%= render Attachment::PhotoComponent.new(photo:photo) %>
 <% end %>

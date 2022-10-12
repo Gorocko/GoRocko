@@ -1,5 +1,5 @@
 <turbo-stream action="replace" target="apply_template_to_dogs">
   <template>
-    <%= render ActionEvents::BatchEditFormComponent.new(action_events: action_events) %>
+    <%= render ActionEvents::BatchEditFormComponent.new(action_events: action_events, main_app: main_app) %>
   </template>
 </turbo-stream>

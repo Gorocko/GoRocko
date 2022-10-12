@@ -10,7 +10,7 @@
       <%= form.fields_for :occurrence_schedule do |occurrence_schedule_form| %>
         <%= render(ToggleWithLabelComponent.new(title: "Recurrent Event", subtitle: "", enabled: @action_event.recurrent?, form: occurrence_schedule_form, recurring_schedule:@action_event.recurring_schedule)) %>
         <% end %>
-      <%= render(Forms::TextareaFieldComponent.new(form: form, label_field: :description, attribute_field: :description)) %>
+      <%= render(Forms::RichTextareaFieldComponent.new(form: form, label_field: :description, attribute_field: :description)) %>
       <%= render(Forms::CollectionCheckBoxesFieldComponent.new(form: form,
                                                                collections: Dog.order(:name),
                                                                input_name: "action_event[action_event_records][eventable_ids][]",

@@ -2,9 +2,13 @@
 
 module ActionEvents
   class ActionEventFormComponent < ViewComponent::Base
-    def initialize(action_event:, button_disabled: false)
+    include ActionText::TagHelper
+    def initialize(action_event:, main_app:, button_disabled: false)
       @action_event, = action_event,
       @button_disabled = button_disabled
+      @main_app = main_app
     end
+
+    attr_reader :main_app
   end
 end

@@ -7,7 +7,7 @@
       </div>
       <%= render ErrorsBadgeComponent.new(errors: @journal.errors) %>
       <%= render(Forms::TextFieldComponent.new(form: form, label_field: :title, attribute_field: :title)) %>
-      <%= render(Forms::TextareaFieldComponent.new(form: form, label_field: :notes, attribute_field: :notes)) %>
+      <%= render(Forms::RichTextareaFieldComponent.new(form: form, label_field: :notes, attribute_field: :notes)) %>
       <%= render(Forms::DatetimeFieldComponent.new(form: form, label_field: :created_at, attribute_field: :created_at)) %>
       <%= render(Forms::TextFieldComponent.new(form: form,
                                                label_field: :tags,

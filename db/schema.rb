@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_04_230927) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_11_223654) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -52,7 +52,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_04_230927) do
 
   create_table "action_event_records", force: :cascade do |t|
     t.integer "status", default: 1, null: false
-    t.string "content"
     t.string "eventable_type", default: "Dog", null: false
     t.bigint "eventable_id", null: false
     t.bigint "action_event_id", null: false
@@ -66,7 +65,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_04_230927) do
 
   create_table "action_events", force: :cascade do |t|
     t.string "title", null: false
-    t.string "description"
     t.datetime "due_date", null: false
     t.integer "status", default: 1, null: false
     t.datetime "created_at", null: false
@@ -203,7 +201,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_04_230927) do
   end
 
   create_table "journals", force: :cascade do |t|
-    t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "loggable_type", null: false
