@@ -4,7 +4,7 @@ class ActionEventsController < ApplicationController
   include ActionEventsHelper
   before_action :set_action_event, only: %i[show destroy edit take_action update]
   def index
-    @action_events = action_events_in_order_until(Time.zone.now + 30.days)
+    @action_events = action_events_in_order_until(30.days.from_now)
   end
 
   def new
@@ -45,7 +45,8 @@ class ActionEventsController < ApplicationController
     if request.method == "GET"
       render(TakeActionPageComponent.new(action_event: @action_event,
                                          in_progress_button_text: @in_progress_button_text,
-                                         finish_task_button_text: @finish_task_button_text))
+                                         finish_task_button_text: @finish_task_button_text,
+                                         main_app:))
     end
     if request.method == "POST"
       if @action_event.update(take_action_params)
@@ -81,9 +82,9 @@ class ActionEventsController < ApplicationController
       else
 
         format.html do
-          render ::ActionEvents::ActionEventFormComponent.new(action_event:
-                                                                            action_event_form.action_event,
-                                                              button_disabled: false),
+          render ::ActionEvents::ActionEventFormComponent.new(action_event: action_event_form.action_event,
+                                                              button_disabled: false,
+                                                              main_app:),
                  status: :unprocessable_entity
         end
         format.json { render(json: action_event_form.errors, status: :unprocessable_entity) }

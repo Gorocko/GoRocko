@@ -5,7 +5,6 @@
 # Table name: action_event_records
 #
 #  id              :bigint           not null, primary key
-#  content         :string
 #  due_date        :datetime
 #  eventable_type  :string           default("Dog"), not null
 #  status          :integer          default("Not Started"), not null
@@ -29,15 +28,11 @@ class ActionEventRecord < ApplicationRecord
   acts_as_tenant :account
   belongs_to :eventable, polymorphic: true
   belongs_to :action_event
+  has_rich_text :content
   has_many_attached :photos
 
   def record_changes(author)
-    log_info = "Title: #{action_event.title} \n
-                Description:  #{action_event.description} \n
-                Reminder due date: #{due_date} \n
-                Notes: #{content} \n
-    "
-    journal = Journal.create!(title: action_event.title.to_s, notes: log_info, loggable: eventable, author:)
+    journal = Journal.create!(title: action_event.title.to_s, notes: content, loggable: eventable, author:)
     journal.photos.attach(photos.map(&:blob))
   end
 

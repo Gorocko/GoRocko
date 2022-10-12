@@ -5,7 +5,6 @@
 # Table name: action_events
 #
 #  id                 :bigint           not null, primary key
-#  description        :string
 #  due_date           :datetime         not null
 #  recurring_schedule :text
 #  status             :integer          default("Not Started"), not null
@@ -25,6 +24,7 @@ class ActionEvent < ApplicationRecord
   include HasStatus
   acts_as_tenant :account
   acts_as_taggable_tenant :account_id
+  has_rich_text :description
   has_many :action_event_records, inverse_of: :action_event, dependent: :destroy
   has_many :dogs, through: :action_event_records, source: :eventable, source_type: "Dog"
   accepts_nested_attributes_for :action_event_records
@@ -39,6 +39,10 @@ class ActionEvent < ApplicationRecord
 
   def set_finished_status
     update_status_to(status: 3)
+  end
+
+  def set_not_started_status
+    update_status_to(status: 1)
   end
 
   def set_in_progress_status
@@ -58,12 +62,11 @@ class ActionEvent < ApplicationRecord
   def finish_event(user)
     if recurrent? && schedule.next_occurrence(due_date)&.to_datetime
       next_due_date = schedule.next_occurrence(due_date)&.to_datetime
-
+      record_changes(user)
       temp_copy = deep_clone include: [:dogs] do |original, kopy|
         kopy.tag_list = original.tag_list if original.respond_to?(:tag_list)
       end
       temp_copy.set_finished_status
-      temp_copy.record_changes(user)
       temp_copy.save
       self.due_date = next_due_date
 
@@ -74,6 +77,10 @@ class ActionEvent < ApplicationRecord
         new_schedule.rrules[0]&.count(previous_count - 1)
       end
       self.recurring_schedule = new_schedule
+      set_not_started_status
+      action_event_records.each do |record|
+        record.update(content: nil)
+      end
       save
     else
       set_finished_status

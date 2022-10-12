@@ -6,7 +6,6 @@
 #
 #  id            :bigint           not null, primary key
 #  loggable_type :string           not null
-#  notes         :text
 #  title         :string           default(""), not null
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
@@ -29,6 +28,7 @@ class Journal < ApplicationRecord
   belongs_to :author, class_name: "User"
   has_many_attached :photos
   has_many_attached :files
+  has_rich_text :notes
   acts_as_tenant :account
   acts_as_taggable_tenant :account_id
 

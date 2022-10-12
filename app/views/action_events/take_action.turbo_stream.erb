@@ -3,7 +3,10 @@
   <template>
     <%=  render(TakeActionPageComponent.new(action_event: @action_event,
                                                  in_progress_button_text: @in_progress_button_text,
-                                                 finish_task_button_text: @finish_task_button_text
+                                                 finish_task_button_text: @finish_task_button_text,
+                                            main_app: main_app
+
+
     )) %>
   </template>
 </turbo-stream>
