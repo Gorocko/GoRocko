@@ -49,7 +49,7 @@ class ActionEventForm < YAAF::Form
 
   def update_action_event_selected_dogs(action_event:, new_selected_eventable_ids:)
     old_selected_eventable_ids = action_event.dogs.map(&:id)
-    new_selected_eventable_ids = action_event_records["eventable_ids"]
+    new_selected_eventable_ids = action_event_records["eventable_ids"].compact_blank.map(&:to_i)
     eventable_ids_to_be_keep = old_selected_eventable_ids & new_selected_eventable_ids
     eventable_ids_to_delete = old_selected_eventable_ids - eventable_ids_to_be_keep
     eventable_ids_to_add = new_selected_eventable_ids - eventable_ids_to_be_keep
@@ -58,6 +58,7 @@ class ActionEventForm < YAAF::Form
       eventable_ids_to_delete.include?(record.eventable_id)
     end
     action_event_records_to_delete.each(&:destroy)
+
     dogs(eventable_ids: eventable_ids_to_add).each do |dog|
       ActionEventRecord.create(
         status: 1,
