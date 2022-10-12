@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_11_223654) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_12_050409) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -388,7 +388,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_11_223654) do
     t.datetime "accepted_terms_at", precision: nil
     t.datetime "accepted_privacy_at", precision: nil
     t.datetime "announcements_read_at", precision: nil
-    t.boolean "admin"
+    t.boolean "admin", default: false
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.string "invitation_token"

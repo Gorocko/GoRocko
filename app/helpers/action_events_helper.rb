@@ -81,6 +81,6 @@ module ActionEventsHelper
   end
 
   def dogs(eventable_ids:)
-    @dogs ||= eventable_ids.compact_blank.map { |id| Dog.find(id) }
+    eventable_ids.compact_blank.map { |id| Dog.find(id) }
   end
 end
