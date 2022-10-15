@@ -5,6 +5,7 @@ class DogsController < ApplicationController
   include AvatarHelper
   include DogsHelper
   before_action :set_dog, only: %i[show edit update destroy]
+  before_action :handle_group_id, only: %i[create update]
 
   # GET /dogs or /dogs.json
   def index
@@ -73,9 +74,9 @@ class DogsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def dog_params
-    params.require(:dog).permit(:name, :registered_name,
-                                :registration_number,
-                                :birthday, :notes, :sex, :color_list, :pattern_list,
-                                :group_id, :avatar, :tag_list, append_photos: [], append_files: [])
+    @dog_params ||= params.require(:dog).permit(:name, :registered_name,
+                                                :registration_number,
+                                                :birthday, :notes, :sex, :color_list, :pattern_list,
+                                                :group_id, :avatar, :tag_list, append_photos: [], append_files: [])
   end
 end

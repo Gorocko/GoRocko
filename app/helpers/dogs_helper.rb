@@ -8,4 +8,17 @@ module DogsHelper
     end
     unfinished_action_events.sort_by(&:due_date) + finished_action_events
   end
+
+  def handle_group_id
+    group_id = dog_params[:group_id]
+
+    unless is_digit(group_id)
+      group = Group.create(name: group_id)
+      dog_params[:group_id] = group.id
+    end
+  end
+
+  def is_digit(value)
+    value.to_i != 0
+  end
 end
