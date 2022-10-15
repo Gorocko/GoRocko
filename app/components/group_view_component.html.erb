@@ -1,9 +1,9 @@
 <div>
   <tr data-id="<%= @group.id %>" class="border-t border-gray-300 dog-group" data-drag-url-value="<%= group_path(@group) %>">
     <th colspan="5" scope="colgroup" class="bg-gray-200 px-4 py-2 text-left text-sm font-semibold text-gray-900 sm:px-6"><%= @group.name.capitalize %></th>
-<!--    <th class="relative bg-gray-200 py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">-->
-      <%#= button_to :Archive, group_path(@group), method: :delete, class: "text-indigo-600 hover:text-indigo-900" %>
-<!--    </th>-->
+    <th class="relative bg-gray-200 text-sm font-semibold text-gray-900 sm:px-6">
+      <%= button_to :Archive, group_path(@group), method: :delete, class: "text-indigo-600 hover:text-indigo-900" %>
+    </th>
   </tr>
   <% @dogs.each do |dog| %>
     <%= render GroupsPage::GroupDogComponent.new(dog: dog) %>
