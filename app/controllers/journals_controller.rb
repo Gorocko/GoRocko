@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class JournalsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_journal, only: %i[show edit update destroy]
   before_action :set_dog, only: %i[new create]
 

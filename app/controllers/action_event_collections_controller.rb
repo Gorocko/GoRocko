@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class ActionEventCollectionsController < ApplicationController
+  before_action :authenticate_user!
   def create
     action_event_collection_params.each do |action_event_params|
       ActionEventForm.new(map_action_event_collection_params(action_event_params)).save
