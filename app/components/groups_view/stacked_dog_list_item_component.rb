@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
-module GroupsPage
-  class GroupDogComponent < ViewComponent::Base
-    include TimeDisplayHelper
+module GroupsView
+  class StackedDogListItemComponent < ViewComponent::Base
+    include AvatarHelper
+    include GravatarHelper
     include DogsHelper
-
+    include TimeDisplayHelper
     def initialize(dog:)
       @dog = dog
       generate_upcoming_action_event_display(@dog)

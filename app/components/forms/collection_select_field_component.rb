@@ -7,8 +7,8 @@ module Forms
       @attribute_field = attribute_field
       @form = form
       @collections = collections,
-        @value_method = value_method,
-        @text_method = text_method
+                     @value_method = value_method,
+                     @text_method = text_method
     end
   end
 end

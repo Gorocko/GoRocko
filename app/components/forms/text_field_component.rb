@@ -16,9 +16,7 @@ module Forms
         class: "mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none
 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
       }
-      if @override_value.present?
-        @options[:value] = @override_value
-      end
+      @options[:value] = @override_value if @override_value.present?
       data_value_pair.each do |k, v|
         @options[:data][k] = v
       end

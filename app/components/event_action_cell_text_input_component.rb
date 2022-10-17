@@ -24,7 +24,7 @@ class EventActionCellTextInputComponent < ViewComponent::Base
 
   def generate_input_value
     event_action_record = ActionEventRecord.find_by(id: @event_record.id)
-    @input_value = get_input_value(event_action_record: event_action_record)
+    @input_value = get_input_value(event_action_record:)
   end
 
   def get_input_value(event_action_record:)
