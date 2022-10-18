@@ -1,0 +1,18 @@
+
+<%= render WebViewDecoratorComponent.new do %>
+  <%= render PageHeaderComponent.new(header_name: 'Reminders',
+                                     primary_button_title: 'Add New Reminder',
+                                     primary_button_link: new_action_event_path,
+                                     subtitle: "Includes all the past reminders and future events in the next 30 days",
+                                     secondary_button_title: '',
+                                     secondary_button_link: '') %>
+  <div class="mt-8 flex flex-col">
+    <div class="-my-2 -mx-4 sm:-mx-6 lg:-mx-8">
+      <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+        <div class="shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
+          <%= render ActionEvents::ActionEventsTableComponent.new(action_events: @action_events) %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

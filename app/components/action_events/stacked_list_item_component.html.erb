@@ -1,0 +1,34 @@
+<li>
+  <a href="<%= action_event_path(@action_event) %>" class="block hover:bg-gray-50">
+    <div class="px-4 py-4 sm:px-6">
+      <div class="flex items-center justify-between">
+        <p class="truncate text-sm font-medium "><%= @action_event.title %></p>
+        <div class="ml-2 flex flex-shrink-0">
+          <p class="inline-flex rounded-full  px-2 text-xs font-semibold leading-5"><%= render StatusBadgeComponent.new(status: @action_event.status) %></p>
+        </div>
+      </div>
+      <div class="mt-2 sm:flex sm:justify-between">
+        <div class="sm:flex">
+          <p class="flex items-center text-sm text-gray-500">
+            <!-- Heroicon name: mini/users -->
+            <%= render_svg "icons/user-group", styles: "fill-current icon-sm mr-2" %>
+            <%= @action_event.dogs.map(&:name).join(", ") %>
+          </p>
+          <p class="mt-2 flex items-center text-sm text-gray-500 sm:mt-0 sm:ml-6">
+            <!-- Heroicon name: mini/map-pin -->
+            <%= render_svg "icons/tag", styles: "fill-current icon-sm mr-2" %>
+            <%= @action_event.tag_list.join(", ") %>
+          </p>
+        </div>
+        <div class="mt-2 flex items-center text-sm text-gray-500 sm:mt-0">
+          <!-- Heroicon name: mini/calendar -->
+          <%= render_svg "icons/calendar", styles: "fill-current icon-sm mr-2" %>
+          <p>
+            Due on
+            <%= formatted_time_display(@action_event.due_date) %>
+          </p>
+        </div>
+      </div>
+    </div>
+  </a>
+</li>
