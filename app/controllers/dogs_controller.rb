@@ -4,6 +4,7 @@ class DogsController < ApplicationController
   include TimeDisplayHelper
   include AvatarHelper
   include DogsHelper
+  before_action :authenticate_user!
   before_action :set_dog, only: %i[show edit update destroy]
   before_action :handle_group_id, only: %i[create update]
 

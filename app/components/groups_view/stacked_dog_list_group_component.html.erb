@@ -1,0 +1,11 @@
+<!--<div class="relative dog-group" data-id="<%#= @group.id %>" data-controller="drag" data-drag-url-value="<%#= group_path(@group) %>">-->
+<div class="relative dog-group">
+  <div class="sticky top-0 z-10 border-t border-b border-gray-200 bg-gray-50 px-6 py-1 text-sm font-medium text-gray-500">
+    <h3><%= @group.name %></h3>
+  </div>
+  <ul role="list" class="relative z-0 divide-y divide-gray-200">
+    <% @group.dogs.each do |dog| %>
+      <%= render  GroupsView::StackedDogListItemComponent.new(dog: dog) %>
+    <% end %>
+  </ul>
+</div>

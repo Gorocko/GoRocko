@@ -3,15 +3,16 @@
 class StatusBadgeComponent < ViewComponent::Base
   def initialize(status:)
     @status = status
-    @class_name = "inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium " + color_config
+    @class_name = "inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium #{color_config}"
   end
 
   def color_config
-    if @status == "Not Started"
+    case @status
+    when "Not Started"
       "bg-gray-100 text-gray-800"
-    elsif @status == "In Progress"
+    when "In Progress"
       "bg-blue-100 text-blue-800"
-    elsif @status == "Finished"
+    when "Finished"
       "bg-green-100 text-green-800"
     end
   end
