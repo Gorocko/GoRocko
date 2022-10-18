@@ -1,17 +1,19 @@
-<div class="border">
-  <%= render PageHeaderComponent.new(header_name: 'Reminders',
-                                     primary_button_title: 'Add New Reminder',
-                                     primary_button_link: new_action_event_path,
-                                     subtitle: "Includes all the past reminders and future events in the next 30 days",
-                                     secondary_button_title: '',
-                                     secondary_button_link: '') %>
+<%= render MobileViewDecoratorComponent.new do %>
+  <div class="border">
+    <%= render PageHeaderComponent.new(header_name: 'Reminders',
+                                       primary_button_title: 'Add New Reminder',
+                                       primary_button_link: new_action_event_path,
+                                       subtitle: "Includes all the past reminders and future events in the next 30 days",
+                                       secondary_button_title: '',
+                                       secondary_button_link: '') %>
 
-  <div class="overflow-hidden bg-white shadow sm:rounded-md">
-    <ul role="list" class="divide-y divide-gray-200">
-      <% @action_events.each do |action_event| %>
-      <%= render ActionEvents::StackedListItemComponent.new(action_event: action_event) %>
+    <div class="overflow-hidden bg-white shadow sm:rounded-md">
+      <ul role="list" class="divide-y divide-gray-200">
+        <% @action_events.each do |action_event| %>
+          <%= render ActionEvents::StackedListItemComponent.new(action_event: action_event) %>
         <% end %>
-    </ul>
-  </div>
+      </ul>
+    </div>
 
-</div>
+  </div>
+<% end %>
