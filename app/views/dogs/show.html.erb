@@ -40,11 +40,12 @@
         <%= render 'dog_journal' %>
       <% end %>
       <%= section.with_section_header do %>
-        <%= render SectionHeaderComponent.new(title: 'Dog Journal') do %>
-          <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-            <%= link_to 'Add New Journal', new_dog_journal_path(@dog), class: "inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto" %>
-          </div>
-        <% end %>
+        <%= render PageHeaderComponent.new(header_name: 'Dog Journal',
+                                           primary_button_title: 'Add New Journal',
+                                           primary_button_link:  new_dog_journal_path(@dog),
+                                           subtitle: "",
+                                           secondary_button_title: nil,
+                                           secondary_button_link: nil) %>
       <% end %>
     <% end %>
   </li>
@@ -54,13 +55,13 @@
         <%= render ActionEvents::ActionEventRecordsTableComponent.new(action_event_records: @action_event_records) %>
       <% end %>
       <%= section.with_section_header do %>
-        <%= render SectionHeaderComponent.new(title: 'Related Reminders',
-                                              subtitle: "Includes all the past reminders and future events in the next 30 days"
-                                              ) do %>
-          <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-            <%= link_to 'Add New Reminder', new_action_event_path, class: "inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto" %>
-          </div>
-        <% end %>
+
+        <%= render PageHeaderComponent.new(header_name: 'Related Reminders',
+                                           primary_button_title: 'Add New Reminder',
+                                           primary_button_link:  new_action_event_path,
+                                           subtitle: "Includes all the past reminders and future events in the next 30 days",
+                                           secondary_button_title: nil,
+                                           secondary_button_link: nil) %>
       <% end %>
     <% end %>
   </li>
