@@ -41,7 +41,7 @@ class ActionEventRecord < ApplicationRecord
       if occurrence_time == action_event.due_date
         self
       else
-        temp = deep_clone include: [:action_event] do |original, kopy|
+        temp = deep_clone include: { action_event: [:dogs] } do |original, kopy|
           kopy.due_date = occurrence_time
           kopy.id = original.id
           kopy.status = 1

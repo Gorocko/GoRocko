@@ -17,6 +17,7 @@ class DogsController < ApplicationController
   # GET /dogs/1 or /dogs/1.json
   def show
     @action_event_records = action_event_records_in_order_until(30.days.from_now)
+    @action_events = @action_event_records.map(&:action_event)
   end
 
   # GET /dogs/new

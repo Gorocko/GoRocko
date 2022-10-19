@@ -52,8 +52,14 @@
   <li class="bg-white shadow overflow-hidden px-4 py-4 sm:px-6 sm:rounded-md">
     <%= render SectionWrapperComponent.new do |section| %>
       <%= section.with_main_body do %>
-        <%= render ActionEvents::ActionEventRecordsTableComponent.new(action_event_records: @action_event_records) %>
-      <% end %>
+        <div class="overflow-hidden bg-white shadow sm:rounded-md">
+          <ul role="list" class="divide-y divide-gray-200">
+            <% @action_events.each do |action_event| %>
+              <%= render ActionEvents::StackedListItemComponent.new(action_event: action_event) %>
+            <% end %>
+          </ul>
+        </div>
+  <% end %>
       <%= section.with_section_header do %>
 
         <%= render PageHeaderComponent.new(header_name: 'Related Reminders',
