@@ -1,47 +1,55 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
+<ul role="list" class="space-y-3" data-controller="tabs">
+  <li class="bg-white shadow overflow-hidden px-4 py-4 sm:px-6 sm:rounded-md">
+    <%= render SectionWrapperComponent.new do |section| %>
+      <%= section.with_section_nav do %>
+        <div data-controller="tabs" data-tabs-active-tab="-mb-px border-grey-500 text-indigo-600 border-indigo-500 border-b-2">
+          <ul class="list-reset flex border-b -mb-px flex space-x-8">
+            <li class="-mb-px mr-1" data-tabs-target="tab" data-action="click->tabs#change">
+              <a class="bg-white inline-block py-2 px-4 text-gray-500 hover:text-gray-700 font-medium text-sm no-underline" href="#">Profile</a>
+            </li>
+            <li class="mr-1" data-tabs-target="tab" data-action="click->tabs#change">
+              <a class="bg-white inline-block py-2 px-4 text-gray-500 hover:text-gray-700 font-medium text-sm no-underline" href="#">Journal</a>
+            </li>
+            <li class="mr-1" data-tabs-target="tab" data-action="click->tabs#change">
+              <a class="bg-white inline-block py-2 px-4 text-gray-500 hover:text-gray-700 font-medium text-sm no-underline" href="#">Related
+                reminders</a>
+            </li>
+          </ul>
 
-<ul role="list" class="space-y-3">
-  <li class="bg-white shadow overflow-hidden px-4 py-4 sm:px-6 sm:rounded-md">
-    <%= render SectionWrapperComponent.new do |section| %>
-      <%= section.with_main_body do %>
-        <%= render @dog %>
+          <div class="hidden py-4 px-4 " data-tabs-target="panel">
+            <%= render @dog %>
+          </div>
+
+          <div class="hidden py-4 px-4 " data-tabs-target="panel">
+            <%= render 'dog_journal' %>
+          </div>
+
+          <div class="hidden py-4 px-4 " data-tabs-target="panel">
+            <div class="overflow-hidden bg-white shadow sm:rounded-md">
+              <ul role="list" class="divide-y divide-gray-200">
+                <% @action_events.each do |action_event| %>
+                  <%= render ActionEvents::StackedListItemComponent.new(action_event: action_event) %>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </div>
       <% end %>
       <%= section.with_section_header do %>
-        <%= render SectionHeaderComponent.new(title: 'Dog Information') do %>
-          <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none inline-flex">
-            <%= link_to "Edit Dog", edit_dog_path(@dog), class: "inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
-            <%= button_to "Retire Dog", dog_path(@dog), method: :delete, class: "inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto" %>
-          </div>
-        <% end %>
-      <% end %>
-    <% end %>
-  </li>
-  <li class="bg-white shadow overflow-hidden px-4 py-4 sm:px-6 sm:rounded-md">
-    <%= render SectionWrapperComponent.new do |section| %>
-      <%= section.with_main_body do %>
-        <%= render 'dog_journal' %>
-      <% end %>
-      <%= section.with_section_header do %>
-        <%= render SectionHeaderComponent.new(title: 'Dog Journal') do %>
-          <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-            <%= link_to 'Add New Journal', new_dog_journal_path(@dog), class: "inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto" %>
-          </div>
-        <% end %>
-      <% end %>
-    <% end %>
-  </li>
-  <li class="bg-white shadow overflow-hidden px-4 py-4 sm:px-6 sm:rounded-md">
-    <%= render SectionWrapperComponent.new do |section| %>
-      <%= section.with_main_body do %>
-        <%= render ActionEvents::ActionEventRecordsTableComponent.new(action_event_records: @action_event_records) %>
-      <% end %>
-      <%= section.with_section_header do %>
-        <%= render SectionHeaderComponent.new(title: 'Related Reminders',
-                                              subtitle: "Includes all the past reminders and future events in the next 30 days"
-                                              ) do %>
-          <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-            <%= link_to 'Add New Reminder', new_action_event_path, class: "inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto" %>
-          </div>
+        <%= render PageHeaderComponent.new(header_name: 'Dog Information',
+                                           primary_button_title: "Edit Dog",
+                                           primary_button_link: edit_dog_path(@dog),
+                                           subtitle: "Group: #{@dog.group.name}",
+                                           secondary_button_title: "Retire Dog",
+                                           secondary_button_link: dog_path(@dog)) do |header| %>
+          <%= header.with_avatar do %>
+            <%= image_tag avatar_url_for(@dog), class: "h-16 w-16 rounded-full" %>
+          <% end %>
+          <%= header.with_buttons do %>
+            <%= link_to 'Add journal', new_dog_journal_path(@dog),
+                        class: "inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-100" %>
+          <% end %>
         <% end %>
       <% end %>
     <% end %>

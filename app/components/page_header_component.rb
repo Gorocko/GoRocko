@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class PageHeaderComponent < ViewComponent::Base
+  renders_one :avatar
+  renders_one :buttons
   def initialize(header_name:,
                  secondary_button_title:,
                  secondary_button_link:,

@@ -1,16 +1,26 @@
-<div class="border-b border-gray-200 px-4 py-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8">
-  <div class="min-w-0 flex-1">
-    <h1 class="text-lg font-medium leading-6 text-gray-900 sm:truncate"><%= @header_name %></h1>
+<div class="border-gray-200 px-4 py-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8">
+  <div class="flex items-center space-x-5">
+    <div class="flex-shrink-0">
+      <div class="relative">
+        <%= avatar %>
+      </div>
+    </div>
+
+    <div>
+      <h1 class="text-2xl font-bold text-gray-900"><%= @header_name %></h1>
+      <p class="text-sm font-medium text-gray-500"><%= @subtitle %>
+      </p>
+    </div>
   </div>
-  <div class="sm:flex-auto">
-    <p class="mt-2 text-sm text-gray-700"><%= @subtitle %></p>
-  </div>
-  <div class="mt-4 flex sm:mt-0 sm:ml-4">
+  <div class="justify-stretch mt-6 flex flex-col-reverse space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-y-0 sm:space-x-3 sm:space-x-reverse md:mt-0 md:flex-row md:space-x-3">
+    <%= buttons %>
     <% if @secondary_button_title.present? and @secondary_button_link.present? %>
-      <%= link_to @secondary_button_title, @secondary_button_link, class: "sm:order-0 order-1 ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:ml-0" %>
+      <%= link_to @secondary_button_title, @secondary_button_link,
+                  class: "inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-100" %>
     <% end %>
     <% if @primary_button_title.present? and @primary_button_link.present? %>
-      <%= link_to @primary_button_title, @primary_button_link, class: "order-0 inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:order-1 sm:ml-3" %>
+      <%= link_to @primary_button_title, @primary_button_link,
+                  class: "inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-700 focus:ring-offset-2 focus:ring-offset-gray-100" %>
     <% end %>
   </div>
 </div>
