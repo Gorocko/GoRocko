@@ -41,8 +41,8 @@
                                            primary_button_title: "Edit Dog",
                                            primary_button_link: edit_dog_path(@dog),
                                            subtitle: "Group: #{@dog.group.name}",
-                                           secondary_button_title: "Retire Dog",
-                                           secondary_button_link: dog_path(@dog)) do |header| %>
+                                           secondary_button_title: "Add new reminder",
+                                           secondary_button_link: new_action_event_path) do |header| %>
           <%= header.with_avatar do %>
             <%= image_tag avatar_url_for(@dog), class: "h-16 w-16 rounded-full" %>
           <% end %>

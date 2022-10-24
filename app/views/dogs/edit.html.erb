@@ -1,5 +1,14 @@
 <div class="mx-auto md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">Editing dog</h1>
+  <%= render PageHeaderComponent.new(header_name: 'Edit Dog',
+                                     primary_button_title: "",
+                                     primary_button_link: "",
+                                     subtitle: "name: #{@dog.name}",
+                                     secondary_button_title: "",
+                                     secondary_button_link: "") do |header| %>
+    <%= header.with_buttons do %>
+      <%= link_to 'Delete Dog', dog_path(@dog), method: :delete,
+                  class: "inline-flex items-center justify-center rounded-md border border-gray-300 bg-rose-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 focus:ring-offset-gray-100" %>
+    <% end %>
+  <% end %>
   <%= render "form", dog: @dog %>
-  <%= link_to 'Back to Group View', groups_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
 </div>
