@@ -2,11 +2,15 @@
   <div class="space-y-8 divide-y divide-gray-200 sm:space-y-5">
     <div>
       <%= render ErrorsBadgeComponent.new(errors: dog.errors) %>
-      <div class="space-y-6 sm:space-y-5">
-        <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
-          <%= image_tag avatar_url_for(form.object, size: 100), class: "rounded-full" %>
-          <div class="mt-1 sm:mt-0 sm:col-span-2">
-            <%= form.file_field :avatar, accept: "image/*", class: "file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-gray-50 file:text-gray-700 hover:file:bg-gray-100" %>
+
+      <div class="sm:grid sm:grid-cols-3 sm:items-center sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+        <label for="photo" class="block text-sm font-medium text-gray-700">Photo</label>
+        <div class="mt-1 sm:col-span-2 sm:mt-0">
+          <div class="flex items-center">
+              <span class="h-12 w-12 overflow-hidden rounded-full bg-gray-100">
+                          <%= image_tag avatar_url_for(form.object, size: 100), class: "rounded-full" %>
+              </span>
+            <%= form.file_field :avatar, accept: "image/*", class: "pl-2 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-gray-50 file:text-gray-700 hover:file:bg-gray-100" %>
           </div>
         </div>
       </div>

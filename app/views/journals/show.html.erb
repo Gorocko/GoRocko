@@ -1,65 +1,60 @@
-<div class="bg-white shadow overflow-hidden sm:rounded-lg">
-  <div class="sm:flex sm:items-center px-4 py-5 sm:px-6">
-    <div class="sm:flex-auto">
-      <h3 class="text-lg leading-6 font-medium text-gray-900">Journal Information for <%= link_to @journal.loggable.name, @journal.loggable %></h3>
-    </div>
-    <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none inline-flex">
-        <%= link_to "Edit Jounral", edit_journal_url(@journal) , class: "inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
-        <%= button_to "Delete Jounral", journal_path(@journal), method: :delete, class: "inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto" %>
-    </div>
-  </div>
+<div class="mx-auto mt-6 max-w-5xl px-4 sm:px-6 lg:px-8">
+  <%= render PageHeaderComponent.new(header_name: 'Journal Information',
+                                     primary_button_title: "Edit Journal",
+                                     primary_button_link:edit_journal_url(@journal),
+                                     subtitle: "Journal for: #{@journal.loggable.name}",
+                                     secondary_button_title: "",
+                                     secondary_button_link: '') do |header| %>
+    <%= header.with_avatar do %>
+      <%= image_tag avatar_url_for(@journal.loggable), class: "h-16 w-16 rounded-full" %>
+    <% end %>
+  <% end %>
   <div class="border-t border-gray-200">
-    <dl>
-      <div class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-        <dt class="text-sm font-medium text-gray-500"> Title </dt>
-        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><%= @journal.title %></dd>
+    <dl class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2">
+      <div class="sm:col-span-1">
+        <dt class="text-sm font-medium text-gray-500">Title</dt>
+        <dd class="mt-1 text-sm text-gray-900"><%= @journal.title %></dd>
       </div>
-    </dl>
-    <dl>
-      <div class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-        <dt class="text-sm font-medium text-gray-500"> Content</dt>
-        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><%= @journal.notes %></dd>
-      </div>
-    </dl>
-    <dl>
-      <div class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+      <div class="sm:col-span-1">
         <dt class="text-sm font-medium text-gray-500"> Created at </dt>
-        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><%= @journal.created_at %></dd>
+        <dd class="mt-1 text-sm text-gray-900"><%= @journal.created_at %></dd>
       </div>
-    </dl>
-    <dl>
-      <div class="px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-        <dt class="text-sm font-medium text-gray-500"> Added by </dt>
-        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><%= @journal.author.name %></dd>
+      <div class="sm:col-span-1">
+        <dt class="text-sm font-medium text-gray-500">Added by</dt>
+        <dd class="mt-1 text-sm text-gray-900"><%= @journal.author.name %></dd>
       </div>
-    </dl>
-    <dl>
-      <div class=" px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-        <dt class="text-sm font-medium text-gray-500"> Tags</dt>
-        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-          <%= render TagsComponent.new(tags:@journal.tag_list) %>
+      <div class="sm:col-span-2">
+        <dt class="text-sm font-medium text-gray-500">Content</dt>
+        <dd class="mt-1 text-sm text-gray-900">
+          <%= @journal.notes %>
+        </dd>
+      </div>
+      <div class="sm:col-span-2">
+        <dt class="text-sm font-medium text-gray-500">Tags</dt>
+        <dd class="mt-1 text-sm text-gray-900">
+          <%= render TagsComponent.new(tags: @journal.tag_list) %>
+        </dd>
+      </div>
+      <div class="sm:col-span-2">
+        <dt class="text-sm font-medium text-gray-500">Photos</dt>
+        <dd class="mt-1 text-sm text-gray-900">
+          <ul role="list" class="border border-gray-200 rounded-md divide-y divide-gray-200">
+            <% @journal.photos.each do |photo| %>
+              <%= render Attachment::PhotoComponent.new(photo: photo) %>
+            <% end %>
+          </ul>
+        </dd>
+      </div>
+      <div class="sm:col-span-2">
+        <dt class="text-sm font-medium text-gray-500">Files</dt>
+        <dd class="mt-1 text-sm text-gray-900">
+          <ul role="list" class="border border-gray-200 rounded-md divide-y divide-gray-200">
+            <% @journal.files.each do |file| %>
+              <%= render Attachment::FileComponent.new(file: file) %>
+            <% end %>
+          </ul>
         </dd>
       </div>
     </dl>
-    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-      <dt class="text-sm font-medium text-gray-500">Pictures</dt>
-      <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-        <ul role="list" class="border border-gray-200 rounded-md divide-y divide-gray-200">
-          <% @journal.photos.each do |photo | %>
-            <%= render Attachment::PhotoComponent.new(photo:photo) %>
-          <% end %>
-        </ul>
-      </dd>
-    </div>
-    <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-      <dt class="text-sm font-medium text-gray-500">Files</dt>
-      <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-        <ul role="list" class="border border-gray-200 rounded-md divide-y divide-gray-200">
-          <% @journal.files.each do |file | %>
-            <%= render Attachment::FileComponent.new(file:file) %>
-          <% end %>
-        </ul>
-      </dd>
-    </div>
   </div>
 </div>
