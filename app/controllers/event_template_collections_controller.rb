@@ -2,6 +2,7 @@
 
 class EventTemplateCollectionsController < ApplicationController
   include EventTemplateCollectionsHelper
+  before_action :authenticate_user!
   before_action :set_template_collection, only: %i[show edit destroy update apply]
 
   def new

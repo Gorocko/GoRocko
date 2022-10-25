@@ -6,6 +6,7 @@ class ActionEventsController < ApplicationController
   before_action :set_action_event, only: %i[show destroy edit take_action update]
   def index
     @action_events = action_events_in_order_until(30.days.from_now)
+    @event_template_collections = EventTemplateCollection.all
   end
 
   def new

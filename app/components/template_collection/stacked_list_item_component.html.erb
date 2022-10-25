@@ -1,0 +1,16 @@
+<li class="py-5">
+  <div class="relative focus-within:ring-2 focus-within:ring-indigo-500">
+    <h3 class="text-sm font-semibold text-gray-800">
+      <a href="<%= event_template_collection_path(@event_template_collection) %>" class="hover:underline focus:outline-none">
+        <!-- Extend touch target to entire panel -->
+        <span class="absolute inset-0" aria-hidden="true"></span>
+        <%= @event_template_collection.title %>
+      </a>
+    </h3>
+    <% @event_template_collection.event_templates.each do |event_template| %>
+      <p class="mt-1 text-sm text-gray-600 line-clamp-2">
+        <%= event_template.title %>
+      </p>
+    <% end %>
+  </div>
+</li>
