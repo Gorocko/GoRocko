@@ -1,0 +1,13 @@
+<div>
+  <div class="mt-6 flow-root">
+    <ul role="list" class="-my-5 divide-y divide-gray-200">
+      <% @event_template_collections.each do |event_template_collection| %>
+      <%= render TemplateCollection::StackedListItemComponent.new(
+        event_template_collection: event_template_collection) %>
+      <% end %>
+    </ul>
+  </div>
+<!--  <div class="mt-6">-->
+<!--    <a href="#" class="flex w-full items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">View all</a>-->
+<!--  </div>-->
+</div>

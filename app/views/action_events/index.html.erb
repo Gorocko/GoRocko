@@ -1,2 +1,36 @@
-<%= render ActionEvents::IndexWebViewComponent.new(action_events: @action_events) %>
-<%= render ActionEvents::IndexMobileViewComponent.new(action_events: @action_events) %>
+<!-- This example requires Tailwind CSS v2.0+ -->
+<ul role="list" class="space-y-3" data-controller="tabs">
+  <li class="bg-white shadow overflow-hidden px-4 py-4 sm:px-6 sm:rounded-md">
+    <%= render SectionWrapperComponent.new do |section| %>
+      <%= section.with_section_nav do %>
+        <div data-controller="tabs" data-tabs-active-tab="-mb-px border-grey-500 text-indigo-600 border-indigo-500 border-b-2">
+          <ul class="list-reset flex border-b -mb-px flex space-x-8">
+            <li class="-mb-px mr-1" data-tabs-target="tab" data-action="click->tabs#change">
+              <a class="bg-white inline-block py-2 px-4 text-gray-500 hover:text-gray-700 font-medium text-sm no-underline" href="#">Reminders</a>
+            </li>
+            <li class="mr-1" data-tabs-target="tab" data-action="click->tabs#change">
+              <a class="bg-white inline-block py-2 px-4 text-gray-500 hover:text-gray-700 font-medium text-sm no-underline" href="#">Templates</a>
+            </li>
+          </ul>
+
+          <div class="hidden py-4 px-4 " data-tabs-target="panel">
+            <%= render ActionEvents::IndexWebViewComponent.new(action_events: @action_events) %>
+            <%= render ActionEvents::IndexMobileViewComponent.new(action_events: @action_events) %>
+          </div>
+
+          <div class="hidden py-4 px-4 " data-tabs-target="panel">
+            <%= render TemplateCollection::StackedListIndexComponent.new(event_template_collections: @event_template_collections) %>
+          </div>
+        </div>
+      <% end %>
+      <%= section.with_section_header do %>
+        <%= render PageHeaderComponent.new(header_name: 'Reminders',
+                                           primary_button_title: 'Add New Reminder',
+                                           primary_button_link: new_action_event_path,
+                                           subtitle: "Includes all the past reminders and future events in the next 30 days",
+                                           secondary_button_title: 'Add New Template',
+                                           secondary_button_link: new_event_template_collection_path) %>
+      <% end %>
+    <% end %>
+  </li>
+</ul>

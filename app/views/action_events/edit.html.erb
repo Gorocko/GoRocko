@@ -1,1 +1,14 @@
-<%= render ActionEvents::ActionEventFormComponent.new(action_event: @action_event, button_disabled: false, main_app: main_app) %>
+<%= render PageHeaderComponent.new(header_name: 'Edit Reminder',
+                                   primary_button_title: "",
+                                   primary_button_link: "",
+                                   subtitle: "#{@action_event.title}",
+                                   secondary_button_title: "",
+                                   secondary_button_link: "") do |header| %>
+  <%= header.with_buttons do %>
+    <%= link_to 'Delete Reminder', action_event_path(@action_event), method: :delete,
+                class: "inline-flex items-center justify-center rounded-md border border-gray-300 bg-rose-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 focus:ring-offset-gray-100" %>
+  <% end %>
+  <% end %>
+<%= render ActionEvents::ActionEventFormComponent.new(
+  action_event: @action_event,
+  button_disabled: false, main_app: main_app) %>

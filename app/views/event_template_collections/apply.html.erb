@@ -1,3 +1,9 @@
+<%= render PageHeaderComponent.new(header_name: @event_template_collection.title,
+                                   primary_button_title: "Apply template",
+                                   primary_button_link: "",
+                                   subtitle: "apply template to bacth add reminders",
+                                   secondary_button_title:"",
+                                   secondary_button_link: "" ) %>
 <div id="apply_template_to_dogs">
   <div class="mx-auto md:w-2/3 w-full">
     <%= form_with(model: @event_template_collection, url: apply_event_template_collection_path(@event_template_collection), class: "space-y-8 divide-y divide-gray-200") do |form| %>

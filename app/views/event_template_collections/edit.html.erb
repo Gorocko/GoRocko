@@ -1,1 +1,12 @@
+<%= render PageHeaderComponent.new(header_name: "#{@event_template_collection.title}",
+                                   primary_button_title: "",
+                                   primary_button_link: "",
+                                   subtitle: "Edit template",
+                                   secondary_button_title: "",
+                                   secondary_button_link: "") do |header| %>
+  <%= header.with_buttons do %>
+      <%= link_to 'Delete Template', event_template_collection_path(@event_template_collection), method: :delete,
+                  class: "inline-flex items-center justify-center rounded-md border border-gray-300 bg-rose-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 focus:ring-offset-gray-100" %>
+    <% end %>
+<% end %>
 <%= render TemplateCollection::TemplateCollectionFormComponent.new(event_template_collection: @event_template_collection) %>

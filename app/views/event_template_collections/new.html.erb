@@ -1,1 +1,8 @@
+<%= render PageHeaderComponent.new(header_name: "Add new template",
+                                   primary_button_title: "",
+                                   primary_button_link: "",
+                                   subtitle: "",
+                                   secondary_button_title: "",
+                                   secondary_button_link: "") do |header| %>
+<% end %>
 <%= render TemplateCollection::TemplateCollectionFormComponent.new(event_template_collection: @event_template_collection) %>

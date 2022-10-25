@@ -1,10 +1,6 @@
 <%= form_for([@dog, @journal], class: "space-y-8 divide-y divide-gray-200") do |form| %>
   <div class="space-y-8 divide-y divide-gray-200 sm:space-y-5">
     <div>
-      <div>
-<!--        <h3 class="text-lg leading-6 font-medium text-gray-900">Add New Journal</h3>-->
-        <p class="mt-1 max-w-2xl text-sm text-gray-500">This journal is for <%= link_to @dog.name, @dog %></p>
-      </div>
       <%= render ErrorsBadgeComponent.new(errors: @journal.errors) %>
       <%= render(Forms::TextFieldComponent.new(form: form, label_field: :title, attribute_field: :title)) %>
       <%= render(Forms::RichTextareaFieldComponent.new(form: form, label_field: :notes, attribute_field: :notes)) %>
@@ -29,7 +25,7 @@
         <% end %>
         <%= component.with_svg_icon do %>
           <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
-            <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         <% end %>
       <% end %>
