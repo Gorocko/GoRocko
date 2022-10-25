@@ -1,10 +1,6 @@
 <%= form_for([@dog, @journal], class: "space-y-8 divide-y divide-gray-200") do |form| %>
   <div class="space-y-8 divide-y divide-gray-200 sm:space-y-5">
     <div>
-      <div>
-<!--        <h3 class="text-lg leading-6 font-medium text-gray-900">Add New Journal</h3>-->
-        <p class="mt-1 max-w-2xl text-sm text-gray-500">This journal is for <%= link_to @dog.name, @dog %></p>
-      </div>
       <%= render ErrorsBadgeComponent.new(errors: @journal.errors) %>
       <%= render(Forms::TextFieldComponent.new(form: form, label_field: :title, attribute_field: :title)) %>
       <%= render(Forms::RichTextareaFieldComponent.new(form: form, label_field: :notes, attribute_field: :notes)) %>

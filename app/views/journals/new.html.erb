@@ -1,3 +1,13 @@
+<%= render PageHeaderComponent.new(header_name: 'Add new journal',
+                                   primary_button_title: "",
+                                   primary_button_link: "",
+                                   subtitle: "this journal is for #{@dog.name}",
+                                   secondary_button_title:"",
+                                   secondary_button_link: "" ) do |header| %>
+  <%= header.with_avatar do %>
+    <%= image_tag avatar_url_for(@dog), class: "h-16 w-16 rounded-full" %>
+  <% end %>
+  <% end %>
 <div class="mx-auto md:w-2/3 w-full">
   <div class="overflow-hidden bg-white px-4 py-4 shadow sm:rounded-md sm:px-6">
   <%= render "form" %>
