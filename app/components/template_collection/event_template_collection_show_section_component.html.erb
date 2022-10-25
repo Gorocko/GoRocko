@@ -1,17 +1,7 @@
-<div class="border-t border-gray-200">
-  <dl>
-    <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-      <dt class="text-sm font-medium text-gray-500"> Template Title</dt>
-      <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><%= @event_template_collection.title %></dd>
-    </div>
-      <ul role="list" class="space-y-3">
-        <% @event_template_collection.event_templates.each do |event_template| %>
-          <div class="bg-white overflow-hidden shadow rounded-lg">
-            <div class="px-4 py-5 sm:p-6">
-              <%= render TemplateCollection::EventTemplateShowSectionComponent.new(event_template: event_template) %>
-            </div>
-          </div>
-        <% end %>
-      </ul>
-  </dl>
+<div class="mt-6 flow-root">
+  <ul role="list" class="space-y-3">
+    <% @event_template_collection.event_templates.each do |event_template| %>
+      <%= render TemplateCollection::EventTemplateShowSectionComponent.new(event_template: event_template) %>
+    <% end %>
+  </ul>
 </div>
