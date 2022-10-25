@@ -1,4 +1,16 @@
 <div class="mx-auto md:w-2/3 w-full">
-  <%= render "form" %>
-  <%= link_to 'Back to Group View', groups_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-</div>
+  <%= render PageHeaderComponent.new(header_name: 'Edit Journal',
+                                     primary_button_title: '',
+                                     primary_button_link:'',
+                                     subtitle: "Journal for: #{@journal.loggable.name}",
+                                     secondary_button_title: "",
+                                     secondary_button_link: '') do |header| %>
+    <%= header.with_avatar do %>
+      <%= image_tag avatar_url_for(@journal.loggable), class: "h-16 w-16 rounded-full" %>
+    <% end %>
+    <%= header.with_buttons do %>
+      <%= link_to "Delete Journal", journal_path(@journal), method: :delete,
+                  class: "inline-flex items-center justify-center rounded-md border border-gray-300 bg-rose-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 focus:ring-offset-gray-100" %>
+    <% end %>
+  <% end %>
+  <%= render "form" %></div>
