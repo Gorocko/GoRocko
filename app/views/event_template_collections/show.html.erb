@@ -1,8 +1,8 @@
 <%= render PageHeaderComponent.new(header_name: @event_template_collection.title,
-                                   primary_button_title: "Edit Template",
-                                   primary_button_link: edit_event_template_collection_path(@event_template_collection),
+                                   primary_button_title: "Apply template",
+                                   primary_button_link: apply_event_template_collection_path(@event_template_collection),
                                    subtitle: "",
-                                   secondary_button_title: "",
-                                   secondary_button_link: "") do |header| %>
+                                   secondary_button_title: "Edit Template",
+                                   secondary_button_link: edit_event_template_collection_path(@event_template_collection) ) do |header| %>
 <% end %>
 <%= render TemplateCollection::EventTemplateCollectionShowSectionComponent.new(event_template_collection: @event_template_collection) %>

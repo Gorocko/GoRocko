@@ -55,7 +55,7 @@ class EventTemplateCollectionsController < ApplicationController
     @event_template_collection.destroy
 
     respond_to do |format|
-      format.html { redirect_to(event_template_collections_path, notice: "Template was successfully destroyed.") }
+      format.html { redirect_to(action_events_path, notice: "Template was successfully destroyed.") }
       format.json { head(:no_content) }
     end
   end
