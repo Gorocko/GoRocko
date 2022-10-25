@@ -7,7 +7,7 @@
   </div>
 
   <div class="form-group flex justify-between">
-    <%= form.button class: "btn btn-primary" %>
+    <%= form.button class: "ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
 
     <% if form.object.persisted? %>
       <%= link_to t("delete"), form.object, class: "btn btn-danger outline", data: { turbo_method: :delete, turbo_confirm: t("are_you_sure") } %>

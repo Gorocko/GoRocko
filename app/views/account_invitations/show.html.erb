@@ -8,7 +8,7 @@
   </div>
 
   <div class="mt-5 flex gap-2 justify-center">
-    <%= button_to t(".accept"), account_invitation_path(@account_invitation.token), method: :put, class: "btn btn-primary" %>
+    <%= button_to t(".accept"), account_invitation_path(@account_invitation.token), method: :put, class: "ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
     <%= button_to t(".decline"), account_invitation_path(@account_invitation.token), method: :delete, class: "btn btn-white", data: {turbo_confirm: t("are_you_sure")} %>
   </div>
 </div>

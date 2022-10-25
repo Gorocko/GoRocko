@@ -11,7 +11,7 @@
 
   <div class="my-8 text-center">
     <%= f.button t("subscriptions.new.subscribe"),
-      class: "btn btn-primary btn-large btn-block",
+      class: "ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 btn-large btn-block",
       data: {
         action: "click->braintree#submit",
         disable_with: disable_with(t("subscriptions.new.processing"))

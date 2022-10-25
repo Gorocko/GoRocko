@@ -18,7 +18,7 @@
   <div data-stripe-target="error" role="alert" class="form-group text-red-600 text-sm"></div>
 
   <div class="text-center">
-    <%= f.button local_assigns.fetch(:button, plan&.trial_period_days? ? t("subscriptions.new.start_trial") : t("subscriptions.new.subscribe")), id: 'submit-button', class: "btn btn-primary btn-large btn-block", data: { action: "click->stripe#submit", disable_with: disable_with(t("subscriptions.new.processing")) } %>
+    <%= f.button local_assigns.fetch(:button, plan&.trial_period_days? ? t("subscriptions.new.start_trial") : t("subscriptions.new.subscribe")), id: 'submit-button', class: "ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 btn-large btn-block", data: { action: "click->stripe#submit", disable_with: disable_with(t("subscriptions.new.processing")) } %>
   </div>
 
   <%= f.hidden_field :plan, value: plan.try(:id) %>
