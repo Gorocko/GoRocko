@@ -4,7 +4,7 @@
     <h3><%= @group.name %></h3>
   </div>
   <ul role="list" class="relative z-0 divide-y divide-gray-200">
-    <% @group.dogs.each do |dog| %>
+    <% @dogs.each do |dog| %>
       <%= render  GroupsView::StackedDogListItemComponent.new(dog: dog) %>
     <% end %>
   </ul>

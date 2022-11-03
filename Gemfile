@@ -128,6 +128,7 @@ gem "whenever", "~> 1.0", require: false
 # gem "sidekiq-cron"
 gem 'deep_cloneable', '~> 3.2.0'
 gem 'ice_cube'
+gem 'ransack'
 
 # Jumpstart manages a few gems for us, so install them from the extra Gemfile
 eval_gemfile "config/jumpstart/Gemfile" if File.exist?("config/jumpstart/Gemfile")

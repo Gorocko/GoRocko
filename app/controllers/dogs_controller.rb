@@ -10,8 +10,8 @@ class DogsController < ApplicationController
 
   # GET /dogs or /dogs.json
   def index
-    @dogs = Dog.all
-    @groups = Group.all
+    @q = Dog.ransack(params[:q])
+    @dogs = @q.result(distinct: true).includes(:group)
   end
 
   # GET /dogs/1 or /dogs/1.json
