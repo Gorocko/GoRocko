@@ -2,8 +2,10 @@
 
 module GroupsView
   class WebViewComponent < ViewComponent::Base
-    def initialize(groups:)
-      @groups = groups
+    include Ransack::Helpers::FormHelper
+    def initialize(dogs:)
+      @dogs = dogs
+      @groups = dogs.map(&:group).uniq
     end
   end
 end

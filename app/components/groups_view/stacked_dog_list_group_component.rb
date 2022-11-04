@@ -2,8 +2,9 @@
 
 module GroupsView
   class StackedDogListGroupComponent < ViewComponent::Base
-    def initialize(group:)
+    def initialize(group:, dogs:)
       @group = group
+      @dogs = dogs
     end
   end
 end
