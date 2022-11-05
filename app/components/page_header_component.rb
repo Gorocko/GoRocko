@@ -9,7 +9,7 @@ class PageHeaderComponent < ViewComponent::Base
                  secondary_button_link:,
                  primary_button_title:,
                  primary_button_link:,
-                 subtitle: '')
+                 subtitle: "")
     @header_name = header_name
     @secondary_button_title = secondary_button_title
     @secondary_button_link = secondary_button_link

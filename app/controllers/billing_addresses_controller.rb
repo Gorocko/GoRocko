@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class BillingAddressesController < ApplicationController
   before_action :authenticate_user!
   before_action :require_account
-  before_action :set_billing_address, only: [:edit, :update, :destroy]
+  before_action :set_billing_address, only: %i[edit update destroy]
 
   def new
     @billing_address = current_account.build_billing_address
@@ -17,8 +19,7 @@ class BillingAddressesController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @billing_address.update(billing_address_params)

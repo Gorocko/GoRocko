@@ -82,10 +82,10 @@ module TwoFactorAuthentication
 
   # No valid OTP may be used more than once for a given timestep
   def consume_otp!
-    if last_otp_timestep != current_otp_timestep
-      update_attribute(:last_otp_timestep, current_otp_timestep)
-    else
+    if last_otp_timestep == current_otp_timestep
       false
+    else
+      update_attribute(:last_otp_timestep, current_otp_timestep)
     end
   end
 

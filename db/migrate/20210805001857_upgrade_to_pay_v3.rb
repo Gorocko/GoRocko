@@ -14,7 +14,7 @@ class UpgradeToPayV3 < ActiveRecord::Migration[6.0]
 
         # Migrate to Pay::Customer
         pay_customer = Pay::Customer.where(owner: record, processor: record.processor,
-          processor_id: record.processor_id).first_or_initialize
+                                           processor_id: record.processor_id).first_or_initialize
         pay_customer.update!(
           default: true,
           data: {
@@ -60,7 +60,7 @@ class UpgradeToPayV3 < ActiveRecord::Migration[6.0]
         charge.update!(customer:, payment_method_type: :paypal, brand: "PayPal", email: charge.card_last4)
       else
         charge.update!(customer:, payment_method_type: :card, brand: charge.card_type,
-          last4: charge.card_last4, exp_month: charge.card_exp_month, exp_year: charge.card_exp_year)
+                       last4: charge.card_last4, exp_month: charge.card_exp_month, exp_year: charge.card_exp_year)
       end
     end
 

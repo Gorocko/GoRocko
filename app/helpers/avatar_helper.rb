@@ -7,7 +7,7 @@ module AvatarHelper
     if user.respond_to?(:avatar) && user.avatar.attached? && user.avatar.variable?
       user.avatar.variant(resize_to_fit: [size, size])
     else
-      gravatar_url_for('', size:)
+      gravatar_url_for("", size:)
     end
   end
 end

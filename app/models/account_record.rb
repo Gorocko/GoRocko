@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AccountRecord < ActiveRecord::Base
+class AccountRecord < ApplicationRecord
   self.abstract_class = true
 
   default_scope lambda {
@@ -12,7 +12,7 @@ class AccountRecord < ActiveRecord::Base
       keys = [ActsAsTenant.current_tenant.send(pkey)]
       keys.push(nil) if options[:has_global_records]
 
-      query_criteria = {fkey.to_sym => keys}
+      query_criteria = { fkey.to_sym => keys }
       query_criteria[polymorphic_type.to_sym] = ActsAsTenant.current_tenant.class.to_s if options[:polymorphic]
       where(query_criteria)
     else

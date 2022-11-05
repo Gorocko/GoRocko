@@ -24,7 +24,7 @@ class EventTemplateCollectionForm < YAAF::Form
 
   def update
     @event_template_collection.update(title:,
-      event_templates_attributes: sanitized_event_templates_attributes)
+                                      event_templates_attributes: sanitized_event_templates_attributes)
   end
 
   def link_event_templates

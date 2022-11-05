@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MigrateActionEventRecordNotesToActionText < ActiveRecord::Migration[7.0]
   include ActionView::Helpers::TextHelper
   def change

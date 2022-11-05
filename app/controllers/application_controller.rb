@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   add_flash_types :info, :error, :success
@@ -24,8 +26,8 @@ class ApplicationController < ActionController::Base
 
   # To add extra fields to Devise registration, add the attribute names to `extra_keys`
   def configure_permitted_parameters
-    extra_keys = [:avatar, :name, :time_zone, :preferred_language]
-    signup_keys = extra_keys + [:terms_of_service, :invite, owned_accounts_attributes: [:name]]
+    extra_keys = %i[avatar name time_zone preferred_language]
+    signup_keys = extra_keys + [:terms_of_service, :invite, { owned_accounts_attributes: [:name] }]
     devise_parameter_sanitizer.permit(:sign_up, keys: signup_keys)
     devise_parameter_sanitizer.permit(:account_update, keys: extra_keys)
     devise_parameter_sanitizer.permit(:accept_invitation, keys: extra_keys)
@@ -44,9 +46,7 @@ class ApplicationController < ActionController::Base
   end
 
   def require_current_account_admin
-    unless current_account_admin?
-      redirect_to root_path, alert: t("must_be_an_admin")
-    end
+    redirect_to root_path, alert: t("must_be_an_admin") unless current_account_admin?
   end
 
   private

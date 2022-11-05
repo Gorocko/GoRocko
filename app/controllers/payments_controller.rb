@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PaymentsController < ApplicationController
   def show
     @payment = Pay::Payment.from_id(params[:id])

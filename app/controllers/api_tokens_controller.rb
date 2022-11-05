@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class ApiTokensController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_api_token, only: [:show, :edit, :update, :destroy]
+  before_action :set_api_token, only: %i[show edit update destroy]
 
   def index
     @api_tokens = current_user.api_tokens.sorted
@@ -19,8 +21,7 @@ class ApiTokensController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @api_token.update(api_token_params)

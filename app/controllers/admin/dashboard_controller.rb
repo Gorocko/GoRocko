@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Admin
   class DashboardController < Admin::ApplicationController
     # See https://administrate-prototype.herokuapp.com/customizing_controller_actions
@@ -23,12 +25,12 @@ module Admin
 
     def last_month
       month = Time.current.prev_month
-      revenue_for_range month.beginning_of_month..month.end_of_month
+      revenue_for_range month.all_month
     end
 
     def this_month
       month = Time.current
-      revenue_for_range month.beginning_of_month..month.end_of_month
+      revenue_for_range month.all_month
     end
 
     def revenue_for_range(range)

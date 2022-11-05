@@ -92,7 +92,7 @@ gem "yaaf"
 
 gem "view_component"
 
-gem 'acts_as_list'
+gem "acts_as_list"
 gem "acts-as-taggable-on", "~> 9.0"
 gem "acts_as_tenant", "~> 0.5.1"
 gem "administrate", github: "excid3/administrate", branch: "jumpstart" # '~> 0.10.0'
@@ -126,9 +126,9 @@ gem "rubocop-rails", require: false
 gem "ruby-oembed", "~> 0.16.0", require: "oembed"
 gem "whenever", "~> 1.0", require: false
 # gem "sidekiq-cron"
-gem 'deep_cloneable', '~> 3.2.0'
-gem 'ice_cube'
-gem 'ransack'
+gem "deep_cloneable", "~> 3.2.0"
+gem "ice_cube"
+gem "ransack"
 
 # Jumpstart manages a few gems for us, so install them from the extra Gemfile
 eval_gemfile "config/jumpstart/Gemfile" if File.exist?("config/jumpstart/Gemfile")
