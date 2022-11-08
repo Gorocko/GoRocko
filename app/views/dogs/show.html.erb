@@ -37,7 +37,7 @@
         </div>
       <% end %>
       <%= section.with_section_header do %>
-        <%= render PageHeaderComponent.new(header_name: 'Dog Information',
+        <%= render PageHeaderComponent.new(header_name: @dog.name,
                                            primary_button_title: "Edit Dog",
                                            primary_button_link: edit_dog_path(@dog),
                                            subtitle: "Group: #{@dog.group.name}",
