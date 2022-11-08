@@ -23,6 +23,8 @@ class DogsController < ApplicationController
   # GET /dogs/new
   def new
     @dog = Dog.new
+    @primary_button_text = 'Create'
+    @secondary_button_text = 'Add another dog'
   end
 
   # GET /dogs/1/edit
@@ -31,10 +33,15 @@ class DogsController < ApplicationController
   # POST /dogs or /dogs.json
   def create
     @dog = Dog.new(dog_params)
-
+    @primary_button_text = 'Create'
+    @secondary_button_text = 'Add another dog'
     respond_to do |format|
       if @dog.save
-        format.html { redirect_to(dog_url(@dog), notice: "Dog was successfully created.") }
+        if button_text_param[:button_text] == @secondary_button_text
+          format.html { redirect_to(new_dog_path, success: "Dog was successfully created.") }
+        else
+          format.html { redirect_to(dog_path(@dog), success: "Dog was successfully created.") }
+        end
         format.json { render(:show, status: :created, location: @dog) }
       else
         format.html { render(:new, status: :unprocessable_entity) }
@@ -45,9 +52,11 @@ class DogsController < ApplicationController
 
   # PATCH/PUT /dogs/1 or /dogs/1.json
   def update
+    @primary_button_text = 'Update'
+    @secondary_button_text = ''
     respond_to do |format|
       if @dog.update(dog_params)
-        format.html { redirect_to(dog_url(@dog), notice: "Dog was successfully updated.") }
+        format.html { redirect_to(dog_path(@dog), success: "Dog was successfully updated.") }
         format.json { render(:show, status: :ok, location: @dog) }
       else
         format.html { render(:edit, status: :unprocessable_entity) }
@@ -62,7 +71,7 @@ class DogsController < ApplicationController
     @dog.destroy
 
     respond_to do |format|
-      format.html { redirect_to(groups_url, notice: "Dog was successfully destroyed.") }
+      format.html { redirect_to(dogs_path, success: "Dog was successfully destroyed.") }
       format.json { head(:no_content) }
     end
   end
@@ -80,5 +89,9 @@ class DogsController < ApplicationController
                                                 :registration_number,
                                                 :birthday, :notes, :sex, :color_list, :pattern_list,
                                                 :group_id, :avatar, :tag_list, append_photos: [], append_files: [])
+  end
+
+  def button_text_param
+    params.permit(:button_text)
   end
 end
