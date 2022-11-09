@@ -4,6 +4,22 @@
                                      primary_button_link: new_dog_path,
                                      secondary_button_title: '',
                                      secondary_button_link: "") do |header| %>
+    <%= header.with_sort_section do %>
+      <div class="relative">
+        <button type="button" class="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" id="sort-menu-button" aria-expanded="false" aria-haspopup="true">
+          Sort:&nbsp;<%= sort_link(@q, :name) %>
+        </button>
+        <!-- Dropdown menu, show/hide based on menu state. -->
+        <!--        <div class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="sort-menu-button" tabindex="-1">-->
+        <!--          <div class="py-1" role="none">-->
+        <!--            Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
+        <!--            <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="sort-menu-item-0">Name</a>-->
+        <!--            <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="sort-menu-item-1">Date modified</a>-->
+        <!--            <a href="#" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="sort-menu-item-2">Date created</a>-->
+        <!--          </div>-->
+        <!--        </div>-->
+      </div>
+    <% end %>
     <%= header.with_search_form do %>
       <%= search_form_for @q do |f| %>
         <div class="min-w-0 flex-1 md:px-8 lg:px-0 xl:col-span-6">
@@ -17,23 +33,19 @@
                   </svg>
                 </div>
                 <%= f.search_field :name_cont,
-                                   placeholder: "Search for name",
+                                   placeholder: "Search name",
                                    class: "block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3
                                    text-sm placeholder-gray-500 focus:border-rose-500 focus:text-gray-900
                                    focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-rose-500 sm:text-sm" %>
               </div>
             </div>
-            <%= render(Forms::SubmitFieldComponent.new(form: f)) %>
+            <% css_config_override="ml-3 inline-flex justify-center py-2 px-4 border border-gray-300
+          shadow-sm text-sm font-medium text-gray-70
+         rounded-md  bg-white hover:bg-indigo-700
+         focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+            <%= render(Forms::SubmitFieldComponent.new(form: f, css_config_override: css_config_override)) %>
           </div>
         </div>
-
-        <!--  # Search if an associated articles.title starts with...-->
-        <%#= f.label :articles_title_start %>
-        <%#= f.search_field :articles_title_start %>
-
-        <!--  # Attributes may be chained. Search multiple attributes for one value...-->
-        <%#= f.label :name_or_description_or_email_or_articles_title_cont %>
-        <%#= f.search_field :name_or_description_or_email_or_articles_title_cont %>
       <% end %>
     <% end %>
   <% end %>
