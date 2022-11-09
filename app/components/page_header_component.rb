@@ -4,6 +4,7 @@ class PageHeaderComponent < ViewComponent::Base
   renders_one :avatar
   renders_one :buttons
   renders_one :search_form
+  renders_one :sort_section
   def initialize(header_name:,
                  secondary_button_title:,
                  secondary_button_link:,

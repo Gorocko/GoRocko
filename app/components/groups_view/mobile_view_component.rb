@@ -4,6 +4,7 @@ module GroupsView
   class MobileViewComponent < ViewComponent::Base
     include Ransack::Helpers::FormHelper
     include Pagy::Frontend
+    include ApplicationHelper
 
     def initialize(dogs:, q:, pagy:)
       @dogs = dogs

@@ -6,12 +6,19 @@
       </div>
     </div>
 
-    <div>
-      <h1 class="text-2xl font-bold text-gray-900"><%= @header_name %></h1>
-      <p class="text-sm font-medium text-gray-500"><%= @subtitle %>
-      </p>
+    <div class="flex flex-row space-x-4  items-start">
+      <div>
+        <h1 class="text-2xl font-bold text-gray-900"><%= @header_name %></h1>
+        <p class="text-sm font-medium text-gray-500"><%= @subtitle %>
+        </p>
+      </div>
+      <div class="">
+        <%= sort_section %>
+      </div>
     </div>
+
   </div>
+
   <%= search_form %>
   <div class="justify-stretch mt-3 flex flex-col-reverse space-y-4 space-y-reverse sm:flex-row-reverse sm:justify-end sm:space-y-0 sm:space-x-3 sm:space-x-reverse md:mt-0 md:flex-row md:space-x-3">
     <%= buttons %>
