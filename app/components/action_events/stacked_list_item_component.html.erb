@@ -13,6 +13,12 @@
             <%= render_svg "icons/user-group", styles: "fill-current icon-sm mr-2" %>
             <%= @action_event.dogs.map(&:name).join(", ") %>
           </p>
+          <% if @action_event.recurrent? %>
+            <p class="mt-2 flex items-center text-sm text-gray-500 sm:mt-0 sm:ml-6">
+              <%= render_svg "icons/link", styles: "fill-current icon-sm mr-2" %>
+              <%= "Recurrent Event" %>
+            </p>
+          <% end %>
           <p class="mt-2 flex items-center text-sm text-gray-500 sm:mt-0 sm:ml-6">
             <%= render_svg "icons/tag", styles: "fill-current icon-sm mr-2" %>
             <%= @action_event.tag_list.join(", ") %>
@@ -20,9 +26,13 @@
         </div>
         <div class="mt-2 flex items-center text-sm text-gray-500 sm:mt-0">
           <%= render_svg "icons/calendar", styles: "fill-current icon-sm mr-2" %>
-          <p>
+          <p class="truncate">
             Due on
-            <%= formatted_time_display(@action_event.due_date) %>
+            <% if @action_event.recurrent? %>
+            <%= @action_event.schedule.first(5).map{|due| formatted_time_display(due)}.join(", ") %>
+            <% else %>
+              <%= formatted_time_display(@action_event.due_date) %>
+            <% end %>
           </p>
         </div>
       </div>
