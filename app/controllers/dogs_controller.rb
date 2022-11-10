@@ -16,8 +16,13 @@ class DogsController < ApplicationController
 
   # GET /dogs/1 or /dogs/1.json
   def show
-    @action_event_records = action_event_records_in_order_until(30.days.from_now)
-    @action_events = @action_event_records.map(&:action_event)
+    # @action_event_records = action_event_records_in_order_until(30.days.from_now)
+    @action_events = ActionEvent.includes(:action_event_records).where(action_event_records: {
+                                                                         eventable_id: @dog.id
+                                                                       }).order(status: :asc, due_date: :desc)
+    # @action_event_records = ActionEventRecord.where(eventable_id: @dog.id)
+    # @action_events = @action_event_records.map(&:action_event)
+    # @pagy, @action_events = pagy(@action_events)
   end
 
   # GET /dogs/new

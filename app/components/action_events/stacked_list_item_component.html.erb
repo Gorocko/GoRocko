@@ -28,7 +28,7 @@
           <%= render_svg "icons/calendar", styles: "fill-current icon-sm mr-2" %>
           <p class="truncate">
             Due on
-            <% if @action_event.recurrent? %>
+            <% if @action_event.recurrent? and !@action_event.finished? %>
             <%= @action_event.schedule.first(5).map{|due| formatted_time_display(due)}.join(", ") %>
             <% else %>
               <%= formatted_time_display(@action_event.due_date) %>

@@ -1,6 +1,6 @@
 <div class="overflow-hidden bg-white shadow sm:rounded-md">
   <ul role="list" class="divide-y divide-gray-200">
-    <% @dog.journals.each do |journal| %>
+    <% @dog.journals.order(created_at: :desc).each do |journal| %>
       <%= render JournalStackedListItemComponent.new(journal: journal) %>
     <% end %>
   </ul>

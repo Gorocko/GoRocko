@@ -9,8 +9,9 @@
         </p>
       </a>
     </div>
-    <div class="flex-shrink-0 whitespace-nowrap text-sm text-gray-500">
-      <%= formatted_time_display(@journal.created_at) %>
+    <div class="flex-shrink-0 whitespace-nowrap text-sm text-gray-500 flex ">
+      <%= render_svg "icons/calendar", styles: "fill-current icon-sm mr-2" %>
+     <%= formatted_time_display(@journal.created_at) %>
     </div>
   </div>
   <div class="mt-1">
