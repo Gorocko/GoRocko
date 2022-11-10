@@ -1,6 +1,5 @@
 <!-- This example requires Tailwind CSS v2.0+ -->
 <ul role="list" class="space-y-3" data-controller="tabs">
-  <li class="bg-white shadow overflow-hidden px-4 py-4 sm:px-6 sm:rounded-md">
     <%= render SectionWrapperComponent.new do |section| %>
       <%= section.with_section_nav do %>
         <div data-controller="tabs" data-tabs-active-tab="-mb-px border-grey-500 text-indigo-600 border-indigo-500 border-b-2">
@@ -27,10 +26,55 @@
         <%= render PageHeaderComponent.new(header_name: 'Reminders',
                                            primary_button_title: 'Add New Reminder',
                                            primary_button_link: new_action_event_path,
-                                           subtitle: "Includes all the past reminders and future events in the next 30 days",
+                                           subtitle: "",
                                            secondary_button_title: 'Add New Template',
-                                           secondary_button_link: new_event_template_collection_path) %>
+                                           secondary_button_link: new_event_template_collection_path) do |header| %>
+          <%= header.with_search_form do %>
+            <%= search_form_for @action_event_q do |f| %>
+              <div class="min-w-0 flex-1 md:px-8 lg:px-0 xl:col-span-6">
+                <div class="flex items-end py-3 md:mx-auto md:max-w-3xl lg:mx-0 lg:max-w-none xl:px-0 ">
+                  <div class="w-full">
+                    <div class="pb-2">
+                      <div>
+                        <%= f.select :status_eq, ActionEvent.statuses.map{|k, v| [k, v]}, {include_blank: true, prompt: "filter by status"}, {
+                          class: "block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3
+                                   text-sm placeholder-gray-500 focus:border-rose-500 focus:text-gray-900
+                                   focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-rose-500 sm:text-sm"
+                        } %>
+                      </div>
+
+                    </div>
+                    <div class="relative">
+                      <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                        <!-- Heroicon name: mini/magnifying-glass -->
+                        <svg class="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                          <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd" />
+                        </svg>
+                      </div>
+                      <%= f.search_field :title_cont,
+                                         placeholder: "Search for reminder title",
+                                         class: "block w-full rounded-md border border-gray-300 bg-white py-2 pl-10 pr-3
+                                   text-sm placeholder-gray-500 focus:border-rose-500 focus:text-gray-900
+                                   focus:placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-rose-500 sm:text-sm" %>
+                    </div>
+                  </div>
+                  <% css_config_override="ml-3 inline-flex justify-center py-2 px-4 border border-gray-300
+          shadow-sm text-sm font-medium text-gray-70
+         rounded-md  bg-white hover:bg-indigo-700
+         focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %>
+                  <%= render(Forms::SubmitFieldComponent.new(form: f, css_config_override: css_config_override)) %>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        <% end %>
       <% end %>
     <% end %>
-  </li>
+  <div class="border-t ">
+    <% if @pagy.pages > 1 %>
+      <div class="text-center mt-8">
+        <%== pagy_nav(@pagy) %>
+      </div>
+    <% end %>
+  </div>
 </ul>

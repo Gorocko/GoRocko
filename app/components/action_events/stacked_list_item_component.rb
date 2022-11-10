@@ -4,6 +4,7 @@ module ActionEvents
   class StackedListItemComponent < ViewComponent::Base
     include TimeDisplayHelper
     include ApplicationHelper
+    include ActionEventsHelper
     def initialize(action_event:)
       @action_event = action_event
     end

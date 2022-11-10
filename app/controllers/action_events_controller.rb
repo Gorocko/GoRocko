@@ -6,7 +6,7 @@ class ActionEventsController < ApplicationController
   before_action :set_action_event, only: %i[show destroy edit take_action update]
   def index
     # @action_events = action_events_in_order_until(30.days.from_now)
-    @action_event_q = ActionEvent.ransack(params[:q])
+    @action_event_q = ActionEvent.order(due_date: :desc).ransack(params[:q])
     @pagy, @action_events = pagy(@action_event_q.result(distinct: true))
     @event_template_collections = EventTemplateCollection.all
   end

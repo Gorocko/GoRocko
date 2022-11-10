@@ -1,5 +1,4 @@
 <%= render MobileViewDecoratorComponent.new do %>
-
       <ul role="list" class="divide-y divide-gray-200">
         <% @action_events.each do |action_event| %>
           <%= render ActionEvents::StackedListItemComponent.new(action_event: action_event) %>
