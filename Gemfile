@@ -100,8 +100,10 @@ gem "administrate-field-active_storage", "~> 0.4.1"
 gem "aws-sdk-s3", require: false
 gem "country_select", "~> 8.0"
 gem "cssbundling-rails", "~> 1.1.0"
+gem 'deep_cloneable', '~> 3.2.0'
 gem "devise", "~> 4.8", ">= 4.8.1"
 gem "devise-i18n", "~> 1.10"
+gem 'ice_cube'
 gem "inline_svg", "~> 1.6"
 gem "invisible_captcha", "~> 2.0"
 gem "jsbundling-rails", "~> 1.0.0"
@@ -118,17 +120,15 @@ gem "prawn", github: "prawnpdf/prawn"
 gem "prefixed_ids", "~> 1.2"
 gem "pretender", "~> 0.4.0"
 gem "pundit", "~> 2.1"
+gem 'ransack'
 gem "receipts", "~> 2.0.0"
 gem "responders", github: "excid3/responders", branch: "fix-redirect-status-config"
 gem "rotp", "~> 6.2"
 gem "rqrcode", "~> 2.1"
 gem "rubocop-rails", require: false
 gem "ruby-oembed", "~> 0.16.0", require: "oembed"
+gem "sidekiq-cron"
 gem "whenever", "~> 1.0", require: false
-# gem "sidekiq-cron"
-gem 'deep_cloneable', '~> 3.2.0'
-gem 'ice_cube'
-gem 'ransack'
 
 # Jumpstart manages a few gems for us, so install them from the extra Gemfile
 eval_gemfile "config/jumpstart/Gemfile" if File.exist?("config/jumpstart/Gemfile")

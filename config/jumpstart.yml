@@ -10,7 +10,7 @@ email_provider: ''
 personal_accounts: true
 solargraph: true
 register_with_account: true
-apns: false
+apns: true
 fcm: false
 collect_billing_address: false
 multitenancy:
