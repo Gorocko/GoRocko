@@ -8,6 +8,7 @@
 class ActionEventReminder < ApplicationNotification
   # Database delivery is already added in ApplicationNotification
   deliver_by :action_cable, format: :to_websocket, channel: "NotificationChannel"
+  deliver_by :ios
 
   # Add your delivery methods
   #
@@ -26,7 +27,12 @@ class ActionEventReminder < ApplicationNotification
   # `message` and `url` are used for rendering in the navbar
 
   def message
-    "account #{account_name} has #{unfinished_action_events.length} unstarted action items. "
+    "You have #{unfinished_action_events.length} items that are due today. "
+  end
+
+  def ios_format(apn)
+    apn.alert = "Hello world"
+    apn.custom_payload = { url: root_url }
   end
 
   def url
