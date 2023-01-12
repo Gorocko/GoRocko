@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # All Administrate controllers inherit from this `Admin::ApplicationController`,
 # making it the ideal place to put authentication logic or other
 # before_actions.
@@ -34,10 +36,8 @@ module Admin
     # end
 
     # Allow the admin area to view all records
-    def without_tenant
-      ActsAsTenant.without_tenant do
-        yield
-      end
+    def without_tenant(&)
+      ActsAsTenant.without_tenant(&)
     end
   end
 end

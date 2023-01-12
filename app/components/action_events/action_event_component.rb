@@ -13,13 +13,13 @@ module ActionEvents
     end
 
     def recurrent_rule
-      return '' if @action_event.recurring_schedule.nil?
+      return "" if @action_event.recurring_schedule.nil?
 
       recurrent_schedule = IceCube::Schedule.from_hash(@action_event.recurring_schedule)
       if is_recurrent_event
         recurrent_schedule.to_s
       else
-        ''
+        ""
       end
     end
   end

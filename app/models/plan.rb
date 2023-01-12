@@ -25,21 +25,21 @@ class Plan < ApplicationRecord
   has_prefix_id :plan
 
   store_accessor :details, :features, :stripe_id, :braintree_id, :paddle_id, :jumpstart_id, :fake_processor_id,
-    :stripe_tax
+                 :stripe_tax
   attribute :features, :string, array: true
 
   validates :name, :amount, :interval, presence: true
   validates :currency, presence: true,
-    format: {with: /\A[a-zA-Z]{3}\z/, message: "must be a 3-letter ISO currency code"}
+                       format: { with: /\A[a-zA-Z]{3}\z/, message: "must be a 3-letter ISO currency code" }
   validates :interval, inclusion: %w[month year]
-  validates :trial_period_days, numericality: {only_integer: true}
+  validates :trial_period_days, numericality: { only_integer: true }
 
   scope :hidden, -> { unscope(where: :hidden).where(hidden: true) }
   scope :monthly, -> { without_free.where(interval: :month) }
   scope :sorted, -> { order(amount: :asc) }
   scope :visible, -> { where(hidden: [nil, false]) }
   scope :with_hidden, -> { unscope(where: :hidden) }
-  scope :without_free, -> { where.not("details @> ?", {fake_processor_id: :free}.to_json) }
+  scope :without_free, -> { where.not("details @> ?", { fake_processor_id: :free }.to_json) }
   scope :yearly, -> { without_free.where(interval: :year) }
 
   # Downcase
@@ -51,7 +51,7 @@ class Plan < ApplicationRecord
   def self.free
     plan = where(name: "Free").first_or_initialize
     plan.update(hidden: true, amount: 0, currency: :usd, interval: :month, trial_period_days: 0,
-      fake_processor_id: :free)
+                fake_processor_id: :free)
     plan
   end
 
@@ -60,7 +60,7 @@ class Plan < ApplicationRecord
   end
 
   def amount_with_currency(**options)
-    Pay::Currency.format(amount, **{currency:}.merge(options))
+    Pay::Currency.format(amount, **{ currency: }.merge(options))
   end
 
   def dollar_amount
@@ -78,7 +78,7 @@ class Plan < ApplicationRecord
   def annual?
     interval == "year"
   end
-  alias_method :yearly?, :annual?
+  alias yearly? annual?
 
   def stripe_tax=(value)
     super(ActiveModel::Type::Boolean.new.cast(value))
@@ -99,7 +99,7 @@ class Plan < ApplicationRecord
 
     self.class.yearly.where(name:).first
   end
-  alias_method :yearly_version, :annual_version
+  alias yearly_version annual_version
 
   def monthly_version
     return self if monthly?

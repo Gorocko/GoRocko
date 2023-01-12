@@ -23,7 +23,7 @@ module AnnouncementsHelper
 
     # Highlight announcements for anyone not logged in, cuz tempting
     if user.nil? || user.announcements_read_at.nil? ||
-        user.announcements_read_at < announcement.published_at
+       user.announcements_read_at < announcement.published_at
       "unread-announcements"
     end
   end

@@ -26,14 +26,14 @@ module DogsHelper
       record.due_date < 24.hours.from_now
     end
     @upcoming_action_event = upcoming_unfinished_event_record&.action_event
-    if @upcoming_action_event.nil?
-      @upcoming_action_event_display = "No Action Items"
-    else
-      @upcoming_action_event_display = "Next action item: #{upcoming_unfinished_event_record.action_event.title} on
+    @upcoming_action_event_display = if @upcoming_action_event.nil?
+                                       "No Action Items"
+                                     else
+                                       "Next action item: #{upcoming_unfinished_event_record.action_event.title} on
                                             #{formatted_time_display(
                                               upcoming_unfinished_event_record.action_event.due_date
                                             )}"
-    end
+                                     end
   end
 
   def is_digit(value)

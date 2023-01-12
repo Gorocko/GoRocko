@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PaymentMethodsController < ApplicationController
   include SubscriptionsHelper
 
@@ -5,8 +7,7 @@ class PaymentMethodsController < ApplicationController
   before_action :set_payment_processor
   before_action :set_setup_intent, only: [:new], if: -> { Jumpstart.config.stripe? }
 
-  def new
-  end
+  def new; end
 
   def create
     payment_processor = current_account.set_payment_processor(params[:processor])

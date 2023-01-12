@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class AccountsController < Accounts::BaseController
   before_action :authenticate_user!
-  before_action :set_account, only: [:show, :edit, :update, :destroy, :switch]
-  before_action :require_account_admin, only: [:edit, :update, :destroy]
+  before_action :set_account, only: %i[show edit update destroy switch]
+  before_action :require_account_admin, only: %i[edit update destroy]
   before_action :prevent_personal_account_deletion, only: [:destroy]
 
   # GET /accounts
@@ -10,8 +12,7 @@ class AccountsController < Accounts::BaseController
   end
 
   # GET /accounts/1
-  def show
-  end
+  def show; end
 
   # GET /accounts/new
   def new
@@ -19,8 +20,7 @@ class AccountsController < Accounts::BaseController
   end
 
   # GET /accounts/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /accounts
   def create
@@ -92,15 +92,13 @@ class AccountsController < Accounts::BaseController
 
   # Only allow a trusted parameter "white list" through.
   def account_params
-    attributes = [:name, :avatar]
+    attributes = %i[name avatar]
     attributes << :domain if Jumpstart::Multitenancy.domain?
     attributes << :subdomain if Jumpstart::Multitenancy.subdomain?
     params.require(:account).permit(*attributes)
   end
 
   def prevent_personal_account_deletion
-    if @account.personal?
-      redirect_to account_path(@account), alert: t(".personal.cannot_delete")
-    end
+    redirect_to account_path(@account), alert: t(".personal.cannot_delete") if @account.personal?
   end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AccountInvitationsController < ApplicationController
   before_action :set_account_invitation
   before_action :authenticate_user_with_invite!

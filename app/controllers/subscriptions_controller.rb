@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 class SubscriptionsController < ApplicationController
   before_action :require_payments_enabled
   before_action :authenticate_user_with_sign_up!
   before_action :require_account
   before_action :require_current_account_admin, except: [:show]
-  before_action :set_plan, only: [:new, :payment, :create, :update]
-  before_action :set_subscription, only: [:show, :edit, :update, :destroy]
+  before_action :set_plan, only: %i[new payment create update]
+  before_action :set_subscription, only: %i[show edit update destroy]
   before_action :redirect_to_billing_address, only: [:new]
 
-  layout "checkout", only: [:new, :payment, :create]
+  layout "checkout", only: %i[new payment create]
 
   def index
     @billing_address = current_account.billing_address
@@ -93,6 +95,7 @@ class SubscriptionsController < ApplicationController
 
   def require_payments_enabled
     return if Jumpstart.config.payments_enabled?
+
     flash[:alert] = "Jumpstart must be configured for payments before you can manage subscriptions."
     redirect_back(fallback_location: root_path)
   end
@@ -104,7 +107,7 @@ class SubscriptionsController < ApplicationController
   end
 
   def set_subscription
-    @subscription = current_account.subscriptions.find_by_prefix_id(params[:id])
+    @subscription = current_account.subscriptions.find_by(prefix_id: params[:id])
     redirect_to subscriptions_path if @subscription.nil?
   end
 

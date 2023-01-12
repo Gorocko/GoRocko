@@ -26,7 +26,7 @@ class Address < ApplicationRecord
 
   validates :address_type, :line1, :city, :postal_code, :country, presence: true
 
-  enum address_type: %i[billing shipping]
+  enum address_type: { billing: 0, shipping: 1 }
 
   after_commit -> { addressable.pay_customers.each(&:update_customer!) }
 

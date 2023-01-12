@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AcceptedInvite < ApplicationNotification
   deliver_by :action_cable, format: :to_websocket, channel: "NotificationChannel"
 
@@ -7,7 +9,7 @@ class AcceptedInvite < ApplicationNotification
   def to_websocket
     {
       account_id: record.account_id,
-      html: ApplicationController.render(partial: "notifications/notification", locals: {notification: record})
+      html: ApplicationController.render(partial: "notifications/notification", locals: { notification: record })
     }
   end
 

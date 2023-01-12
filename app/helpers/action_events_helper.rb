@@ -26,8 +26,8 @@ module ActionEventsHelper
     return unless should_check_schedule_rule
 
     unless valid_occurrence_schedule_rule(occurrence_schedule)
-      errors.add(:base, 'not valid')
-      @action_event.errors.add(:recurrent_event, 'Repeats interval is not valid')
+      errors.add(:base, "not valid")
+      @action_event.errors.add(:recurrent_event, "Repeats interval is not valid")
     end
   end
 
@@ -38,7 +38,7 @@ module ActionEventsHelper
   end
 
   def should_check_schedule_rule
-    return false if occurrence_schedule.nil? || (occurrence_schedule[:recurrent_event] != 'true')
+    return false if occurrence_schedule.nil? || (occurrence_schedule[:recurrent_event] != "true")
 
     true
   end
@@ -50,19 +50,19 @@ module ActionEventsHelper
 
     recurring_schedule_rule =
       case occurrence_schedule[:occurrence_type]
-      when 'days'
+      when "days"
         IceCube::Rule.daily(occurrence_schedule[:occurrence_frequency].to_i)
-      when 'weeks'
+      when "weeks"
         IceCube::Rule.weekly(occurrence_schedule[:occurrence_frequency].to_i)
-      when 'months'
+      when "months"
         IceCube::Rule.monthly(occurrence_schedule[:occurrence_frequency].to_i)
       else
         IceCube::Rule.yearly(occurrence_schedule[:occurrence_frequency].to_i)
       end
     case occurrence_schedule[:schedule_end_method]
-    when 'date'
+    when "date"
       recurring_schedule_rule = recurring_schedule_rule.until(Time.zone.parse(occurrence_schedule[:schedule_end_date]))
-    when 'occurrence_times'
+    when "occurrence_times"
       recurring_schedule_rule = recurring_schedule_rule.count(occurrence_schedule[:schedule_end_counts].to_i)
     else
       # do nothing

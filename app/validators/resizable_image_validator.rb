@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ResizableImageValidator < ActiveModel::EachValidator
   # Only allow resizable image formats
   # SVGs aren't allowed because they can contain XSS

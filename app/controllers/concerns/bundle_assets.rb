@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module BundleAssets
   # Automatically compiles assets if yarn build commands aren't running
 

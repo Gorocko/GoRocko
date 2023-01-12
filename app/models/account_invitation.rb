@@ -35,7 +35,7 @@ class AccountInvitation < ApplicationRecord
   has_secure_token
 
   validates :name, :email, presence: true
-  validates :email, uniqueness: {scope: :account_id, message: :invited}
+  validates :email, uniqueness: { scope: :account_id, message: :invited }
 
   def save_and_send_invite
     AccountInvitationsMailer.with(account_invitation: self).invite.deliver_later if save
